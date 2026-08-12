@@ -232,8 +232,8 @@ export default function PeptideCard({ p, t }) {
               aria-hidden="true"
               style={{
                 display: "inline-flex", alignItems: "center", justifyContent: "center",
-                width: 16, height: 16, borderRadius: "50%", border: `1px solid ${C.ink}`,
-                color: C.ink, fontSize: 10, lineHeight: 1, paddingBottom: 1,
+                width: 18, height: 18, borderRadius: "50%", background: C.ink,
+                color: C.paper, fontSize: 12, lineHeight: 1, fontWeight: 700, paddingBottom: 1,
                 fontFamily: "'Jost', sans-serif",
               }}
             >
@@ -258,11 +258,13 @@ export default function PeptideCard({ p, t }) {
             <Label color={C.field}>{t.axes.community}</Label>
             <div style={{ marginTop: 12, display: "flex", alignItems: "flex-end", gap: 3, height: 34 }}>
               {[0.5, 0.8, 0.65, 1, 0.75, 0.9, 0.55, 0.85].map((h, i) => (
-                <div key={i} style={{ width: 9, height: `${h * 100}%`, background: C.fieldSoft, opacity: 0.85 }} />
+                <div key={i} style={{ width: 9, height: `${h * 100}%`, background: C.fieldSoft, opacity: p.community?.pending ? 0.25 : 0.85 }} />
               ))}
             </div>
-            <div style={{ fontSize: 13.5, color: "#4A5240", marginTop: 10, lineHeight: 1.5 }}>
-              {t.axes.reports(p.community.n, p.community.adverse, p.community.coa)}
+            <div style={{ fontSize: 13.5, color: p.community?.pending ? C.tabIdle : "#4A5240", marginTop: 10, lineHeight: 1.5 }}>
+              {p.community?.pending
+                ? t.pending.badge + " — " + t.pending.community
+                : t.axes.reports(p.community.n, p.community.adverse, p.community.coa)}
             </div>
           </div>
         </div>

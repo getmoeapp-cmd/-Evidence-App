@@ -171,3 +171,29 @@ mientras está abierta. En móvil sube desde abajo; en escritorio va centrada.
 El texto vive en `levelKey` dentro de `i18n.sections.js`, en los dos idiomas.
 Si cambias la regla de calificación en `nivel_de_claim()`, cambia también estas
 descripciones — son la misma promesa contada de dos formas.
+
+## Comprobar los datos antes de desplegar
+
+```bash
+npm run check
+```
+
+Recorre cada ficha y valida todo lo que la tarjeta va a tocar: niveles que
+existan, `ceiling.adverse` presente, `reports` completo o marcado como
+`pending`, orígenes de contraindicación válidos, slugs que existan en el
+catálogo, y que `es.js` y `en.js` tengan los mismos slugs en el mismo orden.
+
+Vale la pena correrlo al añadir cada ficha nueva. Un campo que falte no rompe
+el build de Vite — rompe la tarjeta en el navegador, en blanco y sin aviso.
+
+### Registros incompletos
+
+Si una ficha todavía no tiene datos comunitarios, márcala así:
+
+```js
+reports:   { pending: true },
+community: { pending: true },
+ceiling: { ..., adverse: { pending: true, categories: ["…"] } },
+```
+
+La tarjeta muestra un estado de "Pendiente" en lugar de ceros.

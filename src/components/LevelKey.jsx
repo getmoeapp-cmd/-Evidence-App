@@ -12,9 +12,10 @@ export function LevelKeyTrigger({ onClick, label }) {
       className="ev-btn ev-help"
       onClick={onClick}
       style={{
-        display: "inline-flex", alignItems: "center", gap: 7,
-        fontFamily: "'Jost', sans-serif", fontSize: 11.5, letterSpacing: "0.06em",
-        fontWeight: 500, padding: "7px 12px 7px 8px", borderRadius: 20, cursor: "pointer",
+        display: "inline-flex", alignItems: "center", gap: 8,
+        fontFamily: "'Jost', sans-serif", fontSize: 12.5, letterSpacing: "0.12em",
+        textTransform: "uppercase", fontWeight: 500,
+        padding: "7px 14px 7px 8px", borderRadius: 20, cursor: "pointer",
         border: `1px solid ${C.ink}`, background: "rgba(30,63,95,0.07)", color: C.ink,
       }}
     >
@@ -22,8 +23,9 @@ export function LevelKeyTrigger({ onClick, label }) {
         aria-hidden="true"
         style={{
           display: "inline-flex", alignItems: "center", justifyContent: "center",
-          width: 17, height: 17, borderRadius: "50%", background: C.ink,
-          color: C.paper, fontSize: 11, lineHeight: 1, fontWeight: 500, paddingBottom: 1,
+          width: 20, height: 20, borderRadius: "50%", background: C.ink,
+          color: C.paper, fontSize: 13, lineHeight: 1, fontWeight: 700,
+          letterSpacing: 0, paddingBottom: 1,
         }}
       >
         ?

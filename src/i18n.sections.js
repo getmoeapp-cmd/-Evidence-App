@@ -3,7 +3,7 @@ export const SECTIONS = {
   es: {
     nav: { peptides: "Péptidos", goals: "Por objetivo", verify: "Verificar", report: "Reportar" },
     levelKey: {
-      trigger: "¿Qué significan los niveles?",
+      trigger: "Niveles",
       title: "Cómo calificamos la evidencia",
       intro:
         "El nivel no depende de nuestra opinión. Sale de la metadata del propio estudio en PubMed: qué tipo de publicación es y si el trabajo se hizo en personas o en animales.",
@@ -92,7 +92,7 @@ export const SECTIONS = {
   en: {
     nav: { peptides: "Peptides", goals: "By goal", verify: "Verify", report: "Report" },
     levelKey: {
-      trigger: "What do the levels mean?",
+      trigger: "Levels",
       title: "How we grade the evidence",
       intro:
         "The level isn't our opinion. It comes from the study's own metadata in PubMed: what type of publication it is, and whether the work was done in people or in animals.",
