@@ -2,6 +2,18 @@
 export const SECTIONS = {
   es: {
     nav: { peptides: "Péptidos", goals: "Por objetivo", verify: "Verificar", report: "Reportar" },
+    families: { label: "Familia" },
+    stub: {
+      badge: "Ficha en preparación",
+      body: "Este compuesto ya está en el catálogo, pero su ingesta de PubMed todavía no se ha corrido. Cuando esté, aquí aparecen los estudios, el techo estudiado, las contraindicaciones y el estatus regulatorio.",
+      preliminary: "Todavía no hemos publicado la ficha completa de este compuesto. El nivel que ves es una estimación de trabajo, no un dato verificado.",
+      provisional: "Provisional",
+    },
+    blend: {
+      title: "Es una mezcla, no un compuesto",
+      intro: "Esta combinación no tiene literatura propia: nadie la ha estudiado como conjunto. Lo que se sabe es lo que se sabe de cada componente por separado.",
+      note: "Toca cualquier componente para ver su ficha. No le asignamos un nivel al conjunto porque no existe ningún estudio del conjunto — y sumar niveles no es cómo funciona la evidencia.",
+    },
     search: { placeholder: "Buscar péptido…", empty: "Ningún péptido coincide con esa búsqueda.", back: "Volver al catálogo" },
     catalog: {
       title: "Catálogo",
@@ -53,6 +65,18 @@ export const SECTIONS = {
   },
   en: {
     nav: { peptides: "Peptides", goals: "By goal", verify: "Verify", report: "Report" },
+    families: { label: "Family" },
+    stub: {
+      badge: "Card in progress",
+      body: "This compound is already in the catalog, but its PubMed ingestion hasn't been run yet. Once it is, the studies, studied ceiling, contraindications, and regulatory status appear here.",
+      preliminary: "We haven't published the full card for this compound yet. The level shown is a working estimate, not verified data.",
+      provisional: "Provisional",
+    },
+    blend: {
+      title: "This is a blend, not a compound",
+      intro: "This combination has no literature of its own — no one has studied it as a whole. What is known is what's known about each component separately.",
+      note: "Tap any component to open its card. We don't assign a level to the blend because no study of the blend exists — and adding levels together isn't how evidence works.",
+    },
     search: { placeholder: "Search peptide…", empty: "No peptide matches that search.", back: "Back to catalog" },
     catalog: {
       title: "Catalog",

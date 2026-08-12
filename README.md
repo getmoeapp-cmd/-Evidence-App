@@ -85,3 +85,54 @@ existir en `data/es.js` y `data/en.js`.
 
 **Pendiente de conectar:** el botón de auditoría, los dos botones de "Comprar
 bien" y el envío del formulario de reporte son maquetas. Esperan a Supabase.
+
+## Catálogo
+
+`src/data/catalog.js` tiene las 27 entradas. Campos neutros de idioma; los
+nombres de clase y familia se traducen con los mapas `CLASSES` y `FAMILIES`
+del mismo archivo, así que añadir un compuesto es una línea, no dos.
+
+Cada entrada lleva `aliases`: nombres comerciales, abreviaturas y variantes en
+español. El buscador ignora acentos y acepta varias palabras, así que "reta",
+"ozempic", "timosina alfa" y "epitalon" encuentran lo correcto.
+
+Las cuatro fichas completas viven en `data/es.js` y `data/en.js`. Cualquier
+entrada del catálogo sin ficha completa abre `sections/Stub.jsx` con la
+insignia "Ficha en preparación". A medida que corras la ingesta, mueves
+compuestos del stub a la ficha completa sin tocar el catálogo.
+
+### Mezclas
+
+Wolverine, GLOW y KLOW llevan `blend: [slugs]` y `level: null`. Su ficha lista
+los componentes con el nivel de cada uno y no muestra nivel del conjunto,
+porque no existe literatura del conjunto. **No le pongas un nivel a una mezcla**
+— es la regla que evita que el producto se convierta en lo que critica.
+
+### NAD+
+
+Está en el catálogo porque circula dentro de la categoría, pero su clase dice
+"Coenzima — no es un péptido". Es más útil aclararlo que omitirlo.
+
+## Marca
+
+Los archivos están en `public/`:
+
+| Archivo | Uso |
+|---|---|
+| `evidence-mark.png` | La huella sola, 512 px, fondo transparente |
+| `evidence-lockup.png` | Marca + wordmark, para redes y Open Graph |
+| `favicon.ico` | Pestaña del navegador |
+| `apple-touch-icon.png` | Pantalla de inicio en iOS |
+| `icon-512.png` | Icono del manifest |
+
+Todos se generaron a partir del PNG original: se recortó el fondo crema, se
+limpió el grano del papel y se recoloreó el trazo al azul de marca
+(`C.ink`, #1E3F5F), así que el alfa queda limpio sobre cualquier fondo.
+
+`components/Logo.jsx` combina la marca en imagen con el wordmark **en
+tipografía**, no como imagen. Escala nítido en cualquier pantalla, se puede
+seleccionar, y lo leen los lectores de pantalla. Acepta `size` y
+`showWordmark`, por si necesitas solo la huella en espacios estrechos.
+
+Si más adelante consigues el logo en SVG, cambia el `<img>` de `Logo.jsx` por
+el vector y borra los PNG excepto los iconos.

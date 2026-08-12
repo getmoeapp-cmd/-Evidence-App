@@ -10,6 +10,7 @@ import Peptides from "./sections/Peptides.jsx";
 import ByGoal from "./sections/ByGoal.jsx";
 import Verify from "./sections/Verify.jsx";
 import Report from "./sections/Report.jsx";
+import Logo from "./components/Logo.jsx";
 
 const DATA = { es: PEPTIDOS_ES, en: PEPTIDES_EN };
 const TABS = ["peptides", "goals", "verify", "report"];
@@ -93,7 +94,7 @@ export default function App() {
 
       <div className="ev-shell">
         <header style={{ paddingTop: 26, paddingBottom: 18, paddingRight: 96 }}>
-          <div style={{ fontFamily: "'Jost', sans-serif", fontSize: 19, letterSpacing: "0.42em", color: C.ink }}>EVIDENCE</div>
+          <Logo size={30} />
           <div style={{ fontSize: 12.5, color: C.muted, marginTop: 7, maxWidth: 420, lineHeight: 1.5 }}>{t.tagline}</div>
         </header>
 
@@ -121,14 +122,15 @@ export default function App() {
         </nav>
 
         <main>
-          {tab === "peptides" && <Peptides list={list} t={t} />}
+          {tab === "peptides" && <Peptides full={list} lang={lang} t={t} />}
           {tab === "goals" && <ByGoal goals={goals} list={list} t={t} />}
           {tab === "verify" && <Verify t={t} />}
           {tab === "report" && <Report list={list} t={t} />}
         </main>
 
-        <footer style={{ marginTop: 56, paddingTop: 18, borderTop: `1px solid ${C.rule}`, fontSize: 11.5, color: C.muted, lineHeight: 1.6 }}>
-          {t.footer}
+        <footer style={{ marginTop: 56, paddingTop: 22, borderTop: `1px solid ${C.rule}`, display: "flex", gap: 18, alignItems: "flex-start" }}>
+          <img src="/evidence-mark.png" alt="" width={34} height={34} style={{ opacity: 0.28, flexShrink: 0, marginTop: 2 }} />
+          <div style={{ fontSize: 11.5, color: C.muted, lineHeight: 1.6 }}>{t.footer}</div>
         </footer>
       </div>
     </div>
