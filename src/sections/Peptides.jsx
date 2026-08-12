@@ -4,6 +4,7 @@ import Ridges from "../components/Ridges.jsx";
 import Label from "../components/Label.jsx";
 import PeptideCard from "./PeptideCard.jsx";
 import Stub from "./Stub.jsx";
+import LevelKey, { LevelKeyTrigger } from "../components/LevelKey.jsx";
 import { CATALOG, CLASSES, FAMILIES, FAMILY_ORDER } from "../data/catalog.js";
 
 const LEVEL_ORDER = ["A", "B", "C", "D", "NO_DATA"];
@@ -16,6 +17,7 @@ export default function Peptides({ full, lang, t }) {
   const [q, setQ] = useState("");
   const [level, setLevel] = useState("all");
   const [family, setFamily] = useState("all");
+  const [keyOpen, setKeyOpen] = useState(false);
 
   const rows = useMemo(() => {
     const needle = norm(q.trim());
@@ -91,7 +93,12 @@ export default function Peptides({ full, lang, t }) {
         ))}
       </div>
 
-      <div style={{ fontSize: 11.5, color: C.muted, marginTop: 16 }}>{t.catalog.count(rows.length)}</div>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, marginTop: 20, flexWrap: "wrap" }}>
+        <div style={{ fontSize: 12, color: C.tabIdle }}>{t.catalog.count(rows.length)}</div>
+        <LevelKeyTrigger onClick={() => setKeyOpen(true)} label={t.levelKey.trigger} />
+      </div>
+
+      <LevelKey open={keyOpen} onClose={() => setKeyOpen(false)} t={t} />
 
       <div style={{ marginTop: 4 }}>
         {rows.length === 0 && <div style={{ padding: "34px 0", color: C.muted, fontSize: 14.5 }}>{t.search.empty}</div>}

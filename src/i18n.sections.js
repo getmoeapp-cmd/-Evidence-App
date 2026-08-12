@@ -2,6 +2,22 @@
 export const SECTIONS = {
   es: {
     nav: { peptides: "Péptidos", goals: "Por objetivo", verify: "Verificar", report: "Reportar" },
+    levelKey: {
+      trigger: "¿Qué significan los niveles?",
+      title: "Cómo calificamos la evidencia",
+      intro:
+        "El nivel no depende de nuestra opinión. Sale de la metadata del propio estudio en PubMed: qué tipo de publicación es y si el trabajo se hizo en personas o en animales.",
+      items: {
+        A: "Se probó en personas, repartidas al azar y con un grupo de comparación. Es el estándar más alto que existe.",
+        B: "Se probó en personas, pero sin reparto al azar o sin grupo de comparación. Cuenta, con más margen de error.",
+        C: "Se probó en animales. Buena parte de lo que funciona en ratones no se repite igual en personas.",
+        D: "Solo hay trabajo en células o reportes de casos sueltos. Es un punto de partida, no una conclusión.",
+        NO_DATA: "No hay literatura publicada indexada. No es que la evidencia sea débil: todavía no existe.",
+      },
+      footer:
+        "Un nivel alto no quiere decir que sea seguro para ti, y uno bajo no quiere decir que no funcione. El nivel mide cuánto se ha estudiado, nada más.",
+      close: "Cerrar",
+    },
     families: { label: "Familia" },
     stub: {
       badge: "Ficha en preparación",
@@ -68,6 +84,22 @@ export const SECTIONS = {
   },
   en: {
     nav: { peptides: "Peptides", goals: "By goal", verify: "Verify", report: "Report" },
+    levelKey: {
+      trigger: "What do the levels mean?",
+      title: "How we grade the evidence",
+      intro:
+        "The level isn't our opinion. It comes from the study's own metadata in PubMed: what type of publication it is, and whether the work was done in people or in animals.",
+      items: {
+        A: "Tested in people, assigned at random, with a comparison group. The highest standard there is.",
+        B: "Tested in people, but without randomization or without a comparison group. It counts, with more room for error.",
+        C: "Tested in animals. A lot of what works in mice doesn't hold up the same way in people.",
+        D: "Only cell work or scattered case reports. A starting point, not a conclusion.",
+        NO_DATA: "No indexed published literature. Not that the evidence is weak — it doesn't exist yet.",
+      },
+      footer:
+        "A high level doesn't mean it's safe for you, and a low one doesn't mean it doesn't work. The level measures how much has been studied, nothing more.",
+      close: "Close",
+    },
     families: { label: "Family" },
     stub: {
       badge: "Card in progress",

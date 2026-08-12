@@ -4,6 +4,7 @@ import Ridges from "../components/Ridges.jsx";
 import Label from "../components/Label.jsx";
 import PeptideCard from "./PeptideCard.jsx";
 import Stub from "./Stub.jsx";
+import LevelKey, { LevelKeyTrigger } from "../components/LevelKey.jsx";
 import { CATALOG, CLASSES } from "../data/catalog.js";
 import { GOAL_MAP, GOAL_LABELS } from "../data/goals.js";
 
@@ -12,6 +13,7 @@ const RANK = { A: 0, B: 1, C: 2, D: 3, NO_DATA: 4, null: 5 };
 
 export default function ByGoal({ full, lang, t }) {
   const [openSlug, setOpenSlug] = useState(null);
+  const [keyOpen, setKeyOpen] = useState(false);
   const entry = openSlug ? CATALOG.find((e) => e.slug === openSlug) : null;
   const fullRecord = openSlug ? full.find((p) => p.slug === openSlug) : null;
 
@@ -34,6 +36,11 @@ export default function ByGoal({ full, lang, t }) {
     <>
       <Label color={C.ink}>{t.goals.title}</Label>
       <div style={{ fontSize: 13, color: C.muted, marginTop: 6, maxWidth: 640, lineHeight: 1.55 }}>{t.goals.intro}</div>
+
+      <div style={{ marginTop: 16 }}>
+        <LevelKeyTrigger onClick={() => setKeyOpen(true)} label={t.levelKey.trigger} />
+      </div>
+      <LevelKey open={keyOpen} onClose={() => setKeyOpen(false)} t={t} />
 
       <div style={{ marginTop: 26 }}>
         {GOAL_MAP.map((g) => {

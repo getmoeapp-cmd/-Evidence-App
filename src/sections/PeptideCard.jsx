@@ -2,6 +2,7 @@ import React from "react";
 import { C } from "../theme.js";
 import Ridges from "../components/Ridges.jsx";
 import Label from "../components/Label.jsx";
+import LevelKey from "../components/LevelKey.jsx";
 
 const toneMap = {
   ok: { border: C.ridge, text: C.ink },
@@ -157,8 +158,10 @@ function Safety({ safety, t }) {
 
 export default function PeptideCard({ p, t }) {
   const lv = t.levels[p.level];
+  const [keyOpen, setKeyOpen] = React.useState(false);
   return (
     <>
+      <LevelKey open={keyOpen} onClose={() => setKeyOpen(false)} t={t} />
       <section style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) auto", gap: 28, alignItems: "start", marginBottom: 34 }}>
         <div style={{ minWidth: 0 }}>
           <Label>{p.className}</Label>
@@ -170,13 +173,31 @@ export default function PeptideCard({ p, t }) {
           )}
           <p style={{ marginTop: 18, fontSize: 15.5, lineHeight: 1.62, maxWidth: 560, color: "#2C3D4C" }}>{p.summary}</p>
         </div>
-        <div style={{ textAlign: "right" }}>
+        <button
+          className="ev-btn ev-levelbadge"
+          onClick={() => setKeyOpen(true)}
+          aria-label={t.levelKey.trigger}
+          style={{ textAlign: "right", background: "transparent", border: "none", cursor: "pointer", padding: 0, fontFamily: "inherit" }}
+        >
           <Ridges level={p.level} width={172} height={72} weight={1.6} />
-          <div style={{ fontFamily: "'Jost', sans-serif", fontSize: 13, letterSpacing: "0.16em", textTransform: "uppercase", color: p.level === "NO_DATA" ? C.muted : C.ink, marginTop: 8 }}>
-            {lv.label}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 7, marginTop: 8 }}>
+            <span style={{ fontFamily: "'Jost', sans-serif", fontSize: 13, letterSpacing: "0.16em", textTransform: "uppercase", color: p.level === "NO_DATA" ? C.muted : C.ink }}>
+              {lv.label}
+            </span>
+            <span
+              aria-hidden="true"
+              style={{
+                display: "inline-flex", alignItems: "center", justifyContent: "center",
+                width: 16, height: 16, borderRadius: "50%", border: `1px solid ${C.ink}`,
+                color: C.ink, fontSize: 10, lineHeight: 1, paddingBottom: 1,
+                fontFamily: "'Jost', sans-serif",
+              }}
+            >
+              ?
+            </span>
           </div>
           <div style={{ fontSize: 11.5, color: C.muted, maxWidth: 190, marginTop: 4, lineHeight: 1.45 }}>{lv.gloss}</div>
-        </div>
+        </button>
       </section>
 
       <section style={{ marginBottom: 40 }}>

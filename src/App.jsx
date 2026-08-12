@@ -37,6 +37,12 @@ export default function App() {
         .ev-btn, .ev-tab { transition: background 160ms ease, color 160ms ease, border-color 160ms ease; }
         .ev-row:hover { background: ${C.paperDeep} !important; }
         .ev-chip:hover { border-color: ${C.ink} !important; color: ${C.ink} !important; }
+        .ev-help:hover { background: rgba(30,63,95,0.13) !important; }
+        .ev-levelbadge:hover { opacity: 0.78; }
+        @media (min-width: 721px) {
+          .ev-modal-wrap { align-items: center !important; padding: 24px !important; }
+          .ev-modal { border-radius: 6px !important; }
+        }
         .ev-chip[aria-pressed="true"]:hover { color: ${C.paper} !important; }
         .ev-input { outline: none; }
         .ev-input:focus { border-color: ${C.ink} !important; }

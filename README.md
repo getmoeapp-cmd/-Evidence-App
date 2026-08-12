@@ -154,3 +154,20 @@ cuenta la historia sin que haya que escribirla.
 
 Editar un objetivo es una línea en `GOAL_MAP`; los nombres y las descripciones
 están en `GOAL_LABELS`, por idioma.
+
+## Explicación de niveles
+
+`components/LevelKey.jsx` exporta dos cosas:
+
+- `LevelKeyTrigger` — el botón resaltado "¿Qué significan los niveles?"
+- `LevelKey` — la ventana con las cinco escalas, cada una con su cresta
+
+Está en tres sitios: encima de la lista del catálogo, encima de los objetivos,
+y en la propia ficha (la insignia grande de nivel es pulsable y lleva un "?").
+
+Se cierra con Escape, tocando fuera o con el botón. Bloquea el scroll del fondo
+mientras está abierta. En móvil sube desde abajo; en escritorio va centrada.
+
+El texto vive en `levelKey` dentro de `i18n.sections.js`, en los dos idiomas.
+Si cambias la regla de calificación en `nivel_de_claim()`, cambia también estas
+descripciones — son la misma promesa contada de dos formas.
