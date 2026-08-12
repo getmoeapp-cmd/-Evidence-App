@@ -36,9 +36,12 @@ export default function App() {
         }
         .ev-btn, .ev-tab { transition: background 160ms ease, color 160ms ease, border-color 160ms ease; }
         .ev-row:hover { background: ${C.paperDeep} !important; }
+        .ev-chip:hover { border-color: ${C.ink} !important; color: ${C.ink} !important; }
+        .ev-chip[aria-pressed="true"]:hover { color: ${C.paper} !important; }
         .ev-input { outline: none; }
         .ev-input:focus { border-color: ${C.ink} !important; }
-        .ev-shell { max-width: 1080px; margin: 0 auto; padding: 0 20px 96px; }
+        .ev-shell { max-width: 1080px; margin: 0 auto; padding: 0 20px 40px; }
+        @media (max-width: 720px) { .ev-shell { padding-bottom: 110px; } }
 
         /* Selector de idioma fijo arriba a la derecha */
         .ev-lang {
@@ -48,20 +51,33 @@ export default function App() {
           box-shadow: 0 1px 3px rgba(18,40,61,.06);
         }
 
-        /* Pestañas: barra inferior en móvil, en línea en escritorio */
-        .ev-tabs {
-          display: flex; gap: 2px;
-          border-bottom: 1px solid ${C.rule};
-          margin-bottom: 30px;
+        /* Pestañas */
+        .ev-tabs { display: flex; gap: 2px; border-bottom: 1px solid ${C.rule}; margin-bottom: 30px; }
+        .ev-tab {
+          font-family: 'Jost', sans-serif; font-size: 12.5px; letter-spacing: 0.12em;
+          text-transform: uppercase; padding: 12px 16px; cursor: pointer;
+          background: transparent; border: none; color: ${C.tabIdle};
+          font-weight: 500; border-bottom: 2px solid transparent;
         }
+        .ev-tab[aria-selected="true"] { color: ${C.ink}; border-bottom-color: ${C.ink}; }
+
         @media (max-width: 720px) {
           .ev-tabs {
             position: fixed; bottom: 0; left: 0; right: 0; z-index: 30;
-            background: ${C.paper}; border-top: 1px solid ${C.rule}; border-bottom: none;
-            margin: 0; padding: 4px 6px calc(4px + env(safe-area-inset-bottom));
-            justify-content: space-around;
+            background: #FFFFFF; border-top: 1px solid ${C.rule}; border-bottom: none;
+            margin: 0; padding: 7px 8px calc(7px + env(safe-area-inset-bottom));
+            gap: 5px; justify-content: space-between;
+            box-shadow: 0 -6px 22px rgba(18, 40, 61, 0.10);
           }
-          .ev-tab { flex: 1; text-align: center; }
+          .ev-tab {
+            flex: 1; text-align: center; padding: 12px 6px;
+            font-size: 11.5px; letter-spacing: 0.07em; font-weight: 500;
+            border-bottom: none; border-radius: 3px; color: ${C.tabIdle};
+          }
+          /* Activa: pastilla sólida — mismo idioma que el selector de idioma */
+          .ev-tab[aria-selected="true"] {
+            background: ${C.ink}; color: ${C.paper}; border-bottom: none;
+          }
           .ev-axes { grid-template-columns: 1fr !important; }
           .ev-axes > div:nth-child(2) { height: 1px; width: 100%; }
           .ev-claim { grid-template-columns: minmax(0,1fr) 72px !important; }
@@ -106,12 +122,6 @@ export default function App() {
                 aria-selected={active}
                 className="ev-tab ev-btn"
                 onClick={() => setTab(key)}
-                style={{
-                  fontFamily: "'Jost', sans-serif", fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase",
-                  padding: "11px 16px", cursor: "pointer", background: "transparent",
-                  border: "none", borderBottom: `2px solid ${active ? C.ink : "transparent"}`,
-                  color: active ? C.ink : C.muted,
-                }}
               >
                 {t.nav[key]}
               </button>

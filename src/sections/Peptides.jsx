@@ -75,15 +75,15 @@ export default function Peptides({ full, lang, t }) {
         {["all", ...FAMILY_ORDER].map((f) => (
           <button
             key={f}
-            className="ev-btn"
+            className="ev-btn ev-chip"
             onClick={() => setFamily(f)}
             aria-pressed={family === f}
             style={{
-              fontFamily: "'Jost', sans-serif", fontSize: 10.5, letterSpacing: "0.1em", textTransform: "uppercase",
-              padding: "6px 11px", borderRadius: 2, cursor: "pointer",
-              border: `1px solid ${family === f ? C.ink : C.rule}`,
-              background: family === f ? C.ink : "transparent",
-              color: family === f ? C.paper : C.muted,
+              fontFamily: "'Jost', sans-serif", fontSize: 11.5, letterSpacing: "0.07em", textTransform: "uppercase",
+              padding: "8px 13px", borderRadius: 3, cursor: "pointer", fontWeight: 500,
+              border: `1px solid ${family === f ? C.ink : C.chipBorder}`,
+              background: family === f ? C.ink : "#FFFFFF",
+              color: family === f ? C.paper : C.tabIdle,
             }}
           >
             {FAMILIES[lang][f]}

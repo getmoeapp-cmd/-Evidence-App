@@ -9,6 +9,10 @@ export const C = {
   field: "#6B7548",     // eje comunitario — otra familia a propósito
   fieldSoft: "#8D9668",
   rule: "#D3CFC5",
+  // Grises con contraste real sobre papel. muted (#8A9099) es demasiado
+  // claro para texto interactivo: falla AA en botones y chips.
+  tabIdle: "#5C6672",   // pestañas y chips sin seleccionar
+  chipBorder: "#BFB9AC",
   warn: "#B4552F",
   warnText: "#8E3F20",
   caution: "#B08A2E",
