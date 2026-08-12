@@ -1,0 +1,188 @@
+// Contenido en español. Mismos slugs y mismo orden que en.js.
+// Datos de demostración: reemplazar por registros reales de PubMed.
+export const PEPTIDOS_ES = [
+  {
+    slug: "semaglutida",
+    name: "Semaglutida",
+    altName: "Semaglutide",
+    className: "Análogo de GLP-1",
+    level: "A",
+    summary:
+      "El caso poco común en esta categoría: un cuerpo grande de ensayos aleatorizados en humanos, publicados y replicados, con aprobación regulatoria en varios países.",
+    ceiling: {
+      state: "established",
+      dose: "2,4 mg",
+      frequency: "por semana",
+      indication: "control de peso",
+      steps: ["0,25", "0,5", "1,0", "1,7", "2,4"],
+      schedule: "4 semanas por escalón · 16 semanas hasta la dosis final",
+      note: "Es la dosis máxima estudiada y aprobada para esta indicación. Por encima de ella no existen datos de seguridad publicados.",
+      adverse: { total: 612, aboveCeiling: 214, skipped: 331 },
+    },
+    reports: {
+      n: 4820, noAdverse: 0.41, stacking: 0.22, habits: 0.71,
+      effects: [
+        { text: "Pérdida de peso", pct: 0.88, level: "A" },
+        { text: "Menos ansiedad por comer", pct: 0.79, level: "A" },
+        { text: "Mejor relación con la comida", pct: 0.52, level: "B" },
+        { text: "Más energía durante el día", pct: 0.31, level: "NO_DATA" },
+        { text: "No noté ningún cambio", pct: 0.06, none: true },
+      ],
+    },
+    safety: [
+      { kind: "absolute", text: "Antecedente personal o familiar de carcinoma medular de tiroides", origin: "label" },
+      { kind: "absolute", text: "Síndrome de neoplasia endocrina múltiple tipo 2 (MEN2)", origin: "label" },
+      { kind: "absolute", text: "Embarazo", origin: "label" },
+      { kind: "relative", text: "Antecedente de pancreatitis", origin: "trial", detail: "Criterio de exclusión en los ensayos pivotales, así que no hay datos sobre este grupo." },
+      { kind: "relative", text: "Gastroparesia o enfermedad gastrointestinal grave", origin: "label" },
+      { kind: "interaction", text: "Insulina o sulfonilureas", origin: "label", detail: "Riesgo de hipoglucemia; requiere ajuste supervisado." },
+    ],
+    claims: [
+      { text: "Reduce el peso corporal en personas con obesidad", level: "A", n: 14, nh: 14 },
+      { text: "Mejora el control glucémico en diabetes tipo 2", level: "A", n: 22, nh: 22 },
+      { text: "Reduce eventos cardiovasculares mayores", level: "A", n: 3, nh: 3 },
+    ],
+    study: {
+      title: "Once-Weekly Semaglutide in Adults with Overweight or Obesity",
+      journal: "New England Journal of Medicine", year: 2021,
+      type: "Ensayo controlado aleatorizado, doble ciego", n: "1 961 participantes",
+      plain: "Ensayo de 68 semanas en adultos con sobrepeso u obesidad sin diabetes. El grupo tratado perdió una proporción de peso corporal considerablemente mayor que el grupo con placebo. Los efectos adversos más frecuentes fueron gastrointestinales.",
+      limits: "Todos los participantes recibieron además asesoría de estilo de vida. El estudio fue financiado por el fabricante del medicamento.",
+    },
+    regulatory: [
+      { country: "EE. UU.", agency: "FDA", status: "Aprobado", tone: "ok" },
+      { country: "Colombia", agency: "INVIMA", status: "Registro sanitario vigente", tone: "ok" },
+      { country: "México", agency: "COFEPRIS", status: "Aprobado", tone: "ok" },
+    ],
+    community: { n: 4820, adverse: 612, coa: 18 },
+  },
+  {
+    slug: "pt-141",
+    name: "PT-141",
+    altName: "Bremelanotide",
+    className: "Agonista de melanocortina",
+    level: "A",
+    summary:
+      "Aprobado por la FDA tras dos ensayos aleatorizados fase 3. Es uno de los pocos péptidos de esta categoría que recorrió el camino regulatorio completo, con ficha técnica y datos de seguridad publicados.",
+    ceiling: {
+      state: "established",
+      dose: "1,75 mg", frequency: "por dosis, según necesidad",
+      indication: "deseo sexual hipoactivo en mujeres premenopáusicas",
+      steps: ["1,75"],
+      schedule: "Dosis única · máximo una cada 24 h y ocho al mes",
+      note: "Dosis fija establecida en los ensayos pivotales. No requiere escalonamiento, pero sí tiene límite de frecuencia.",
+      adverse: { total: 430, aboveCeiling: 96, skipped: 41 },
+    },
+    reports: {
+      n: 2140, noAdverse: 0.48, stacking: 0.19, habits: 0.12,
+      effects: [
+        { text: "Aumento del deseo sexual", pct: 0.71, level: "A" },
+        { text: "Efecto notable el mismo día", pct: 0.64, level: "A" },
+        { text: "Mejor respuesta con el tiempo", pct: 0.28, level: "B" },
+        { text: "No noté ningún cambio", pct: 0.22, none: true },
+      ],
+    },
+    safety: [
+      { kind: "absolute", text: "Hipertensión no controlada o enfermedad cardiovascular establecida", origin: "label", detail: "Produce aumentos transitorios de presión arterial." },
+      { kind: "relative", text: "Embarazo", origin: "label" },
+      { kind: "interaction", text: "Naltrexona oral", origin: "label", detail: "Puede reducir su concentración de forma significativa." },
+    ],
+    claims: [
+      { text: "Aumenta el deseo sexual en mujeres premenopáusicas", level: "A", n: 6, nh: 6 },
+      { text: "Mejora la función eréctil", level: "B", n: 4, nh: 4 },
+    ],
+    study: {
+      title: "Bremelanotide for Hypoactive Sexual Desire Disorder in Premenopausal Women",
+      journal: "Obstetrics & Gynecology", year: 2019,
+      type: "Dos ensayos aleatorizados, doble ciego, controlados con placebo", n: "1 267 participantes",
+      plain: "Dos ensayos fase 3 en mujeres premenopáusicas con deseo sexual hipoactivo. El grupo tratado mostró mejoras significativas frente a placebo en las escalas de deseo y de angustia asociada.",
+      limits: "La magnitud del efecto promedio fue modesta y hubo una tasa alta de abandono por náuseas. Estudios financiados por el desarrollador.",
+    },
+    regulatory: [
+      { country: "EE. UU.", agency: "FDA", status: "Aprobado", tone: "ok" },
+      { country: "Unión Europea", agency: "EMA", status: "No aprobado", tone: "alert" },
+      { country: "Colombia", agency: "INVIMA", status: "Sin registro", tone: "grey" },
+    ],
+    community: { n: 2140, adverse: 430, coa: 24 },
+  },
+  {
+    slug: "bpc-157",
+    name: "BPC-157",
+    altName: "BPC-157",
+    className: "Pentadecapéptido gástrico",
+    level: "C",
+    summary:
+      "Uno de los péptidos más discutidos en redes y uno de los menos estudiados en personas. La literatura existente es casi toda en roedores. Esa distancia entre lo que se afirma y lo que se ha medido es el punto entero de esta ficha.",
+    ceiling: {
+      state: "none",
+      note: "Todavía no hay un ensayo en humanos que haya fijado una dosis para este compuesto. Las cifras que circulan vienen de la práctica acumulada, no de un estudio — vale la pena saber de dónde salen.",
+      adverse: { total: 1180, aboveCeiling: null, skipped: null },
+    },
+    reports: {
+      n: 12470, noAdverse: 0.62, stacking: 0.68, habits: 0.54,
+      effects: [
+        { text: "Menos dolor articular", pct: 0.61, level: "C" },
+        { text: "Recuperación más rápida después de entrenar", pct: 0.54, level: "C" },
+        { text: "Mejor digestión", pct: 0.37, level: "C" },
+        { text: "Cicatrización más rápida de lesiones", pct: 0.29, level: "NO_DATA" },
+        { text: "No noté ningún cambio", pct: 0.19, none: true },
+      ],
+    },
+    safety: [
+      { kind: "relative", text: "Neoplasia activa o antecedente oncológico", origin: "mechanism", detail: "Se le describe actividad angiogénica en modelos preclínicos. Esto es una inferencia a partir del mecanismo, no un hallazgo medido en personas." },
+    ],
+    claims: [
+      { text: "Acelera la reparación de tendones y ligamentos", level: "C", n: 11, nh: 0 },
+      { text: "Protege la mucosa intestinal", level: "C", n: 8, nh: 0 },
+      { text: "Acelera la recuperación de lesiones en humanos", level: "NO_DATA", n: 0, nh: 0 },
+    ],
+    study: {
+      title: "Stable gastric pentadecapeptide BPC 157 in trials for inflammatory bowel disease",
+      journal: "Current Pharmaceutical Design", year: 2011,
+      type: "Revisión narrativa", n: "No aplica — modelos animales",
+      plain: "Revisión de los trabajos disponibles sobre el compuesto en modelos de lesión gastrointestinal, mayoritariamente en ratas. Describe efectos sobre cicatrización de mucosa en esos modelos.",
+      limits: "Es una revisión, no un ensayo. Los resultados provienen de animales y no se han reproducido en ensayos controlados en personas. Varios de los trabajos citados comparten grupo de investigación.",
+    },
+    regulatory: [
+      { country: "EE. UU.", agency: "FDA", status: "No aprobado · solo investigación", tone: "alert" },
+      { country: "Colombia", agency: "INVIMA", status: "Sin regulación específica", tone: "grey" },
+      { country: "Unión Europea", agency: "EMA", status: "No aprobado", tone: "alert" },
+    ],
+    community: { n: 12470, adverse: 1180, coa: 31 },
+  },
+  {
+    slug: "epitalon",
+    name: "Epitalón",
+    altName: "Epitalon",
+    className: "Tetrapéptido sintético",
+    level: "NO_DATA",
+    summary:
+      "Se le atribuyen efectos sobre telómeros y longevidad. Al buscar ensayos controlados en humanos indexados en PubMed, no aparece ninguno. No es que la evidencia sea débil: todavía no existe evidencia publicada que revisar.",
+    ceiling: {
+      state: "none",
+      note: "Aún no hay un ensayo en humanos que haya fijado una dosis para este compuesto. Lo que circula viene de la experiencia de la gente, no de un protocolo publicado.",
+      adverse: { total: 190, aboveCeiling: null, skipped: null },
+    },
+    reports: {
+      n: 3110, noAdverse: 0.74, stacking: 0.59, habits: 0.44,
+      effects: [
+        { text: "Mejor calidad de sueño", pct: 0.47, level: "NO_DATA" },
+        { text: "Más energía al despertar", pct: 0.38, level: "NO_DATA" },
+        { text: "Piel con mejor aspecto", pct: 0.21, level: "NO_DATA" },
+        { text: "No noté ningún cambio", pct: 0.35, none: true },
+      ],
+    },
+    safety: [],
+    claims: [
+      { text: "Alarga los telómeros en humanos", level: "NO_DATA", n: 0, nh: 0 },
+      { text: "Extiende la esperanza de vida", level: "NO_DATA", n: 0, nh: 0 },
+      { text: "Modula la secreción de melatonina", level: "D", n: 2, nh: 0 },
+    ],
+    study: null,
+    regulatory: [
+      { country: "EE. UU.", agency: "FDA", status: "No aprobado · solo investigación", tone: "alert" },
+      { country: "Colombia", agency: "INVIMA", status: "Sin regulación específica", tone: "grey" },
+    ],
+    community: { n: 3110, adverse: 190, coa: 12 },
+  },
+];

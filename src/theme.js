@@ -1,0 +1,22 @@
+// Paleta derivada del logo: huella azul marino sobre papel crudo.
+export const C = {
+  paper: "#EFEDE7",
+  paperDeep: "#E5E2DA",
+  ink: "#1E3F5F",
+  inkDeep: "#12283D",
+  ridge: "#4A6E8F",
+  muted: "#8A9099",
+  field: "#6B7548",     // eje comunitario — otra familia a propósito
+  fieldSoft: "#8D9668",
+  rule: "#D3CFC5",
+  warn: "#B4552F",
+  warnText: "#8E3F20",
+  caution: "#B08A2E",
+  cautionText: "#7A5E1E",
+  inter: "#3E7A91",
+  interText: "#2C5566",
+};
+
+// Densidad de crestas por nivel. Es el lenguaje visual del logo:
+// más línea = más evidencia; línea plana = no hay nada medido.
+export const RIDGES = { A: 9, B: 6, C: 4, D: 2, NO_DATA: 0 };
