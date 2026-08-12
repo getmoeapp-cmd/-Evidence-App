@@ -1,406 +1,133 @@
-import React, { useState, useEffect, useRef } from "react";
-import { C, RIDGES } from "./theme.js";
+import React, { useState, useEffect } from "react";
+import { C } from "./theme.js";
 import { UI } from "./i18n.js";
+import { SECTIONS } from "./i18n.sections.js";
 import { PEPTIDOS_ES } from "./data/es.js";
 import { PEPTIDES_EN } from "./data/en.js";
+import { GOALS } from "./data/goals.js";
+
+import Peptides from "./sections/Peptides.jsx";
+import ByGoal from "./sections/ByGoal.jsx";
+import Verify from "./sections/Verify.jsx";
+import Report from "./sections/Report.jsx";
 
 const DATA = { es: PEPTIDOS_ES, en: PEPTIDES_EN };
-
-/* --- Ridge meter: the logo's contour lines, as an evidence scale --- */
-function Ridges({ level, width = 160, height = 44, weight = 1.4, animate = true }) {
-  const [shown, setShown] = useState(!animate);
-  const reduced = useRef(
-    typeof window !== "undefined" &&
-      window.matchMedia &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
-
-  useEffect(() => {
-    if (!animate) return;
-    setShown(false);
-    const t = setTimeout(() => setShown(true), 30);
-    return () => clearTimeout(t);
-  }, [level, animate]);
-
-  const n = RIDGES[level];
-  const flat = n === 0;
-  const total = flat ? 1 : n;
-  const mid = height / 2;
-
-  const paths = Array.from({ length: total }, (_, i) => {
-    if (flat) return { d: `M0 ${mid} L${width} ${mid}`, key: "flat", dash: "3 4" };
-    const t = total === 1 ? 0.5 : i / (total - 1);
-    const y = 4 + t * (height - 8);
-    const amp = 5 * Math.sin(Math.PI * t) + 1.5;
-    const d = `M0 ${y} C ${width * 0.25} ${y - amp}, ${width * 0.4} ${y + amp}, ${width * 0.55} ${y} S ${width * 0.85} ${y - amp}, ${width} ${y}`;
-    return { d, key: i, dash: null };
-  });
-
-  return (
-    <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} aria-hidden="true" style={{ overflow: "visible" }}>
-      {paths.map((p, i) => (
-        <path
-          key={p.key}
-          d={p.d}
-          fill="none"
-          stroke={flat ? C.muted : C.ridge}
-          strokeWidth={weight}
-          strokeLinecap="round"
-          strokeDasharray={p.dash ?? 400}
-          strokeDashoffset={p.dash ? 0 : shown || reduced.current ? 0 : 400}
-          style={{
-            transition: reduced.current ? "none" : `stroke-dashoffset 700ms cubic-bezier(.22,.8,.3,1) ${i * 45}ms`,
-            opacity: flat ? 0.7 : 1,
-          }}
-        />
-      ))}
-    </svg>
-  );
-}
-
-function Label({ children, color = C.muted }) {
-  return (
-    <div style={{ fontFamily: "'Jost', sans-serif", fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color, fontWeight: 500 }}>
-      {children}
-    </div>
-  );
-}
-
-function StudiedCeiling({ ceiling, t }) {
-  const none = ceiling.state === "none";
-  return (
-    <section style={{ marginBottom: 40 }}>
-      <Label color={C.ink}>{t.ceiling.title}</Label>
-      <div style={{ fontSize: 12.5, color: C.muted, marginTop: 6, maxWidth: 620, lineHeight: 1.5 }}>{t.ceiling.intro}</div>
-      <div style={{ marginTop: 16, border: none ? `1px dashed ${C.muted}` : `1px solid ${C.rule}`, borderRadius: 3, background: "#FFF", padding: 24 }}>
-        {none ? (
-          <>
-            <div style={{ fontFamily: "'Jost', sans-serif", fontSize: "clamp(24px,4.5vw,34px)", fontWeight: 300, color: C.muted }}>
-              {t.ceiling.none}
-            </div>
-            <div style={{ fontSize: 14.5, lineHeight: 1.62, marginTop: 12, maxWidth: 560, color: "#22384A" }}>{ceiling.note}</div>
-          </>
-        ) : (
-          <>
-            <div style={{ display: "flex", alignItems: "baseline", gap: 12, flexWrap: "wrap" }}>
-              <div style={{ fontFamily: "'Jost', sans-serif", fontSize: "clamp(38px,7vw,58px)", fontWeight: 300, color: C.inkDeep, lineHeight: 1, letterSpacing: "-0.02em" }}>
-                {ceiling.dose}
-              </div>
-              <div style={{ fontSize: 15, color: C.muted }}>{ceiling.frequency} · {ceiling.indication}</div>
-            </div>
-            <div style={{ marginTop: 26 }}>
-              <Label>{t.ceiling.howReached}</Label>
-              <div style={{ display: "flex", alignItems: "flex-end", gap: 6, marginTop: 12, height: 74 }}>
-                {ceiling.steps.map((step, i) => {
-                  const h = ((i + 1) / ceiling.steps.length) * 100;
-                  const last = i === ceiling.steps.length - 1;
-                  return (
-                    <div key={i} style={{ flex: 1, maxWidth: 92, textAlign: "center" }}>
-                      <div style={{ height: `${h * 0.62}px`, background: last ? C.ink : C.ridge, opacity: last ? 1 : 0.34 + i * 0.13, borderRadius: "2px 2px 0 0" }} />
-                      <div style={{ fontFamily: "'Jost', sans-serif", fontSize: 11.5, color: last ? C.ink : C.muted, marginTop: 6, fontWeight: last ? 500 : 400 }}>{step}</div>
-                    </div>
-                  );
-                })}
-              </div>
-              <div style={{ fontSize: 12.5, color: C.muted, marginTop: 10 }}>{ceiling.schedule}</div>
-            </div>
-            <div style={{ marginTop: 20, paddingTop: 16, borderTop: `1px solid ${C.rule}`, fontSize: 13.5, lineHeight: 1.6, color: "#22384A", maxWidth: 620 }}>
-              {ceiling.note}
-            </div>
-          </>
-        )}
-        {ceiling.adverse.aboveCeiling !== null && (
-          <div style={{ marginTop: 20, paddingTop: 16, borderTop: `1px solid ${C.rule}` }}>
-            <Label color={C.field}>{t.ceiling.signal}</Label>
-            <div style={{ fontSize: 13.5, color: "#4A5240", marginTop: 8, lineHeight: 1.6, maxWidth: 620 }}>
-              {t.ceiling.signalText(
-                ceiling.adverse.total,
-                Math.round((ceiling.adverse.aboveCeiling / ceiling.adverse.total) * 100),
-                Math.round((ceiling.adverse.skipped / ceiling.adverse.total) * 100)
-              )}
-            </div>
-          </div>
-        )}
-      </div>
-    </section>
-  );
-}
-
-function WhatPeopleReport({ reports, t }) {
-  return (
-    <section style={{ marginBottom: 40 }}>
-      <Label color={C.field}>{t.reports.title}</Label>
-      <div style={{ fontSize: 12.5, color: C.muted, marginTop: 6, maxWidth: 620, lineHeight: 1.5 }}>{t.reports.intro(reports.n)}</div>
-      <div style={{ marginTop: 16, border: `1px solid ${C.rule}`, borderRadius: 3, background: "#FFF", padding: 22 }}>
-        {reports.effects.map((e, i) => (
-          <div key={i} style={{ marginBottom: i === reports.effects.length - 1 ? 0 : 16 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 14, marginBottom: 6 }}>
-              <span style={{ fontSize: 14.5, color: e.none ? C.muted : "#22384A", fontStyle: e.none ? "italic" : "normal" }}>{e.text}</span>
-              <span style={{ fontFamily: "'Jost', sans-serif", fontSize: 13, color: e.none ? C.muted : C.field, whiteSpace: "nowrap" }}>
-                {Math.round(e.pct * 100)}%
-                {!e.none && (
-                  <span style={{ color: C.muted, fontSize: 11, letterSpacing: "0.1em", marginLeft: 9 }}>
-                    {t.levels[e.level].label.toUpperCase()}
-                  </span>
-                )}
-              </span>
-            </div>
-            <div style={{ height: 6, background: C.paperDeep, borderRadius: 3, overflow: "hidden" }}>
-              <div style={{ width: `${e.pct * 100}%`, height: "100%", background: e.none ? C.muted : C.fieldSoft, opacity: e.none ? 0.45 : 1, borderRadius: 3 }} />
-            </div>
-          </div>
-        ))}
-        <div style={{ marginTop: 22, paddingTop: 16, borderTop: `1px solid ${C.rule}`, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 18 }}>
-          {[
-            { v: reports.noAdverse, l: t.reports.noAdverse },
-            { v: reports.stacking, l: t.reports.stacking },
-            { v: reports.habits, l: t.reports.habits },
-          ].map((s, i) => (
-            <div key={i}>
-              <div style={{ fontFamily: "'Jost', sans-serif", fontSize: 22, color: C.field, fontWeight: 300 }}>{Math.round(s.v * 100)}%</div>
-              <div style={{ fontSize: 12, color: C.muted, marginTop: 3, lineHeight: 1.45 }}>{s.l}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Safety({ safety, t }) {
-  const tones = {
-    absolute: { c: C.warnText, b: C.warn },
-    relative: { c: C.cautionText, b: C.caution },
-    interaction: { c: C.interText, b: C.inter },
-  };
-  return (
-    <section style={{ marginBottom: 40 }}>
-      <Label color={C.ink}>{t.safety.title}</Label>
-      {safety.length === 0 ? (
-        <div style={{ marginTop: 14, border: `1px dashed ${C.muted}`, borderRadius: 3, padding: "28px 24px", background: "#FFF", fontSize: 15, lineHeight: 1.62, color: "#22384A", maxWidth: 620 }}>
-          {t.safety.empty}
-        </div>
-      ) : (
-        <div style={{ marginTop: 14 }}>
-          {safety.map((it, i) => {
-            const tone = tones[it.kind];
-            const inferred = it.origin === "mechanism";
-            return (
-              <div key={i} style={{ borderTop: `1px solid ${C.rule}`, padding: "15px 0", display: "grid", gridTemplateColumns: "minmax(0,1fr) 180px", gap: 18, alignItems: "start" }}>
-                <div style={{ minWidth: 0 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 9, flexWrap: "wrap" }}>
-                    <span style={{ width: 3, height: 15, background: tone.b, display: "inline-block" }} />
-                    <span style={{ fontSize: 15, color: "#22384A", lineHeight: 1.4 }}>{it.text}</span>
-                  </div>
-                  {it.detail && <div style={{ fontSize: 13, color: C.muted, marginTop: 7, lineHeight: 1.55, paddingLeft: 12 }}>{it.detail}</div>}
-                </div>
-                <div style={{ textAlign: "right" }}>
-                  <div style={{ fontFamily: "'Jost', sans-serif", fontSize: 10.5, letterSpacing: "0.14em", textTransform: "uppercase", color: tone.c }}>
-                    {t.safety.kinds[it.kind]}
-                  </div>
-                  <div style={{ fontSize: 11, color: inferred ? C.warnText : C.muted, marginTop: 4, lineHeight: 1.4, fontStyle: inferred ? "italic" : "normal" }}>
-                    {t.safety.origins[it.origin]}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
-    </section>
-  );
-}
+const TABS = ["peptides", "goals", "verify", "report"];
 
 export default function App() {
   const [lang, setLang] = useState(() => {
     try { return localStorage.getItem("evidence-lang") || "es"; } catch { return "es"; }
   });
-  const [idx, setIdx] = useState(0);
+  const [tab, setTab] = useState("peptides");
 
   useEffect(() => {
     try { localStorage.setItem("evidence-lang", lang); } catch {}
     document.documentElement.lang = lang;
   }, [lang]);
 
-  const t = UI[lang];
+  const t = { ...UI[lang], ...SECTIONS[lang] };
   const list = DATA[lang];
-  const p = list[idx];
-  const lv = t.levels[p.level];
-  const toneMap = {
-    ok: { border: C.ridge, text: C.ink },
-    alert: { border: C.warn, text: C.warnText },
-    grey: { border: C.muted, text: "#6C7178" },
-  };
+  const goals = GOALS[lang];
 
   return (
     <div style={{ background: C.paper, minHeight: "100vh", color: C.inkDeep }}>
       <style>{`
-        .ev-btn:focus-visible { outline: 2px solid ${C.ink}; outline-offset: 3px; }
-        .ev-btn { transition: background 160ms ease, color 160ms ease; }
+        .ev-btn:focus-visible, .ev-row:focus-visible, .ev-input:focus-visible, .ev-tab:focus-visible {
+          outline: 2px solid ${C.ink}; outline-offset: 2px;
+        }
+        .ev-btn, .ev-tab { transition: background 160ms ease, color 160ms ease, border-color 160ms ease; }
+        .ev-row:hover { background: ${C.paperDeep} !important; }
+        .ev-input { outline: none; }
+        .ev-input:focus { border-color: ${C.ink} !important; }
+        .ev-shell { max-width: 1080px; margin: 0 auto; padding: 0 20px 96px; }
+
+        /* Selector de idioma fijo arriba a la derecha */
+        .ev-lang {
+          position: fixed; top: 14px; right: 16px; z-index: 40;
+          display: flex; border: 1px solid ${C.rule}; border-radius: 2px;
+          overflow: hidden; background: ${C.paper};
+          box-shadow: 0 1px 3px rgba(18,40,61,.06);
+        }
+
+        /* Pestañas: barra inferior en móvil, en línea en escritorio */
+        .ev-tabs {
+          display: flex; gap: 2px;
+          border-bottom: 1px solid ${C.rule};
+          margin-bottom: 30px;
+        }
+        @media (max-width: 720px) {
+          .ev-tabs {
+            position: fixed; bottom: 0; left: 0; right: 0; z-index: 30;
+            background: ${C.paper}; border-top: 1px solid ${C.rule}; border-bottom: none;
+            margin: 0; padding: 4px 6px calc(4px + env(safe-area-inset-bottom));
+            justify-content: space-around;
+          }
+          .ev-tab { flex: 1; text-align: center; }
+          .ev-axes { grid-template-columns: 1fr !important; }
+          .ev-axes > div:nth-child(2) { height: 1px; width: 100%; }
+          .ev-claim { grid-template-columns: minmax(0,1fr) 72px !important; }
+          .ev-claim-meta { grid-column: 1 / -1; text-align: left !important; }
+        }
       `}</style>
-      <div style={{ maxWidth: 1080, margin: "0 auto", padding: "28px 20px 72px" }}>
-        <header style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 16, flexWrap: "wrap", paddingBottom: 18, borderBottom: `1px solid ${C.rule}` }}>
+
+      {/* Idioma — fijo, esquina superior derecha */}
+      <div className="ev-lang">
+        {["es", "en"].map((code) => (
+          <button
+            key={code}
+            className="ev-btn"
+            onClick={() => setLang(code)}
+            aria-pressed={lang === code}
+            aria-label={code === "es" ? "Español" : "English"}
+            style={{
+              fontFamily: "'Jost', sans-serif", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase",
+              padding: "7px 12px", border: "none", cursor: "pointer",
+              background: lang === code ? C.ink : "transparent",
+              color: lang === code ? C.paper : C.muted,
+            }}
+          >
+            {code}
+          </button>
+        ))}
+      </div>
+
+      <div className="ev-shell">
+        <header style={{ paddingTop: 26, paddingBottom: 18, paddingRight: 96 }}>
           <div style={{ fontFamily: "'Jost', sans-serif", fontSize: 19, letterSpacing: "0.42em", color: C.ink }}>EVIDENCE</div>
-          <div style={{ display: "flex", alignItems: "center", gap: 18, flexWrap: "wrap" }}>
-            <div style={{ fontSize: 12.5, color: C.muted, maxWidth: 380 }}>{t.tagline}</div>
-            <div style={{ display: "flex", border: `1px solid ${C.rule}`, borderRadius: 2, overflow: "hidden" }}>
-              {["es", "en"].map((code) => (
-                <button
-                  key={code}
-                  className="ev-btn"
-                  onClick={() => setLang(code)}
-                  aria-pressed={lang === code}
-                  style={{
-                    fontFamily: "'Jost', sans-serif", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase",
-                    padding: "7px 12px", border: "none", cursor: "pointer",
-                    background: lang === code ? C.ink : "transparent",
-                    color: lang === code ? C.paper : C.muted,
-                  }}
-                >
-                  {code}
-                </button>
-              ))}
-            </div>
-          </div>
+          <div style={{ fontSize: 12.5, color: C.muted, marginTop: 7, maxWidth: 420, lineHeight: 1.5 }}>{t.tagline}</div>
         </header>
 
-        <nav style={{ display: "flex", gap: 4, margin: "20px 0 34px", flexWrap: "wrap" }}>
-          {list.map((x, i) => (
-            <button
-              key={x.slug}
-              className="ev-btn"
-              onClick={() => setIdx(i)}
-              aria-pressed={i === idx}
-              style={{
-                fontFamily: "'Jost', sans-serif", fontSize: 12, letterSpacing: "0.1em", textTransform: "uppercase",
-                padding: "9px 15px", border: `1px solid ${i === idx ? C.ink : C.rule}`,
-                background: i === idx ? C.ink : "transparent", color: i === idx ? C.paper : C.muted,
-                cursor: "pointer", borderRadius: 2,
-              }}
-            >
-              {x.name}
-            </button>
-          ))}
+        <nav className="ev-tabs" role="tablist">
+          {TABS.map((key) => {
+            const active = tab === key;
+            return (
+              <button
+                key={key}
+                role="tab"
+                aria-selected={active}
+                className="ev-tab ev-btn"
+                onClick={() => setTab(key)}
+                style={{
+                  fontFamily: "'Jost', sans-serif", fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase",
+                  padding: "11px 16px", cursor: "pointer", background: "transparent",
+                  border: "none", borderBottom: `2px solid ${active ? C.ink : "transparent"}`,
+                  color: active ? C.ink : C.muted,
+                }}
+              >
+                {t.nav[key]}
+              </button>
+            );
+          })}
         </nav>
 
-        <section style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) auto", gap: 28, alignItems: "start", marginBottom: 34 }}>
-          <div style={{ minWidth: 0 }}>
-            <Label>{p.className}</Label>
-            <h1 style={{ fontFamily: "'Jost', sans-serif", fontWeight: 300, fontSize: "clamp(34px, 6vw, 54px)", lineHeight: 1.02, margin: "10px 0 4px", color: C.inkDeep, letterSpacing: "-0.01em" }}>
-              {p.name}
-            </h1>
-            {p.altName !== p.name && (
-              <div style={{ fontFamily: "'IBM Plex Serif', serif", fontStyle: "italic", color: C.muted, fontSize: 15 }}>{p.altName}</div>
-            )}
-            <p style={{ marginTop: 18, fontSize: 15.5, lineHeight: 1.62, maxWidth: 560, color: "#2C3D4C" }}>{p.summary}</p>
-          </div>
-          <div style={{ textAlign: "right" }}>
-            <Ridges level={p.level} width={172} height={72} weight={1.6} />
-            <div style={{ fontFamily: "'Jost', sans-serif", fontSize: 13, letterSpacing: "0.16em", textTransform: "uppercase", color: p.level === "NO_DATA" ? C.muted : C.ink, marginTop: 8 }}>
-              {lv.label}
-            </div>
-            <div style={{ fontSize: 11.5, color: C.muted, maxWidth: 190, marginTop: 4, lineHeight: 1.45 }}>{lv.gloss}</div>
-          </div>
-        </section>
+        <main>
+          {tab === "peptides" && <Peptides list={list} t={t} />}
+          {tab === "goals" && <ByGoal goals={goals} list={list} t={t} />}
+          {tab === "verify" && <Verify t={t} />}
+          {tab === "report" && <Report list={list} t={t} />}
+        </main>
 
-        <section style={{ marginBottom: 40 }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1px 1fr", gap: 22, border: `1px solid ${C.rule}`, background: C.paperDeep, padding: 22, borderRadius: 3 }}>
-            <div>
-              <Label color={C.ink}>{t.axes.science}</Label>
-              <div style={{ marginTop: 12 }}><Ridges level={p.level} width={120} height={34} animate={false} /></div>
-              <div style={{ fontSize: 13.5, color: "#2C3D4C", marginTop: 10, lineHeight: 1.5 }}>
-                {t.axes.studies(p.claims.reduce((a, c) => a + c.n, 0), p.claims.reduce((a, c) => a + c.nh, 0))}
-              </div>
-            </div>
-            <div style={{ background: C.rule }} />
-            <div>
-              <Label color={C.field}>{t.axes.community}</Label>
-              <div style={{ marginTop: 12, display: "flex", alignItems: "flex-end", gap: 3, height: 34 }}>
-                {[0.5, 0.8, 0.65, 1, 0.75, 0.9, 0.55, 0.85].map((h, i) => (
-                  <div key={i} style={{ width: 9, height: `${h * 100}%`, background: C.fieldSoft, opacity: 0.85 }} />
-                ))}
-              </div>
-              <div style={{ fontSize: 13.5, color: "#4A5240", marginTop: 10, lineHeight: 1.5 }}>
-                {t.axes.reports(p.community.n, p.community.adverse, p.community.coa)}
-              </div>
-            </div>
-          </div>
-          <div style={{ fontSize: 11.5, color: C.muted, marginTop: 9, textAlign: "center" }}>{t.axes.neverAveraged}</div>
-        </section>
-
-        <StudiedCeiling ceiling={p.ceiling} t={t} />
-        <WhatPeopleReport reports={p.reports} t={t} />
-
-        <section style={{ marginBottom: 40 }}>
-          <Label color={C.ink}>{t.claims.title}</Label>
-          <div style={{ marginTop: 14 }}>
-            {p.claims.map((c, i) => (
-              <div key={i} style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) 92px 130px", gap: 16, alignItems: "center", padding: "15px 0", borderTop: `1px solid ${C.rule}` }}>
-                <div style={{ fontSize: 15, lineHeight: 1.45, color: c.level === "NO_DATA" ? C.muted : "#22384A" }}>{c.text}</div>
-                <Ridges level={c.level} width={92} height={26} weight={1.2} />
-                <div style={{ textAlign: "right" }}>
-                  <div style={{ fontFamily: "'Jost', sans-serif", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: c.level === "NO_DATA" ? C.muted : C.ink }}>
-                    {t.levels[c.level].label}
-                  </div>
-                  <div style={{ fontSize: 11.5, color: C.muted, marginTop: 2 }}>
-                    {c.n === 0 ? t.claims.none : t.claims.count(c.n, c.nh)}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section style={{ marginBottom: 40 }}>
-          <Label color={C.ink}>{t.source.title}</Label>
-          {p.study ? (
-            <div style={{ marginTop: 14, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", border: `1px solid ${C.rule}`, borderRadius: 3, overflow: "hidden" }}>
-              <div style={{ padding: 22, background: "#FFF" }}>
-                <Label>{t.source.plain}</Label>
-                <div style={{ fontSize: 14.5, lineHeight: 1.6, marginTop: 12, color: "#22384A" }}>{p.study.plain}</div>
-                <div style={{ marginTop: 16, paddingTop: 14, borderTop: `1px solid ${C.rule}` }}>
-                  <Label color={C.warnText}>{t.source.limits}</Label>
-                  <div style={{ fontSize: 13.5, lineHeight: 1.55, marginTop: 8, color: "#5A4038" }}>{p.study.limits}</div>
-                </div>
-              </div>
-              <div style={{ padding: 22, background: C.paperDeep, borderLeft: `1px solid ${C.rule}` }}>
-                <Label>{t.source.original}</Label>
-                <div style={{ fontFamily: "'IBM Plex Serif', serif", fontSize: 14.5, lineHeight: 1.5, marginTop: 12, color: C.inkDeep }}>{p.study.title}</div>
-                <div style={{ fontSize: 12.5, color: C.muted, marginTop: 10, lineHeight: 1.7 }}>
-                  {p.study.journal}, {p.study.year}<br />{p.study.type}<br />{p.study.n}
-                </div>
-                <button className="ev-btn" style={{ marginTop: 16, fontFamily: "'Jost', sans-serif", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", padding: "9px 14px", border: `1px solid ${C.ink}`, background: "transparent", color: C.ink, cursor: "pointer", borderRadius: 2 }}>
-                  {t.source.open}
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div style={{ marginTop: 14, border: `1px dashed ${C.muted}`, borderRadius: 3, padding: "34px 24px", textAlign: "center", background: "#FFF" }}>
-              <div style={{ display: "flex", justifyContent: "center", marginBottom: 14 }}><Ridges level="NO_DATA" width={200} height={20} /></div>
-              <div style={{ fontSize: 15.5, color: "#22384A", maxWidth: 470, margin: "0 auto", lineHeight: 1.6 }}>{t.source.emptyTitle}</div>
-              <div style={{ fontSize: 13, color: C.muted, maxWidth: 470, margin: "10px auto 0" }}>{t.source.emptyBody}</div>
-            </div>
-          )}
-        </section>
-
-        <Safety safety={p.safety} t={t} />
-
-        <section>
-          <Label color={C.ink}>{t.regulatory.title}</Label>
-          <div style={{ marginTop: 14, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))", gap: 18 }}>
-            {p.regulatory.map((r, i) => {
-              const tone = toneMap[r.tone];
-              return (
-                <div key={i} style={{ borderLeft: `2px solid ${tone.border}`, paddingLeft: 10, marginBottom: 12 }}>
-                  <Label color={C.muted}>{r.country} · {r.agency}</Label>
-                  <div style={{ fontSize: 13.5, color: tone.text, marginTop: 3 }}>{r.status}</div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-
-        <footer style={{ marginTop: 52, paddingTop: 18, borderTop: `1px solid ${C.rule}`, fontSize: 11.5, color: C.muted, lineHeight: 1.6 }}>
+        <footer style={{ marginTop: 56, paddingTop: 18, borderTop: `1px solid ${C.rule}`, fontSize: 11.5, color: C.muted, lineHeight: 1.6 }}>
           {t.footer}
         </footer>
       </div>

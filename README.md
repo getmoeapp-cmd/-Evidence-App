@@ -62,3 +62,26 @@ Estas no son estilísticas — sostienen el producto:
 Todo el contenido de `data/` es de **demostración**. Antes de publicar hay que
 reemplazarlo por registros reales de PubMed y verificar cada PMID, cada dosis
 de techo y cada estatus regulatorio.
+
+## Navegación
+
+Cuatro secciones, definidas en `TABS` dentro de `App.jsx`:
+
+| Pestaña | Archivo | Qué hace |
+|---|---|---|
+| Péptidos | `sections/Peptides.jsx` | Catálogo con buscador y filtro por nivel → abre la ficha |
+| Por objetivo | `sections/ByGoal.jsx` | Objetivos con sus candidatos y la cresta al lado |
+| Verificar | `sections/Verify.jsx` | Auditoría de afirmaciones + guía de COA y scorecard |
+| Reportar | `sections/Report.jsx` | Intake comunitario estructurado |
+
+La ficha completa vive en `sections/PeptideCard.jsx` y la reutilizan tanto
+Péptidos como Por objetivo.
+
+En pantallas de menos de 720 px las pestañas se fijan como barra inferior.
+El selector de idioma va fijo arriba a la derecha, sobre todas las secciones.
+
+Los objetivos se editan en `src/data/goals.js`: cada uno lista slugs que deben
+existir en `data/es.js` y `data/en.js`.
+
+**Pendiente de conectar:** el botón de auditoría, los dos botones de "Comprar
+bien" y el envío del formulario de reporte son maquetas. Esperan a Supabase.
