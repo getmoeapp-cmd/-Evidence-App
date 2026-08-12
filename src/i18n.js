@@ -7,6 +7,7 @@ export const UI = {
       B: { label: "Nivel B", gloss: "Estudio en humanos, no aleatorizado" },
       C: { label: "Nivel C", gloss: "Solo estudios en animales" },
       D: { label: "Nivel D", gloss: "Solo in vitro o reporte de caso" },
+      NOT_SHOWN: { label: "No demostrado", gloss: "Se estudió en humanos y no se demostró" },
       NO_DATA: { label: "Sin datos", gloss: "No hay literatura publicada indexada" },
     },
     axes: {
@@ -54,6 +55,7 @@ export const UI = {
       title: "Contraindicaciones e interacciones",
       empty:
         "Todavía no hay contraindicaciones establecidas, porque el compuesto no se ha estudiado en personas. Una lista vacía aún no es una señal de seguridad — es un capítulo por escribir.",
+      surveillance: "Señales en vigilancia",
       kinds: { absolute: "No usar", relative: "Requiere supervisión", interaction: "Interacción" },
       origins: {
         label: "Ficha técnica aprobada",
@@ -74,6 +76,7 @@ export const UI = {
       B: { label: "Level B", gloss: "Human study, not randomized" },
       C: { label: "Level C", gloss: "Animal studies only" },
       D: { label: "Level D", gloss: "In vitro or case report only" },
+      NOT_SHOWN: { label: "Not shown", gloss: "Studied in humans and not demonstrated" },
       NO_DATA: { label: "No data", gloss: "No indexed published literature" },
     },
     axes: {
@@ -121,6 +124,7 @@ export const UI = {
       title: "Contraindications and interactions",
       empty:
         "There are no established contraindications yet, because the compound has not been studied in people. An empty list is not yet a sign of safety — it's a chapter still to be written.",
+      surveillance: "Signals under watch",
       kinds: { absolute: "Do not use", relative: "Needs supervision", interaction: "Interaction" },
       origins: {
         label: "Approved product label",

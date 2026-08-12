@@ -12,11 +12,18 @@ export const SECTIONS = {
         B: "Se probó en personas, pero sin reparto al azar o sin grupo de comparación. Cuenta, con más margen de error.",
         C: "Se probó en animales. Buena parte de lo que funciona en ratones no se repite igual en personas.",
         D: "Solo hay trabajo en células o reportes de casos sueltos. Es un punto de partida, no una conclusión.",
+        NOT_SHOWN: "Sí se midió en personas, y el resultado no respaldó la afirmación. Esto no es falta de datos: es un dato.",
         NO_DATA: "No hay literatura publicada indexada. No es que la evidencia sea débil: todavía no existe.",
       },
       footer:
         "Un nivel alto no quiere decir que sea seguro para ti, y uno bajo no quiere decir que no funcione. El nivel mide cuánto se ha estudiado, nada más.",
       close: "Cerrar",
+    },
+    pending: {
+      badge: "Pendiente",
+      community: "Todavía no hay reportes suficientes de la comunidad para este compuesto. Cuando los haya, aparecen aquí — nunca mezclados con el eje científico.",
+      signal: "Categorías que estamos rastreando desde el día uno:",
+      firstReport: "Sé el primero en reportar",
     },
     families: { label: "Familia" },
     stub: {
@@ -94,11 +101,18 @@ export const SECTIONS = {
         B: "Tested in people, but without randomization or without a comparison group. It counts, with more room for error.",
         C: "Tested in animals. A lot of what works in mice doesn't hold up the same way in people.",
         D: "Only cell work or scattered case reports. A starting point, not a conclusion.",
+        NOT_SHOWN: "It was measured in people, and the result didn't support the claim. That's not missing data — that is data.",
         NO_DATA: "No indexed published literature. Not that the evidence is weak — it doesn't exist yet.",
       },
       footer:
         "A high level doesn't mean it's safe for you, and a low one doesn't mean it doesn't work. The level measures how much has been studied, nothing more.",
       close: "Close",
+    },
+    pending: {
+      badge: "Pending",
+      community: "There aren't enough community reports for this compound yet. When there are, they appear here — never mixed into the scientific axis.",
+      signal: "Categories we're tracking from day one:",
+      firstReport: "Be the first to report",
     },
     families: { label: "Family" },
     stub: {

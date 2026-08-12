@@ -23,4 +23,9 @@ export const C = {
 
 // Densidad de crestas por nivel. Es el lenguaje visual del logo:
 // más línea = más evidencia; línea plana = no hay nada medido.
-export const RIDGES = { A: 9, B: 6, C: 4, D: 2, NO_DATA: 0 };
+export const RIDGES = { A: 9, B: 6, C: 4, D: 2, NOT_SHOWN: 0, NO_DATA: 0 };
+
+// Dos formas distintas de línea plana:
+//   NO_DATA    → punteada y gris: nadie tomó la medición.
+//   NOT_SHOWN  → continua y en rojo: se midió y salió plana.
+// Es la diferencia entre ausencia de evidencia y evidencia de ausencia.

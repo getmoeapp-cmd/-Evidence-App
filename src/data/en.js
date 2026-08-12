@@ -2,6 +2,65 @@
 // Demonstration data: replace with real PubMed records.
 export const PEPTIDES_EN = [
   {
+    slug: "retatrutide",
+    name: "Retatrutide",
+    altName: "LY3437943",
+    className: "Triple GIP / GLP-1 / glucagon agonist",
+    level: "A",
+    summary:
+      "The most closely watched case in the category: the highest results ever reported in obesity trials — but with no regulatory approval in any country, and phase 3 available only as the manufacturer's preliminary data.",
+    levelNote:
+      "Randomized human trial, published and peer-reviewed (phase 2). The 2026 phase 3 results are manufacturer topline announcements, not yet peer-reviewed publications.",
+    ceiling: {
+      state: "established",
+      dose: "12 mg",
+      frequency: "per week",
+      indication: "obesity (published phase 2 and phase 3 TRIUMPH-1)",
+      steps: ["2", "4", "6", "9", "12"],
+      schedule: "Gradual escalation every 4 weeks to the target dose (4, 9, or 12 mg)",
+      note: "This is the clinical trial protocol, not a usage guide. Above 12 mg weekly, no published human safety data exists.",
+      adverse: { pending: true, categories: ["use above the studied ceiling", "skipped titration steps", "stacking with other compounds", "product without a verified COA"] },
+    },
+    reports: { pending: true },
+    safety: [
+      { kind: "absolute", text: "Personal or family history of medullary thyroid carcinoma", origin: "trial", detail: "GLP-1 class warning and an exclusion criterion in the trials." },
+      { kind: "absolute", text: "Multiple endocrine neoplasia type 2 (MEN2)", origin: "trial", detail: "GLP-1 class warning and an exclusion criterion in the trials." },
+      { kind: "absolute", text: "Pregnancy and breastfeeding", origin: "trial", detail: "Exclusion criterion in every trial." },
+      { kind: "relative", text: "History of pancreatitis", origin: "trial", detail: "Exclusion criterion in the pivotal trials, so no data exists for this group." },
+      { kind: "relative", text: "Gastroparesis or severe gastrointestinal disease", origin: "mechanism", detail: "Class effect from delayed gastric emptying." },
+      { kind: "relative", text: "Diabetic retinopathy in people with type 2 diabetes", origin: "mechanism", detail: "Class effect from rapid glucose reduction." },
+      { kind: "interaction", text: "Insulin or sulfonylureas", origin: "mechanism", detail: "Hypoglycemia risk; requires supervised adjustment." },
+    ],
+    safetyNote:
+      "There is no approved product label. Everything above comes from trial exclusion criteria and GLP-1 class effects.",
+    surveillance:
+      "Signals under watch (phase 3, 2026): dysesthesias and urinary tract infections reported in TRIUMPH-1, mostly mild to moderate and resolved during treatment. Vomiting in up to 25.3% at the highest dose. Discontinuation for adverse effects between 4.1% and 11.3%, rising with dose.",
+    claims: [
+      { text: "Reduces body weight in obesity", level: "A", n: 6, nh: 6, note: "Published phase 2: up to 24.2% at 48 weeks. Phase 3 topline: up to 28.3% at 80 weeks and 30.3% at 104 weeks." },
+      { text: "Improves glycemic control in type 2 diabetes", level: "A", n: 3, nh: 3, note: "Published phase 2 with dose-dependent HbA1c reductions. TRIUMPH-2 topline: up to 20.8% weight loss in people with T2D." },
+      { text: "Reduces liver fat (MASLD)", level: "B", n: 1, nh: 1, note: "Phase 2 substudy. No formal indication studied in phase 3 yet." },
+      { text: "Reduces knee pain in osteoarthritis", level: "B", n: 1, nh: 1, note: "TRIUMPH-4 topline (2026). No peer-reviewed publication." },
+      { text: "Reduces major cardiovascular events", level: "NOT_SHOWN", n: 1, nh: 1, note: "The TRIUMPH-3 analysis was inconclusive. It improved risk markers, which is not the same as reducing events." },
+      { text: "Effects on cancer", level: "NO_DATA", n: 0, nh: 0, note: "Preclinical research only. No human trial with this endpoint." },
+    ],
+    study: {
+      title: "Triple-Hormone-Receptor Agonist Retatrutide for Obesity — A Phase 2 Trial",
+      journal: "New England Journal of Medicine", year: 2023,
+      type: "Randomized, double-blind, placebo-controlled trial", n: "338 participants",
+      plain: "A 48-week trial in adults with obesity or overweight, without diabetes. The highest-dose group lost an average of 24.2% of body weight — the largest reduction reported in an obesity trial at that point. The most frequent adverse effects were gastrointestinal and increased with dose. A transient rise in heart rate was also observed.",
+      limits: "338 participants, small next to a phase 3 trial. Funded by the manufacturer. The 2026 phase 3 data comes from company announcements and has not yet been peer-reviewed.",
+    },
+    regulatory: [
+      { country: "United States", agency: "FDA", status: "Not approved · investigational. Application expected in Q1 2027.", tone: "alert" },
+      { country: "Colombia", agency: "INVIMA", status: "No marketing authorization", tone: "grey" },
+      { country: "Mexico", agency: "COFEPRIS", status: "Not approved", tone: "alert" },
+      { country: "Europe", agency: "EMA", status: "Not authorized", tone: "alert" },
+    ],
+    regulatoryNote:
+      "No commercial version exists in any country. Everything circulating today is sold outside regulated channels, without pharmaceutical quality control.",
+    community: { pending: true },
+  },
+  {
     slug: "semaglutida",
     name: "Semaglutide",
     altName: "Semaglutide",

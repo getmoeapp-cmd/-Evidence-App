@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { C } from "../theme.js";
 import Ridges from "./Ridges.jsx";
 
-const ORDER = ["A", "B", "C", "D", "NO_DATA"];
+const ORDER = ["A", "B", "C", "D", "NOT_SHOWN", "NO_DATA"];
 
 // El botón que abre la explicación. Va resaltado a propósito: es la pregunta
 // que todo el mundo se hace la primera vez que ve una cresta.
@@ -114,7 +114,7 @@ export default function LevelKey({ open, onClose, t }) {
                 <div
                   style={{
                     fontFamily: "'Jost', sans-serif", fontSize: 10.5, letterSpacing: "0.13em",
-                    textTransform: "uppercase", color: lv === "NO_DATA" ? C.tabIdle : C.ink, marginTop: 5,
+                    textTransform: "uppercase", color: lv === "NOT_SHOWN" ? C.warnText : lv === "NO_DATA" ? C.tabIdle : C.ink, marginTop: 5,
                   }}
                 >
                   {t.levels[lv].label}

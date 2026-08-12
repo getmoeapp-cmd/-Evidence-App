@@ -9,7 +9,7 @@
 
 export const CATALOG = [
   // ── Metabólicos ────────────────────────────────────────────────
-  { slug: "retatrutide",   name: "Retatrutide",   alt: "LY3437943",        cls: "triple",   family: "metabolico",   level: "B",       ceiling: "established", aliases: ["reta", "retatrutida"] },
+  { slug: "retatrutide",   name: "Retatrutide",   alt: "LY3437943",        cls: "triple",   family: "metabolico",   level: "A",       ceiling: "established", aliases: ["reta", "retatrutida"] },
   { slug: "tirzepatide",   name: "Tirzepatide",   alt: "LY3298176",        cls: "dual",     family: "metabolico",   level: "A",       ceiling: "established", aliases: ["tirze", "tirzepatida", "mounjaro", "zepbound"] },
   { slug: "semaglutida",   name: "Semaglutide",   alt: "Semaglutide",      cls: "glp1",     family: "metabolico",   level: "A",       ceiling: "established", aliases: ["sema", "semaglutida", "ozempic", "wegovy"] },
   { slug: "tesamorelin",   name: "Tesamorelin",   alt: "Egrifta",          cls: "ghrh",     family: "metabolico",   level: "A",       ceiling: "established", aliases: ["tesamorelina", "egrifta"] },

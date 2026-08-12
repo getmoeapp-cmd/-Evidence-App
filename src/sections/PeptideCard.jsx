@@ -53,7 +53,21 @@ function StudiedCeiling({ ceiling, t }) {
             </div>
           </>
         )}
-        {ceiling.adverse.aboveCeiling !== null && (
+        {ceiling.adverse.pending && (
+          <div style={{ marginTop: 20, paddingTop: 16, borderTop: `1px solid ${C.rule}` }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 9, flexWrap: "wrap" }}>
+              <Label color={C.field}>{t.ceiling.signal}</Label>
+              <span style={{ fontFamily: "'Jost', sans-serif", fontSize: 9.5, letterSpacing: "0.14em", textTransform: "uppercase", color: C.tabIdle, border: `1px solid ${C.chipBorder}`, borderRadius: 2, padding: "2px 6px" }}>{t.pending.badge}</span>
+            </div>
+            <div style={{ fontSize: 13, color: C.tabIdle, marginTop: 9, lineHeight: 1.6 }}>{t.pending.signal}</div>
+            <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginTop: 9 }}>
+              {ceiling.adverse.categories.map((c, i) => (
+                <span key={i} style={{ fontSize: 12, color: "#4A5240", background: "rgba(107,117,72,0.10)", border: `1px solid rgba(107,117,72,0.28)`, borderRadius: 3, padding: "5px 9px" }}>{c}</span>
+              ))}
+            </div>
+          </div>
+        )}
+        {!ceiling.adverse.pending && ceiling.adverse.aboveCeiling !== null && (
           <div style={{ marginTop: 20, paddingTop: 16, borderTop: `1px solid ${C.rule}` }}>
             <Label color={C.field}>{t.ceiling.signal}</Label>
             <div style={{ fontSize: 13.5, color: "#4A5240", marginTop: 8, lineHeight: 1.6, maxWidth: 620 }}>
@@ -71,6 +85,24 @@ function StudiedCeiling({ ceiling, t }) {
 }
 
 function WhatPeopleReport({ reports, t }) {
+  if (reports.pending) {
+    return (
+      <section style={{ marginBottom: 40 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 9, flexWrap: "wrap" }}>
+          <Label color={C.field}>{t.reports.title}</Label>
+          <span style={{ fontFamily: "'Jost', sans-serif", fontSize: 9.5, letterSpacing: "0.14em", textTransform: "uppercase", color: C.tabIdle, border: `1px solid ${C.chipBorder}`, borderRadius: 2, padding: "2px 6px" }}>{t.pending.badge}</span>
+        </div>
+        <div style={{ marginTop: 14, border: `1px dashed rgba(107,117,72,0.45)`, borderRadius: 3, background: "#FFF", padding: "26px 24px", maxWidth: 640 }}>
+          <div style={{ display: "flex", alignItems: "flex-end", gap: 3, height: 26, opacity: 0.3, marginBottom: 16 }}>
+            {[0.35, 0.5, 0.4, 0.6, 0.45, 0.3, 0.5, 0.38].map((h, i) => (
+              <div key={i} style={{ width: 9, height: `${h * 100}%`, background: C.fieldSoft }} />
+            ))}
+          </div>
+          <div style={{ fontSize: 14.5, color: "#22384A", lineHeight: 1.62 }}>{t.pending.community}</div>
+        </div>
+      </section>
+    );
+  }
   return (
     <section style={{ marginBottom: 40 }}>
       <Label color={C.field}>{t.reports.title}</Label>
@@ -111,7 +143,7 @@ function WhatPeopleReport({ reports, t }) {
   );
 }
 
-function Safety({ safety, t }) {
+function Safety({ safety, note, surveillance, t }) {
   const tones = {
     absolute: { c: C.warnText, b: C.warn },
     relative: { c: C.cautionText, b: C.caution },
@@ -120,6 +152,7 @@ function Safety({ safety, t }) {
   return (
     <section style={{ marginBottom: 40 }}>
       <Label color={C.ink}>{t.safety.title}</Label>
+      {note && <div style={{ fontSize: 13, color: C.tabIdle, marginTop: 8, maxWidth: 640, lineHeight: 1.55 }}>{note}</div>}
       {safety.length === 0 ? (
         <div style={{ marginTop: 14, border: `1px dashed ${C.muted}`, borderRadius: 3, padding: "28px 24px", background: "#FFF", fontSize: 15, lineHeight: 1.62, color: "#22384A", maxWidth: 620 }}>
           {t.safety.empty}
@@ -151,6 +184,12 @@ function Safety({ safety, t }) {
           })}
         </div>
       )}
+      {surveillance && (
+        <div style={{ marginTop: 20, padding: "16px 18px", background: "rgba(180,85,47,0.06)", border: `1px solid rgba(180,85,47,0.28)`, borderRadius: 4, maxWidth: 640 }}>
+          <Label color={C.warnText}>{t.safety.surveillance}</Label>
+          <div style={{ fontSize: 13.5, lineHeight: 1.6, color: "#5A4038", marginTop: 8 }}>{surveillance}</div>
+        </div>
+      )}
     </section>
   );
 }
@@ -172,6 +211,11 @@ export default function PeptideCard({ p, t }) {
             <div style={{ fontFamily: "'IBM Plex Serif', serif", fontStyle: "italic", color: C.muted, fontSize: 15 }}>{p.altName}</div>
           )}
           <p style={{ marginTop: 18, fontSize: 15.5, lineHeight: 1.62, maxWidth: 560, color: "#2C3D4C" }}>{p.summary}</p>
+          {p.levelNote && (
+            <div style={{ marginTop: 14, paddingLeft: 12, borderLeft: `2px solid ${C.ridge}`, fontSize: 13, color: C.tabIdle, lineHeight: 1.55, maxWidth: 540 }}>
+              {p.levelNote}
+            </div>
+          )}
         </div>
         <button
           className="ev-btn ev-levelbadge"
@@ -233,10 +277,13 @@ export default function PeptideCard({ p, t }) {
         <div style={{ marginTop: 14 }}>
           {p.claims.map((c, i) => (
             <div key={i} className="ev-claim" style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) 92px 130px", gap: 16, alignItems: "center", padding: "15px 0", borderTop: `1px solid ${C.rule}` }}>
-              <div style={{ fontSize: 15, lineHeight: 1.45, color: c.level === "NO_DATA" ? C.muted : "#22384A" }}>{c.text}</div>
+              <div style={{ minWidth: 0 }}>
+                <div style={{ fontSize: 15, lineHeight: 1.45, color: c.level === "NO_DATA" ? C.muted : "#22384A" }}>{c.text}</div>
+                {c.note && <div style={{ fontSize: 12.5, color: C.tabIdle, marginTop: 5, lineHeight: 1.55 }}>{c.note}</div>}
+              </div>
               <Ridges level={c.level} width={92} height={26} weight={1.2} />
               <div className="ev-claim-meta" style={{ textAlign: "right" }}>
-                <div style={{ fontFamily: "'Jost', sans-serif", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: c.level === "NO_DATA" ? C.muted : C.ink }}>
+                <div style={{ fontFamily: "'Jost', sans-serif", fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: c.level === "NOT_SHOWN" ? C.warnText : c.level === "NO_DATA" ? C.muted : C.ink }}>
                   {t.levels[c.level].label}
                 </div>
                 <div style={{ fontSize: 11.5, color: C.muted, marginTop: 2 }}>
@@ -280,7 +327,7 @@ export default function PeptideCard({ p, t }) {
         )}
       </section>
 
-      <Safety safety={p.safety} t={t} />
+      <Safety safety={p.safety} note={p.safetyNote} surveillance={p.surveillance} t={t} />
 
       <section>
         <Label color={C.ink}>{t.regulatory.title}</Label>
@@ -295,6 +342,9 @@ export default function PeptideCard({ p, t }) {
             );
           })}
         </div>
+        {p.regulatoryNote && (
+          <div style={{ fontSize: 13, color: C.tabIdle, marginTop: 6, lineHeight: 1.6, maxWidth: 640 }}>{p.regulatoryNote}</div>
+        )}
       </section>
     </>
   );
