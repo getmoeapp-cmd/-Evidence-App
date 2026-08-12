@@ -15,10 +15,11 @@ export function LevelKeyTrigger({ onClick, label }) {
         display: "inline-flex", alignItems: "center", gap: 8,
         fontFamily: "'Jost', sans-serif", fontSize: 12.5, letterSpacing: "0.12em",
         textTransform: "uppercase", fontWeight: 500,
-        padding: "7px 14px 7px 8px", borderRadius: 20, cursor: "pointer",
+        padding: "7px 8px 7px 14px", borderRadius: 20, cursor: "pointer",
         border: `1px solid ${C.ink}`, background: "rgba(30,63,95,0.07)", color: C.ink,
       }}
     >
+      {label}
       <span
         aria-hidden="true"
         style={{
@@ -30,7 +31,6 @@ export function LevelKeyTrigger({ onClick, label }) {
       >
         ?
       </span>
-      {label}
     </button>
   );
 }
