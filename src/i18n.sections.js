@@ -42,6 +42,7 @@ export const SECTIONS = {
       title: "Catálogo",
       intro: "Los compuestos que circulan en el mercado hispanohablante, con su nivel de evidencia.",
       allLevels: "Todos los niveles",
+      levelLabel: "Nivel",
       count: (n) => `${n} péptidos`,
     },
     goals: {
@@ -131,6 +132,7 @@ export const SECTIONS = {
       title: "Catalog",
       intro: "The compounds circulating in the market, with their evidence level.",
       allLevels: "All levels",
+      levelLabel: "Level",
       count: (n) => `${n} peptides`,
     },
     goals: {

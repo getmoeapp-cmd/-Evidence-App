@@ -12,6 +12,56 @@ const LEVEL_ORDER = ["A", "B", "C", "D", "NO_DATA"];
 // Normaliza acentos para que "epitalon" encuentre "Epitalón".
 const norm = (s) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 
+
+// Un selector nativo por filtro. En móvil abre la rueda de iOS: no esconde
+// opciones fuera de pantalla como hacía la fila deslizable.
+function Picker({ label, value, onChange, options, active }) {
+  return (
+    <label style={{ display: "block", minWidth: 0 }}>
+      <span
+        style={{
+          display: "block", fontFamily: "'Jost', sans-serif", fontSize: 9.5,
+          letterSpacing: "0.16em", textTransform: "uppercase",
+          color: C.tabIdle, marginBottom: 5, fontWeight: 500,
+        }}
+      >
+        {label}
+      </span>
+      <div style={{ position: "relative" }}>
+        <select
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="ev-input ev-picker"
+          style={{
+            width: "100%", appearance: "none", WebkitAppearance: "none",
+            padding: "12px 34px 12px 13px", borderRadius: 3, cursor: "pointer",
+            fontFamily: "'Jost', sans-serif", fontSize: 13, letterSpacing: "0.03em",
+            fontWeight: 500,
+            border: `1px solid ${active ? C.ink : C.chipBorder}`,
+            background: active ? C.ink : "#FFF",
+            color: active ? C.paper : C.inkDeep,
+          }}
+        >
+          {options.map((o) => (
+            <option key={o.value} value={o.value} style={{ background: "#FFF", color: C.inkDeep }}>
+              {o.label}
+            </option>
+          ))}
+        </select>
+        <span
+          aria-hidden="true"
+          style={{
+            position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)",
+            pointerEvents: "none", fontSize: 10, color: active ? C.paper : C.tabIdle, lineHeight: 1,
+          }}
+        >
+          ▾
+        </span>
+      </div>
+    </label>
+  );
+}
+
 export default function Peptides({ full, lang, t }) {
   const [openSlug, setOpenSlug] = useState(null);
   const [q, setQ] = useState("");
@@ -71,7 +121,7 @@ export default function Peptides({ full, lang, t }) {
 
       <div ref={anchorRef} style={{ scrollMarginTop: 12 }} />
 
-      <div className={searching ? "ev-searchbar ev-searchbar-on" : "ev-searchbar"} style={{ display: "flex", gap: 8, marginTop: searching ? 10 : 20, flexWrap: "wrap" }}>
+      <div className={searching ? "ev-searchbar ev-searchbar-on" : "ev-searchbar"} style={{ marginTop: searching ? 10 : 20 }}>
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
@@ -82,33 +132,25 @@ export default function Peptides({ full, lang, t }) {
           autoCorrect="off"
           spellCheck={false}
           className="ev-input"
-          style={{ flex: "1 1 240px", minWidth: 0, padding: "11px 13px", border: `1px solid ${C.rule}`, borderRadius: 2, background: "#FFF", fontSize: 15, color: C.inkDeep, fontFamily: "inherit" }}
+          style={{ width: "100%", padding: "13px 14px", border: `1px solid ${C.chipBorder}`, borderRadius: 3, background: "#FFF", fontSize: 16, color: C.inkDeep, fontFamily: "inherit" }}
         />
-        <select value={level} onChange={(e) => setLevel(e.target.value)} className="ev-input"
-          style={{ padding: "11px 13px", border: `1px solid ${C.rule}`, borderRadius: 2, background: "#FFF", fontSize: 14, color: C.inkDeep, fontFamily: "inherit", cursor: "pointer" }}>
-          <option value="all">{t.catalog.allLevels}</option>
-          {LEVEL_ORDER.map((l) => <option key={l} value={l}>{t.levels[l].label}</option>)}
-        </select>
-      </div>
 
-      <div className="ev-chiprow" style={{ display: "flex", gap: 6, marginTop: 12 }}>
-        {["all", ...FAMILY_ORDER].map((f) => (
-          <button
-            key={f}
-            className="ev-btn ev-chip"
-            onClick={() => setFamily(f)}
-            aria-pressed={family === f}
-            style={{
-              fontFamily: "'Jost', sans-serif", fontSize: 11.5, letterSpacing: "0.07em", textTransform: "uppercase",
-              padding: "8px 13px", borderRadius: 3, cursor: "pointer", fontWeight: 500,
-              border: `1px solid ${family === f ? C.ink : C.chipBorder}`,
-              background: family === f ? C.ink : "#FFFFFF",
-              color: family === f ? C.paper : C.tabIdle,
-            }}
-          >
-            {FAMILIES[lang][f]}
-          </button>
-        ))}
+        <div className="ev-filters" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginTop: 8 }}>
+          <Picker
+            label={t.families.label}
+            value={family}
+            onChange={setFamily}
+            active={family !== "all"}
+            options={["all", ...FAMILY_ORDER].map((f) => ({ value: f, label: FAMILIES[lang][f] }))}
+          />
+          <Picker
+            label={t.catalog.levelLabel}
+            value={level}
+            onChange={setLevel}
+            active={level !== "all"}
+            options={[{ value: "all", label: t.catalog.allLevels }, ...LEVEL_ORDER.map((l) => ({ value: l, label: t.levels[l].label }))]}
+          />
+        </div>
       </div>
 
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, marginTop: searching ? 14 : 20, flexWrap: "wrap" }}>

@@ -47,18 +47,11 @@ export default function App() {
         .ev-input { outline: none; }
         .ev-input:focus { border-color: ${C.ink} !important; }
 
-        /* Chips en una sola fila deslizable: recupera ~150 px de alto,
-           que es justo lo que el teclado se come en móvil. */
-        .ev-chiprow {
-          overflow-x: auto; overflow-y: hidden;
-          -webkit-overflow-scrolling: touch;
-          scrollbar-width: none;
-          padding-bottom: 2px;
-          scroll-snap-type: x proximity;
+        /* Los filtros van en una fila en escritorio, dos columnas en móvil */
+        @media (min-width: 721px) {
+          .ev-filters { grid-template-columns: 260px 200px !important; }
         }
-        .ev-chiprow::-webkit-scrollbar { display: none; }
-        .ev-chiprow > button { flex: 0 0 auto; scroll-snap-align: start; }
-        @media (min-width: 721px) { .ev-chiprow { flex-wrap: wrap; overflow: visible; } }
+        .ev-picker:focus { border-color: ${C.ink} !important; }
 
         /* Buscador pegajoso mientras se escribe */
         @media (max-width: 720px) {
