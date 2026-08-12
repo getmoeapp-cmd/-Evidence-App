@@ -24,9 +24,12 @@ export const SECTIONS = {
     goals: {
       title: "Por objetivo",
       intro:
-        "Elige lo que buscas y mira qué respalda a cada candidato. La barra de la derecha es el nivel de evidencia, no una recomendación.",
+        "Un compuesto aparece aquí porque eso es lo que la gente busca cuando lo usa — no porque esté demostrado que funcione para eso. La cresta al lado de cada nombre responde esa segunda pregunta.",
       candidates: (n) => `${n} candidatos`,
       empty: "Todavía no hay compuestos catalogados para este objetivo.",
+      blend: "Mezcla",
+      footnote:
+        "Dentro de cada objetivo, los candidatos van ordenados por nivel de evidencia: primero lo mejor respaldado. Un compuesto puede aparecer en varios objetivos.",
     },
     verify: {
       title: "Verificar",
@@ -87,9 +90,12 @@ export const SECTIONS = {
     goals: {
       title: "By goal",
       intro:
-        "Pick what you're after and see what backs each candidate. The bar on the right is the evidence level, not a recommendation.",
+        "A compound appears here because that's what people are after when they use it — not because it's proven to work for that. The ridge meter beside each name answers that second question.",
       candidates: (n) => `${n} candidates`,
       empty: "No compounds catalogued for this goal yet.",
+      blend: "Blend",
+      footnote:
+        "Within each goal, candidates are ordered by evidence level — best supported first. A compound can appear under more than one goal.",
     },
     verify: {
       title: "Verify",

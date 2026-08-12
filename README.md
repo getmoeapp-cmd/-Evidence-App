@@ -136,3 +136,21 @@ seleccionar, y lo leen los lectores de pantalla. Acepta `size` y
 
 Si más adelante consigues el logo en SVG, cambia el `<img>` de `Logo.jsx` por
 el vector y borra los PNG excepto los iconos.
+
+## Objetivos
+
+`src/data/goals.js` — diez objetivos, con los 27 compuestos repartidos. Un
+compuesto puede estar en varios (BPC-157 aparece en recuperación e intestino;
+GHK-Cu en recuperación, piel y longevidad).
+
+**Qué significa la asignación:** un compuesto está bajo un objetivo porque eso
+es lo que la gente busca cuando lo usa. No es una afirmación de eficacia. El
+nivel de evidencia va al lado de cada nombre y es lo que responde esa pregunta.
+
+Dentro de cada objetivo el orden es por nivel: primero lo mejor respaldado. Eso
+hace que la lista de "Pérdida de grasa" abra con tres compuestos de nivel A, y
+que la de "Longevidad" abra con nivel B y termine en sin datos. La estructura
+cuenta la historia sin que haya que escribirla.
+
+Editar un objetivo es una línea en `GOAL_MAP`; los nombres y las descripciones
+están en `GOAL_LABELS`, por idioma.

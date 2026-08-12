@@ -4,7 +4,6 @@ import { UI } from "./i18n.js";
 import { SECTIONS } from "./i18n.sections.js";
 import { PEPTIDOS_ES } from "./data/es.js";
 import { PEPTIDES_EN } from "./data/en.js";
-import { GOALS } from "./data/goals.js";
 
 import Peptides from "./sections/Peptides.jsx";
 import ByGoal from "./sections/ByGoal.jsx";
@@ -28,7 +27,6 @@ export default function App() {
 
   const t = { ...UI[lang], ...SECTIONS[lang] };
   const list = DATA[lang];
-  const goals = GOALS[lang];
 
   return (
     <div style={{ background: C.paper, minHeight: "100vh", color: C.inkDeep }}>
@@ -123,7 +121,7 @@ export default function App() {
 
         <main>
           {tab === "peptides" && <Peptides full={list} lang={lang} t={t} />}
-          {tab === "goals" && <ByGoal goals={goals} list={list} t={t} />}
+          {tab === "goals" && <ByGoal full={list} lang={lang} t={t} />}
           {tab === "verify" && <Verify t={t} />}
           {tab === "report" && <Report list={list} t={t} />}
         </main>
