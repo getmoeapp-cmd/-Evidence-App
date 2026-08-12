@@ -46,6 +46,29 @@ export default function App() {
         .ev-chip[aria-pressed="true"]:hover { color: ${C.paper} !important; }
         .ev-input { outline: none; }
         .ev-input:focus { border-color: ${C.ink} !important; }
+
+        /* Chips en una sola fila deslizable: recupera ~150 px de alto,
+           que es justo lo que el teclado se come en móvil. */
+        .ev-chiprow {
+          overflow-x: auto; overflow-y: hidden;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          padding-bottom: 2px;
+          scroll-snap-type: x proximity;
+        }
+        .ev-chiprow::-webkit-scrollbar { display: none; }
+        .ev-chiprow > button { flex: 0 0 auto; scroll-snap-align: start; }
+        @media (min-width: 721px) { .ev-chiprow { flex-wrap: wrap; overflow: visible; } }
+
+        /* Buscador pegajoso mientras se escribe */
+        @media (max-width: 720px) {
+          .ev-searchbar-on {
+            position: sticky; top: 0; z-index: 20;
+            background: ${C.paper};
+            padding: 8px 0 10px;
+            box-shadow: 0 6px 14px -8px rgba(18,40,61,0.30);
+          }
+        }
         .ev-shell { max-width: 1080px; margin: 0 auto; padding: 0 20px 40px; }
         @media (max-width: 720px) { .ev-shell { padding-bottom: 110px; } }
 

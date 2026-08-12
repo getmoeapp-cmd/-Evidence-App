@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import { C } from "../theme.js";
 import Ridges from "../components/Ridges.jsx";
 import Label from "../components/Label.jsx";
@@ -18,6 +18,16 @@ export default function Peptides({ full, lang, t }) {
   const [level, setLevel] = useState("all");
   const [family, setFamily] = useState("all");
   const [keyOpen, setKeyOpen] = useState(false);
+  const searching = q.trim().length > 0;
+  const anchorRef = useRef(null);
+
+  // Al enfocar el buscador, subir el campo al borde superior para que el
+  // teclado no tape los resultados. El retraso espera a que el teclado suba.
+  const liftToTop = () => {
+    setTimeout(() => {
+      anchorRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 320);
+  };
 
   const rows = useMemo(() => {
     const needle = norm(q.trim());
@@ -55,14 +65,22 @@ export default function Peptides({ full, lang, t }) {
   return (
     <>
       <Label color={C.ink}>{t.catalog.title}</Label>
-      <div style={{ fontSize: 13, color: C.muted, marginTop: 6, maxWidth: 620, lineHeight: 1.5 }}>{t.catalog.intro}</div>
+      {!searching && (
+        <div style={{ fontSize: 13, color: C.muted, marginTop: 6, maxWidth: 620, lineHeight: 1.5 }}>{t.catalog.intro}</div>
+      )}
 
-      <div style={{ display: "flex", gap: 8, marginTop: 20, flexWrap: "wrap" }}>
+      <div ref={anchorRef} style={{ scrollMarginTop: 12 }} />
+
+      <div className={searching ? "ev-searchbar ev-searchbar-on" : "ev-searchbar"} style={{ display: "flex", gap: 8, marginTop: searching ? 10 : 20, flexWrap: "wrap" }}>
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder={t.search.placeholder}
           type="search"
+          onFocus={liftToTop}
+          autoComplete="off"
+          autoCorrect="off"
+          spellCheck={false}
           className="ev-input"
           style={{ flex: "1 1 240px", minWidth: 0, padding: "11px 13px", border: `1px solid ${C.rule}`, borderRadius: 2, background: "#FFF", fontSize: 15, color: C.inkDeep, fontFamily: "inherit" }}
         />
@@ -73,7 +91,7 @@ export default function Peptides({ full, lang, t }) {
         </select>
       </div>
 
-      <div style={{ display: "flex", gap: 5, marginTop: 12, flexWrap: "wrap" }}>
+      <div className="ev-chiprow" style={{ display: "flex", gap: 6, marginTop: 12 }}>
         {["all", ...FAMILY_ORDER].map((f) => (
           <button
             key={f}
@@ -93,7 +111,7 @@ export default function Peptides({ full, lang, t }) {
         ))}
       </div>
 
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, marginTop: 20, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, marginTop: searching ? 14 : 20, flexWrap: "wrap" }}>
         <div style={{ fontSize: 12, color: C.tabIdle }}>{t.catalog.count(rows.length)}</div>
         <LevelKeyTrigger onClick={() => setKeyOpen(true)} label={t.levelKey.trigger} />
       </div>
