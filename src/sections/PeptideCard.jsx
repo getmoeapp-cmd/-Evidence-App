@@ -32,6 +32,11 @@ function StudiedCeiling({ ceiling, t }) {
               </div>
               <div style={{ fontSize: 15, color: C.muted }}>{ceiling.frequency} · {ceiling.indication}</div>
             </div>
+            {ceiling.altNote && (
+              <div style={{ fontSize: 13, color: C.tabIdle, marginTop: 12, lineHeight: 1.6, maxWidth: 560, paddingLeft: 12, borderLeft: `2px solid ${C.rule}` }}>
+                {ceiling.altNote}
+              </div>
+            )}
             <div style={{ marginTop: 26 }}>
               <Label>{t.ceiling.howReached}</Label>
               <div style={{ display: "flex", alignItems: "flex-end", gap: 6, marginTop: 12, height: 74 }}>
