@@ -1,7 +1,7 @@
 // Cadenas de las secciones de navegación. Se fusionan con UI en App.jsx.
 export const SECTIONS = {
   es: {
-    nav: { peptides: "Péptidos", goals: "Por objetivo", verify: "Verificar", track: "Registro" },
+    nav: { peptides: "Péptidos", goals: "Aprende", verify: "Verifica", track: "Registra" },
     track: {
       title: "Tu registro",
       intro: "Anota lo que te aplicas y cómo te sientes. Al lado de cada entrada verás la dosis más alta que se ha estudiado en un ensayo publicado.",
@@ -85,7 +85,7 @@ export const SECTIONS = {
       count: (n) => `${n} péptidos`,
     },
     goals: {
-      title: "Por objetivo",
+      title: "Aprende por objetivo",
       intro:
         "Un compuesto aparece aquí porque eso es lo que la gente busca cuando lo usa — no porque esté demostrado que funcione para eso. La cresta al lado de cada nombre responde esa segunda pregunta.",
       candidates: (n) => `${n} candidatos`,
@@ -154,7 +154,7 @@ export const SECTIONS = {
     },
   },
   en: {
-    nav: { peptides: "Peptides", goals: "By goal", verify: "Verify", track: "Track" },
+    nav: { peptides: "Peptides", goals: "Learn", verify: "Verify", track: "Track" },
     track: {
       title: "Your log",
       intro: "Record what you take and how you feel. Beside each entry you'll see the highest dose ever studied in a published trial.",
@@ -238,7 +238,7 @@ export const SECTIONS = {
       count: (n) => `${n} peptides`,
     },
     goals: {
-      title: "By goal",
+      title: "Learn by goal",
       intro:
         "A compound appears here because that's what people are after when they use it — not because it's proven to work for that. The ridge meter beside each name answers that second question.",
       candidates: (n) => `${n} candidates`,

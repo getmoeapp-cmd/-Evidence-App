@@ -137,7 +137,15 @@ export default function App() {
       <div className="ev-shell">
         <header style={{ paddingTop: 26, paddingBottom: 18, paddingRight: 96 }}>
           <Logo size={30} />
-          <div style={{ fontSize: 12.5, color: C.muted, marginTop: 8, maxWidth: 440, lineHeight: 1.55 }}>{t.tagline}</div>
+          <div style={{ fontSize: 13, color: C.muted, marginTop: 8, maxWidth: 440, lineHeight: 1.6 }}>
+            {t.taglineParts.map(([verb, rest], i) => (
+              <span key={i}>
+                <span style={{ color: C.inkDeep, fontWeight: 600 }}>{verb}</span>
+                {rest}
+                {i < t.taglineParts.length - 1 ? " " : ""}
+              </span>
+            ))}
+          </div>
         </header>
 
         <nav className="ev-tabs" role="tablist">

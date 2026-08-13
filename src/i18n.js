@@ -3,6 +3,11 @@ export const UI = {
   es: {
     tagline: "Aprende lo que se sabe. Verifica lo que compras. Registra lo que haces.",
     taglineShort: "Aprende. Verifica. Registra.",
+    taglineParts: [
+      ["Aprende", " lo que se sabe."],
+      ["Verifica", " lo que compras."],
+      ["Registra", " lo que haces."],
+    ],
     levels: {
       A: { label: "Nivel A", gloss: "Ensayo aleatorizado en humanos o metaanálisis" },
       B: { label: "Nivel B", gloss: "Estudio en humanos, no aleatorizado" },
@@ -73,6 +78,11 @@ export const UI = {
   en: {
     tagline: "Learn what's known. Verify what you buy. Track what you do.",
     taglineShort: "Learn. Verify. Track.",
+    taglineParts: [
+      ["Learn", " what's known."],
+      ["Verify", " what you buy."],
+      ["Track", " what you do."],
+    ],
     levels: {
       A: { label: "Level A", gloss: "Randomized human trial or meta-analysis" },
       B: { label: "Level B", gloss: "Human study, not randomized" },
