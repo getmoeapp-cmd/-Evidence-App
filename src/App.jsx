@@ -140,7 +140,7 @@ export default function App() {
           <div style={{ fontSize: 13, color: C.muted, marginTop: 8, maxWidth: 440, lineHeight: 1.6 }}>
             {t.taglineParts.map(([verb, rest], i) => (
               <span key={i}>
-                <span style={{ color: C.inkDeep, fontWeight: 600 }}>{verb}</span>
+                <span style={{ color: C.ink, fontWeight: 600 }}>{verb}</span>
                 {rest}
                 {i < t.taglineParts.length - 1 ? " " : ""}
               </span>
