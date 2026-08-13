@@ -1,7 +1,8 @@
 // Cadenas de interfaz. El contenido de cada péptido vive en src/data/.
 export const UI = {
   es: {
-    tagline: "No te decimos qué tomar. Te mostramos qué dice la evidencia.",
+    tagline: "Aprende lo que se sabe. Verifica lo que compras. Registra lo que haces.",
+    taglineShort: "Aprende. Verifica. Registra.",
     levels: {
       A: { label: "Nivel A", gloss: "Ensayo aleatorizado en humanos o metaanálisis" },
       B: { label: "Nivel B", gloss: "Estudio en humanos, no aleatorizado" },
@@ -70,7 +71,8 @@ export const UI = {
   },
 
   en: {
-    tagline: "We don't tell you what to take. We show you what the evidence says.",
+    tagline: "Learn what's known. Verify what you buy. Track what you do.",
+    taglineShort: "Learn. Verify. Track.",
     levels: {
       A: { label: "Level A", gloss: "Randomized human trial or meta-analysis" },
       B: { label: "Level B", gloss: "Human study, not randomized" },

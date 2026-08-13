@@ -11,11 +11,31 @@ export default function Track({ full, lang, t }) {
   const [entries, setEntries] = useState([]);
   const [form, setForm] = useState({ slug: "", dose: "", freq: "week", date: today(), notes: "", adverse: false });
   const [confirmWipe, setConfirmWipe] = useState(false);
+  const [open, setOpen] = useState(null);
   const k = t.track;
 
   useEffect(() => { setEntries(load()); }, []);
 
-  const byDate = useMemo(() => [...entries].sort((a, b) => b.date.localeCompare(a.date)), [entries]);
+  // Agrupado por compuesto: una lista plana se vuelve ilegible a las pocas semanas.
+  const groups = useMemo(() => {
+    const m = new Map();
+    for (const e of entries) {
+      if (!m.has(e.slug)) m.set(e.slug, []);
+      m.get(e.slug).push(e);
+    }
+    return [...m.entries()]
+      .map(([slug, list]) => {
+        const sorted = [...list].sort((a, b) => b.date.localeCompare(a.date));
+        const doses = [...list].sort((a, b) => a.date.localeCompare(b.date)).map((x) => parseFloat(String(x.dose).replace(",", "."))).filter(isFinite);
+        return {
+          slug, list: sorted, latest: sorted[0],
+          first: sorted[sorted.length - 1].date, last: sorted[0].date,
+          n: list.length, adverse: list.filter((x) => x.adverse).length,
+          doses, peak: doses.length ? Math.max(...doses) : 0,
+        };
+      })
+      .sort((a, b) => b.last.localeCompare(a.last));
+  }, [entries]);
   const record = form.slug ? full.find((p) => p.slug === form.slug) : null;
   const ceiling = record ? ceilingOf(record, lang) : null;
   const preview = form.slug && form.dose ? compare(form, ceiling) : null;
@@ -154,46 +174,104 @@ export default function Track({ full, lang, t }) {
           )}
         </div>
 
-        {byDate.length === 0 ? (
+        {groups.length === 0 ? (
           <div style={{ marginTop: 16, padding: "30px 24px", border: `1px dashed ${C.chipBorder}`, borderRadius: 3, background: "#FFF", fontSize: 14.5, color: "#4A5560", lineHeight: 1.62, maxWidth: 640 }}>
             {k.empty}
           </div>
         ) : (
           <div style={{ marginTop: 14 }}>
-            {byDate.map((e) => {
-              const rec = full.find((p) => p.slug === e.slug);
-              const cmp = compare(e, ceilingOf(rec, lang));
-              const cat = CATALOG.find((c) => c.slug === e.slug);
-              return (
-                <div key={e.id} style={{ borderTop: `1px solid ${C.rule}`, padding: "16px 0" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "baseline", flexWrap: "wrap" }}>
-                    <div style={{ fontFamily: "'Jost', sans-serif", fontSize: 17, color: C.inkDeep }}>
-                      {cat?.name || e.slug}
-                      <span style={{ color: C.tabIdle, fontSize: 14, marginLeft: 10 }}>
-                        {e.dose} mg · {FREQ.find((f) => f.id === e.freq)?.[lang]}
-                      </span>
-                    </div>
-                    <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                      <span style={{ fontSize: 12.5, color: C.muted }}>{e.date}</span>
-                      <button className="ev-btn" onClick={() => remove(e.id)} aria-label={k.delete}
-                        style={{ border: "none", background: "transparent", color: C.muted, cursor: "pointer", fontSize: 16, lineHeight: 1, padding: 2 }}>×</button>
-                    </div>
-                  </div>
+            {groups.map((g) => {
+              const rec = full.find((p) => p.slug === g.slug);
+              const ceil = ceilingOf(rec, lang);
+              const cat = CATALOG.find((c) => c.slug === g.slug);
+              const isOpen = open === g.slug;
+              const peakCmp = compare({ dose: g.peak, freq: g.latest.freq }, ceil);
+              const scale = Math.max(g.peak, ceil && peakCmp.kind !== "freq_mismatch" ? ceil.value : 0) || 1;
 
-                  {cmp.kind === "above" && (
-                    <div style={{ marginTop: 8, fontSize: 13, color: C.warnText, lineHeight: 1.55 }}>
-                      {k.aboveShort(cmp.ceiling.label, cmp.ceiling.frequency)}
+              return (
+                <div key={g.slug} style={{ borderTop: `1px solid ${C.rule}` }}>
+                  <button
+                    className="ev-btn ev-row"
+                    onClick={() => setOpen(isOpen ? null : g.slug)}
+                    aria-expanded={isOpen}
+                    style={{ width: "100%", textAlign: "left", background: "transparent", border: "none", padding: "17px 6px", cursor: "pointer", fontFamily: "inherit" }}
+                  >
+                    <div style={{ display: "flex", justifyContent: "space-between", gap: 12, alignItems: "baseline", flexWrap: "wrap" }}>
+                      <div style={{ fontFamily: "'Jost', sans-serif", fontSize: 18, color: C.inkDeep }}>
+                        {cat?.name || g.slug}
+                        {g.adverse > 0 && (
+                          <span style={{ marginLeft: 10, fontFamily: "'Jost', sans-serif", fontSize: 9.5, letterSpacing: "0.13em",
+                            textTransform: "uppercase", color: C.warnText, border: `1px solid rgba(180,85,47,0.4)`, borderRadius: 2, padding: "2px 6px" }}>
+                            {g.adverse}
+                          </span>
+                        )}
+                      </div>
+                      <span style={{ fontSize: 12.5, color: C.muted }}>{isOpen ? "−" : "+"}</span>
                     </div>
-                  )}
-                  {e.adverse && (
-                    <div style={{ marginTop: 8, display: "inline-block", fontFamily: "'Jost', sans-serif", fontSize: 9.5,
-                      letterSpacing: "0.14em", textTransform: "uppercase", color: C.warnText,
-                      border: `1px solid rgba(180,85,47,0.4)`, borderRadius: 2, padding: "3px 7px" }}>
-                      {k.adverseTag}
+                    <div style={{ fontSize: 13, color: C.tabIdle, marginTop: 5 }}>
+                      {k.groupSummary(g.n, g.latest.dose, FREQ.find((f) => f.id === g.latest.freq)?.[lang])}
+                      {g.n > 1 && <span style={{ color: C.muted }}> · {g.first} → {g.last}</span>}
                     </div>
-                  )}
-                  {e.notes && (
-                    <div style={{ marginTop: 8, fontSize: 14, color: "#2C3D4C", lineHeight: 1.6, whiteSpace: "pre-wrap" }}>{e.notes}</div>
+
+                    {/* Trayectoria de dosis: la forma de la escalada de un vistazo */}
+                    {g.doses.length > 1 && (
+                      <div style={{ marginTop: 11, position: "relative", height: 30 }}>
+                        <div style={{ display: "flex", alignItems: "flex-end", gap: 3, height: 30 }}>
+                          {g.doses.map((d, i) => (
+                            <div key={i} title={String(d)} style={{
+                              flex: 1, maxWidth: 20, height: `${Math.max(8, (d / scale) * 100)}%`,
+                              background: ceil && peakCmp.kind !== "freq_mismatch" && d > ceil.value ? C.warn : C.ridge,
+                              opacity: 0.55 + (i / g.doses.length) * 0.45, borderRadius: "2px 2px 0 0",
+                            }} />
+                          ))}
+                        </div>
+                        {ceil && peakCmp.kind !== "freq_mismatch" && ceil.value <= scale && (
+                          <div title={ceil.label} style={{
+                            position: "absolute", left: 0, right: 0, bottom: `${(ceil.value / scale) * 100}%`,
+                            borderTop: `1px dashed ${C.warn}`, opacity: 0.75,
+                          }} />
+                        )}
+                      </div>
+                    )}
+                    {ceil && peakCmp.kind === "above" && (
+                      <div style={{ fontSize: 12, color: C.warnText, marginTop: 7, lineHeight: 1.5 }}>
+                        {k.peakAbove(ceil.label, ceil.frequency)}
+                      </div>
+                    )}
+                  </button>
+
+                  {isOpen && (
+                    <div style={{ paddingBottom: 14 }}>
+                      {g.list.map((e) => {
+                        const cmp = compare(e, ceil);
+                        return (
+                          <div key={e.id} style={{ borderTop: `1px solid ${C.paperDeep}`, padding: "12px 6px 12px 18px", display: "grid", gridTemplateColumns: "minmax(0,1fr) auto", gap: 10 }}>
+                            <div style={{ minWidth: 0 }}>
+                              <div style={{ display: "flex", gap: 10, alignItems: "baseline", flexWrap: "wrap" }}>
+                                <span style={{ fontFamily: "'Jost', sans-serif", fontSize: 15, color: cmp.kind === "above" ? C.warnText : C.inkDeep }}>
+                                  {e.dose} mg
+                                </span>
+                                <span style={{ fontSize: 12.5, color: C.muted }}>{FREQ.find((f) => f.id === e.freq)?.[lang]} · {e.date}</span>
+                                {e.adverse && (
+                                  <span style={{ fontFamily: "'Jost', sans-serif", fontSize: 9, letterSpacing: "0.13em", textTransform: "uppercase",
+                                    color: C.warnText, border: `1px solid rgba(180,85,47,0.4)`, borderRadius: 2, padding: "2px 6px" }}>
+                                    {k.adverseTag}
+                                  </span>
+                                )}
+                              </div>
+                              {e.notes && <div style={{ fontSize: 13.5, color: "#2C3D4C", marginTop: 6, lineHeight: 1.6, whiteSpace: "pre-wrap" }}>{e.notes}</div>}
+                            </div>
+                            <button className="ev-btn" onClick={() => remove(e.id)} aria-label={k.delete}
+                              style={{ border: "none", background: "transparent", color: C.muted, cursor: "pointer", fontSize: 15, lineHeight: 1, padding: 2, alignSelf: "start" }}>×</button>
+                          </div>
+                        );
+                      })}
+                      {ceil && (
+                        <div style={{ fontSize: 12.5, color: C.tabIdle, padding: "12px 6px 0 18px", lineHeight: 1.55, borderTop: `1px solid ${C.paperDeep}` }}>
+                          {k.ceilingRef(ceil.label, ceil.frequency)}
+                        </div>
+                      )}
+                    </div>
                   )}
                 </div>
               );

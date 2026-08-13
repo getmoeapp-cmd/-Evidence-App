@@ -29,6 +29,9 @@ export const SECTIONS = {
       freqMismatch: (d, f) => `El techo publicado es ${d} ${f}, con otra frecuencia que la tuya. No son cifras comparables directamente.`,
       noCeiling: "Este compuesto no tiene techo estudiado: ningún ensayo en humanos ha establecido una dosis. No hay con qué comparar tu número.",
       aboveShort: (d, f) => `Por encima del techo estudiado (${d} ${f})`,
+      groupSummary: (n, dose, freq) => `${n} ${n === 1 ? "entrada" : "entradas"} · última: ${dose} mg ${freq}`,
+      peakAbove: (d, f) => `Tu dosis más alta supera el techo estudiado (${d} ${f}) — la línea punteada.`,
+      ceilingRef: (d, f) => `Referencia: la dosis más alta administrada en un ensayo publicado es ${d} ${f}.`,
     },
     levelKey: {
       trigger: "Niveles",
@@ -179,6 +182,9 @@ export const SECTIONS = {
       freqMismatch: (d, f) => `The published ceiling is ${d} ${f}, on a different frequency from yours. These aren't directly comparable figures.`,
       noCeiling: "This compound has no studied ceiling: no human trial has established a dose. There is nothing to compare your number against.",
       aboveShort: (d, f) => `Above the studied ceiling (${d} ${f})`,
+      groupSummary: (n, dose, freq) => `${n} ${n === 1 ? "entry" : "entries"} · latest: ${dose} mg ${freq}`,
+      peakAbove: (d, f) => `Your highest dose is above the studied ceiling (${d} ${f}) — the dashed line.`,
+      ceilingRef: (d, f) => `For reference: the highest dose given in a published trial is ${d} ${f}.`,
     },
     levelKey: {
       trigger: "Levels",

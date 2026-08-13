@@ -330,3 +330,25 @@ justamente lo que un médico necesita — fechas y dosis en orden.
 
 `Exportar` descarga el JSON. `Borrar todo` pide confirmación con un segundo
 toque y limpia la clave de localStorage.
+
+### Historial agrupado
+
+El historial se agrupa por compuesto, no por fecha. Una lista plana se vuelve
+ilegible a las pocas semanas, que es justo cuando el registro empieza a servir.
+
+Cada grupo muestra en la cabecera: nombre, número de entradas, última dosis,
+rango de fechas, y un contador rojo si hay efectos adversos marcados. Se
+despliega al tocarlo.
+
+**La trayectoria de dosis** es la parte que la agrupación hace posible: una
+barra por entrada, en orden cronológico, con la opacidad subiendo hacia la más
+reciente. Las barras por encima del techo se pintan en rojo, y una línea
+punteada marca dónde está ese techo.
+
+Eso convierte el registro en algo que la lista plana no podía enseñar: **la
+forma de la escalada**. Se ve de un vistazo si alguien subió por pasos o pegó
+un salto — y en esta clase de compuestos el salto importa tanto como el pico.
+
+La línea del techo solo se dibuja cuando la frecuencia coincide (`compare()`
+devuelve `freq_mismatch` si no), por la misma razón de siempre: 12 mg
+semanales y 12 mg diarios no son la misma cifra.

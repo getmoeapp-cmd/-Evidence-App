@@ -137,7 +137,7 @@ export default function App() {
       <div className="ev-shell">
         <header style={{ paddingTop: 26, paddingBottom: 18, paddingRight: 96 }}>
           <Logo size={30} />
-          <div style={{ fontSize: 12.5, color: C.muted, marginTop: 7, maxWidth: 420, lineHeight: 1.5 }}>{t.tagline}</div>
+          <div style={{ fontSize: 12.5, color: C.muted, marginTop: 8, maxWidth: 440, lineHeight: 1.55 }}>{t.tagline}</div>
         </header>
 
         <nav className="ev-tabs" role="tablist">
