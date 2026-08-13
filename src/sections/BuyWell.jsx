@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import { C } from "../theme.js";
 import Label from "../components/Label.jsx";
-import { COA, GATES, CRITERIA, ASKS, verdict } from "../data/buywell.js";
+import { COA, GATES, CRITERIA, ASKS, verdict, EXAMPLE, FRAUD, LOTCHECK } from "../data/buywell.js";
 
 function Check({ on, onToggle, label, weight, gate }) {
   return (
@@ -40,9 +40,150 @@ function Check({ on, onToggle, label, weight, gate }) {
   );
 }
 
+
+/* --- COA de ejemplo, anotado ---------------------------------------- */
+function ExampleCOA({ lang }) {
+  const e = EXAMPLE[lang];
+  return (
+    <section style={{ marginTop: 40 }}>
+      <Label color={C.ink}>{e.title}</Label>
+      <p style={{ fontSize: 14.5, lineHeight: 1.6, color: "#2C3D4C", maxWidth: 620 }}>{e.intro}</p>
+
+      <div style={{ marginTop: 16, display: "grid", gridTemplateColumns: "minmax(280px,1fr) minmax(260px,1fr)", gap: 20 }} className="ev-coaex">
+        {/* el documento */}
+        <div style={{ border: `1px solid ${C.ink}`, borderRadius: 3, background: "#FFF", padding: "22px 20px", position: "relative" }}>
+          <div style={{ position: "absolute", top: 10, right: 12, fontFamily: "'Jost', sans-serif", fontSize: 8.5, letterSpacing: "0.14em", textTransform: "uppercase", color: C.warnText, border: `1px solid rgba(180,85,47,0.4)`, borderRadius: 2, padding: "3px 6px" }}>
+            {e.fake}
+          </div>
+          <div style={{ fontFamily: "'Jost', sans-serif", fontSize: 13, letterSpacing: "0.18em", color: C.ink, textAlign: "center", paddingTop: 6, paddingBottom: 14, borderBottom: `1px solid ${C.rule}` }}>
+            {e.docTitle}
+          </div>
+          {EXAMPLE.ref.map((f) => (
+            <div key={f.n} style={{ display: "grid", gridTemplateColumns: "20px minmax(0,1fr) auto", gap: 10, alignItems: "baseline", padding: "9px 0", borderBottom: `1px solid ${C.paperDeep}` }}>
+              <span style={{ fontFamily: "'Jost', sans-serif", fontSize: 9.5, width: 16, height: 16, borderRadius: "50%", background: C.ink, color: C.paper, textAlign: "center", lineHeight: "16px" }}>{f.n}</span>
+              <span style={{ fontSize: 12.5, color: C.tabIdle }}>{f.k}</span>
+              <span style={{ fontFamily: "'IBM Plex Serif', serif", fontSize: 13.5, color: C.inkDeep }}>{f.v}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* las notas */}
+        <div>
+          {e.notes.map((n, i) => (
+            <div key={i} style={{ display: "grid", gridTemplateColumns: "20px minmax(0,1fr)", gap: 10, padding: "9px 0", borderBottom: `1px solid ${C.rule}` }}>
+              <span style={{ fontFamily: "'Jost', sans-serif", fontSize: 9.5, width: 16, height: 16, borderRadius: "50%", border: `1px solid ${C.ink}`, color: C.ink, textAlign: "center", lineHeight: "15px" }}>{i + 1}</span>
+              <span style={{ fontSize: 13, color: "#4A5560", lineHeight: 1.5 }}>{n}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* --- Comparación de lote + mensaje al laboratorio -------------------- */
+function LotTool({ lang, state }) {
+  const L = LOTCHECK[lang];
+  const { coaLot, setCoaLot, vialLot, setVialLot, rep, setRep, prod, setProd, copied, setCopied } = state;
+  const norm = (x) => x.replace(/[\s-]/g, "").toLowerCase();
+  const match = coaLot.trim() && vialLot.trim() ? norm(coaLot) === norm(vialLot) : null;
+  const msg = L.tpl(rep.trim(), coaLot.trim(), prod.trim());
+
+  const input = (v, set, ph) => (
+    <input value={v} onChange={(ev) => set(ev.target.value)} placeholder={ph} className="ev-input"
+      style={{ width: "100%", padding: "12px 14px", border: `1px solid ${C.chipBorder}`, borderRadius: 3, background: "#FFF", fontSize: 16, color: C.inkDeep, fontFamily: "inherit" }} />
+  );
+
+  return (
+    <section style={{ marginTop: 40 }}>
+      <Label color={C.ink}>{L.title}</Label>
+      <p style={{ fontSize: 14.5, lineHeight: 1.6, color: "#2C3D4C", maxWidth: 620 }}>{L.intro}</p>
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 12, maxWidth: 640 }}>
+        <label style={{ display: "block" }}>
+          <span style={{ display: "block", fontFamily: "'Jost', sans-serif", fontSize: 9.5, letterSpacing: "0.16em", textTransform: "uppercase", color: C.tabIdle, marginBottom: 6 }}>{L.coaLot}</span>
+          {input(coaLot, setCoaLot, "LOT 2406-118")}
+        </label>
+        <label style={{ display: "block" }}>
+          <span style={{ display: "block", fontFamily: "'Jost', sans-serif", fontSize: 9.5, letterSpacing: "0.16em", textTransform: "uppercase", color: C.tabIdle, marginBottom: 6 }}>{L.vialLot}</span>
+          {input(vialLot, setVialLot, "LOT …")}
+        </label>
+      </div>
+
+      {match !== null && (
+        <div style={{ marginTop: 14, padding: "14px 17px", borderRadius: 4, maxWidth: 640, fontSize: 14.5, lineHeight: 1.6,
+          border: `1px solid ${match ? "rgba(62,107,74,0.42)" : "rgba(180,85,47,0.42)"}`,
+          background: match ? "rgba(62,107,74,0.08)" : "rgba(180,85,47,0.07)",
+          color: match ? "#3E6B4A" : C.warnText }}>
+          {match ? L.ok : L.bad}
+        </div>
+      )}
+
+      <div style={{ marginTop: 28, padding: "20px 22px", background: "rgba(30,63,95,0.055)", border: `1px solid ${C.rule}`, borderRadius: 4, maxWidth: 660 }}>
+        <Label color={C.ink}>{L.emailTitle}</Label>
+        <p style={{ fontSize: 14, lineHeight: 1.6, color: "#22384A", marginTop: 8 }}>{L.emailIntro}</p>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(190px,1fr))", gap: 10 }}>
+          <label style={{ display: "block" }}>
+            <span style={{ display: "block", fontFamily: "'Jost', sans-serif", fontSize: 9.5, letterSpacing: "0.16em", textTransform: "uppercase", color: C.tabIdle, marginBottom: 6 }}>{L.reportLabel}</span>
+            {input(rep, setRep, "A-10293")}
+          </label>
+          <label style={{ display: "block" }}>
+            <span style={{ display: "block", fontFamily: "'Jost', sans-serif", fontSize: 9.5, letterSpacing: "0.16em", textTransform: "uppercase", color: C.tabIdle, marginBottom: 6 }}>{L.productLabel}</span>
+            {input(prod, setProd, "BPC-157")}
+          </label>
+        </div>
+        <div style={{ marginTop: 14, padding: "14px 16px", background: "#FFF", border: `1px solid ${C.rule}`, borderRadius: 3, fontFamily: "'IBM Plex Serif', serif", fontSize: 13.5, lineHeight: 1.65, color: "#2C3D4C" }}>
+          {msg}
+        </div>
+        <button className="ev-btn" onClick={() => { navigator.clipboard?.writeText(msg); setCopied(true); setTimeout(() => setCopied(false), 1800); }}
+          style={{ marginTop: 12, fontFamily: "'Jost', sans-serif", fontSize: 11.5, letterSpacing: "0.13em", textTransform: "uppercase",
+            padding: "11px 18px", border: "none", background: copied ? C.field : C.ink, color: C.paper, borderRadius: 3, cursor: "pointer" }}>
+          {copied ? L.copied : L.copy}
+        </button>
+      </div>
+    </section>
+  );
+}
+
+/* --- Señales de COA falso -------------------------------------------- */
+function FraudSignals({ lang }) {
+  const f = FRAUD[lang];
+  return (
+    <section style={{ marginTop: 44 }}>
+      <Label color={C.warnText}>{f.title}</Label>
+      <p style={{ fontSize: 14.5, lineHeight: 1.6, color: "#2C3D4C", maxWidth: 640 }}>{f.intro}</p>
+
+      <div style={{ marginTop: 8 }}>
+        {f.groups.map((g, gi) => (
+          <div key={gi} style={{ marginTop: 22 }}>
+            <div style={{ fontFamily: "'Jost', sans-serif", fontSize: 16, color: C.inkDeep, paddingBottom: 8, borderBottom: `1px solid ${C.rule}` }}>
+              {g.h}
+            </div>
+            {g.items.map((it, i) => (
+              <div key={i} style={{ display: "grid", gridTemplateColumns: "18px minmax(0,1fr)", gap: 11, padding: "11px 0", borderBottom: `1px solid ${C.paperDeep}` }}>
+                <span style={{ color: C.warn, fontSize: 15, lineHeight: 1.3, textAlign: "center" }}>×</span>
+                <span style={{ fontSize: 14, color: "#22384A", lineHeight: 1.55 }}>{it}</span>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+
+      <div style={{ marginTop: 24, padding: "17px 19px", background: "rgba(180,85,47,0.07)", border: `1px solid rgba(180,85,47,0.3)`, borderRadius: 4, fontSize: 14.5, lineHeight: 1.62, color: "#5A4038", maxWidth: 660 }}>
+        {f.close}
+      </div>
+    </section>
+  );
+}
+
 export default function BuyWell({ lang, t, onBack }) {
   const [tool, setTool] = useState(null);
   const [on, setOn] = useState({});
+  const [coaLot, setCoaLot] = useState("");
+  const [vialLot, setVialLot] = useState("");
+  const [rep, setRep] = useState("");
+  const [prod, setProd] = useState("");
+  const [copied, setCopied] = useState(false);
   const c = COA[lang];
   const toggle = (id) => setOn((s) => ({ ...s, [id]: !s[id] }));
 
@@ -117,6 +258,10 @@ export default function BuyWell({ lang, t, onBack }) {
           </div>
           <div style={{ fontSize: 13, color: C.tabIdle, marginTop: 14, lineHeight: 1.6, maxWidth: 620 }}>{c.inspectNote}</div>
         </section>
+
+        <ExampleCOA lang={lang} />
+        <LotTool lang={lang} state={{ coaLot, setCoaLot, vialLot, setVialLot, rep, setRep, prod, setProd, copied, setCopied }} />
+        <FraudSignals lang={lang} />
       </>
     );
   }

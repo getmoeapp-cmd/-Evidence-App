@@ -8,11 +8,11 @@ import { PEPTIDES_EN } from "./data/en.js";
 import Peptides from "./sections/Peptides.jsx";
 import ByGoal from "./sections/ByGoal.jsx";
 import Verify from "./sections/Verify.jsx";
-import Report from "./sections/Report.jsx";
+import Track from "./sections/Track.jsx";
 import Logo from "./components/Logo.jsx";
 
 const DATA = { es: PEPTIDOS_ES, en: PEPTIDES_EN };
-const TABS = ["peptides", "goals", "verify", "report"];
+const TABS = ["peptides", "goals", "verify", "track"];
 
 export default function App() {
   const [lang, setLang] = useState(() => {
@@ -40,7 +40,10 @@ export default function App() {
         .ev-chip:hover { border-color: ${C.ink} !important; color: ${C.ink} !important; }
         .ev-help:hover { background: rgba(30,63,95,0.13) !important; }
         .ev-check:hover span:first-child { border-color: ${C.ink} !important; }
-        @media (max-width: 620px) { .ev-coarow { grid-template-columns: 1fr !important; gap: 6px !important; } }
+        @media (max-width: 620px) {
+          .ev-coarow { grid-template-columns: 1fr !important; gap: 6px !important; }
+          .ev-coaex { grid-template-columns: 1fr !important; }
+        }
         .ev-levelbadge:hover { opacity: 0.78; }
         @media (min-width: 721px) {
           .ev-modal-wrap { align-items: center !important; padding: 24px !important; }
@@ -158,7 +161,7 @@ export default function App() {
           {tab === "peptides" && <Peptides full={list} lang={lang} t={t} setLang={setLang} esSlugs={esSlugs} />}
           {tab === "goals" && <ByGoal full={list} lang={lang} t={t} setLang={setLang} esSlugs={esSlugs} />}
           {tab === "verify" && <Verify lang={lang} t={t} />}
-          {tab === "report" && <Report list={list} t={t} />}
+          {tab === "track" && <Track full={list} lang={lang} t={t} />}
         </main>
 
         <footer style={{ marginTop: 56, paddingTop: 22, borderTop: `1px solid ${C.rule}`, display: "flex", gap: 18, alignItems: "flex-start" }}>

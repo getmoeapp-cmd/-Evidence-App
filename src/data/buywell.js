@@ -120,3 +120,177 @@ export function verdict(score, gatesPassed) {
   if (score >= 50) return "caution";
   return "avoid";
 }
+
+// COA de ejemplo. Los valores son ficticios y están marcados como tales
+// en la interfaz — es un modelo para leer, no un certificado real.
+export const EXAMPLE = {
+  ref: [
+    { n: 1, k: "Producto", v: "BPC-157" },
+    { n: 2, k: "Lote", v: "LOT 2406-118" },
+    { n: 3, k: "Fecha de análisis", v: "2026-05-14" },
+    { n: 4, k: "Pureza (HPLC)", v: "99.2 %" },
+    { n: 5, k: "Identidad (MS)", v: "Confirmada · MW 1419.5" },
+    { n: 6, k: "Laboratorio", v: "Laboratorio independiente" },
+    { n: 7, k: "Nº de reporte", v: "A-10293" },
+    { n: 8, k: "Endotoxinas", v: "< 0.5 EU/mg" },
+  ],
+  es: {
+    title: "Un COA completo, campo por campo",
+    intro: "Ejemplo con valores ficticios. Lo que importa no son las cifras: es qué campos tienen que estar y qué hace cada uno.",
+    docTitle: "CERTIFICADO DE ANÁLISIS",
+    fake: "Ejemplo · valores ficticios",
+    notes: [
+      "Debe coincidir exactamente con lo que pediste, no con un nombre parecido.",
+      "Tiene que ser el mismo que está impreso en tu vial. Es el campo que conecta el papel con el producto.",
+      "Reciente y anterior a que te lo enviaran. Fechas futuras o posteriores al envío no tienen explicación inocente.",
+      "98% o más en producto serio. Y debería venir con el cromatograma, no solo con el número.",
+      "Confirma que ES ese péptido. Sin este campo, la pureza no significa nada.",
+      "Independiente del vendedor, con nombre y datos de contacto verificables.",
+      "El campo que hace posible todo lo demás: es lo que le das al laboratorio para confirmar.",
+      "Para inyectables. Habla de esterilidad, no de pureza química — son cosas distintas.",
+    ],
+  },
+  en: {
+    title: "A complete COA, field by field",
+    intro: "An example with fictional values. What matters isn't the numbers: it's which fields have to be there and what each one does.",
+    docTitle: "CERTIFICATE OF ANALYSIS",
+    fake: "Example · fictional values",
+    notes: [
+      "Must match exactly what you ordered, not a similar-sounding name.",
+      "Has to be the same one printed on your vial. It's the field that connects the paper to the product.",
+      "Recent, and earlier than when it shipped to you. Future dates, or dates after shipping, have no innocent explanation.",
+      "98% or higher for serious product. And it should come with the chromatogram, not just the number.",
+      "Confirms it IS that peptide. Without this field, purity means nothing.",
+      "Independent of the seller, with a verifiable name and contact details.",
+      "The field that makes everything else possible: it's what you give the lab to confirm.",
+      "For injectables. It speaks to sterility, not chemical purity — different things.",
+    ],
+  },
+};
+
+// Señales de COA falsificado o reutilizado.
+// Ordenadas de la más decisiva a la más sutil.
+export const FRAUD = {
+  es: {
+    title: "Cómo detectar un COA falso",
+    intro: "Un certificado editado se ve igual de bien que uno real. Estas son las señales que sí se pueden revisar sin ser perito.",
+    groups: [
+      {
+        h: "El documento no corresponde a tu producto",
+        items: [
+          "El lote del COA no coincide con el impreso en tu vial. Es la señal más común y la más definitiva: ese papel es de otra producción.",
+          "El mismo COA aparece para varios productos o lotes distintos. Un certificado genérico no certifica nada.",
+          "La fecha del análisis es posterior a la fecha en que te enviaron el producto, o está en el futuro.",
+          "El nombre del péptido está escrito distinto en el COA y en la etiqueta del vial.",
+        ],
+      },
+      {
+        h: "No hay forma de verificarlo",
+        items: [
+          "No trae número de reporte, o lo trae pero el laboratorio no tiene manera de validarlo.",
+          "El laboratorio no existe fuera del COA: sin web, sin dirección, sin teléfono, sin presencia verificable.",
+          "El vendedor te manda una foto de una pantalla en vez del archivo original.",
+          "La imagen está recortada justo donde iría el membrete, el pie de página o la firma del analista.",
+        ],
+      },
+      {
+        h: "El documento está manipulado",
+        items: [
+          "Las cifras tienen otra tipografía, otro tamaño o se ven más nítidas que el resto del texto: es el rastro típico de un número reemplazado.",
+          "Texto desalineado respecto a su columna, o con un fondo ligeramente distinto.",
+          "El logo del laboratorio se ve pixelado mientras el resto del documento está limpio.",
+          "En las propiedades del PDF, el programa que lo creó es un editor de imágenes o de PDF y no un sistema de laboratorio.",
+        ],
+      },
+      {
+        h: "Los resultados no son creíbles",
+        items: [
+          "Solo una tabla de resultados, sin cromatograma ni espectro. Los datos crudos son la parte difícil de falsificar, y por eso es la que se omite.",
+          "Pureza idéntica en todos los lotes, lote tras lote. La producción real varía.",
+          "Solo HPLC, sin espectrometría de masas. Puede ser negligencia — o puede ser que la identidad no dé.",
+          "Cifras redondas y perfectas donde un laboratorio pondría decimales.",
+        ],
+      },
+    ],
+    close: "Ninguna de estas señales prueba fraude por sí sola, y su ausencia tampoco prueba autenticidad. Lo único que lo prueba es escribirle al laboratorio.",
+  },
+  en: {
+    title: "How to spot a fake COA",
+    intro: "An edited certificate looks exactly as good as a real one. These are the signals you can actually check without being a forensic examiner.",
+    groups: [
+      {
+        h: "The document doesn't belong to your product",
+        items: [
+          "The COA lot doesn't match the one printed on your vial. It's the most common signal and the most decisive: that paper is from a different production run.",
+          "The same COA turns up for several different products or lots. A generic certificate certifies nothing.",
+          "The analysis date is later than the date the product shipped to you, or it's in the future.",
+          "The peptide name is spelled differently on the COA than on the vial label.",
+        ],
+      },
+      {
+        h: "There's no way to verify it",
+        items: [
+          "No report number, or there is one but the lab has no way to validate it.",
+          "The laboratory doesn't exist outside the COA: no website, no address, no phone, no verifiable presence.",
+          "The seller sends you a photo of a screen instead of the original file.",
+          "The image is cropped exactly where the letterhead, footer, or analyst signature would be.",
+        ],
+      },
+      {
+        h: "The document has been altered",
+        items: [
+          "The figures use a different typeface or size, or look sharper than the surrounding text: the classic trace of a replaced number.",
+          "Text misaligned with its column, or sitting on a slightly different background.",
+          "The lab logo looks pixelated while the rest of the document is clean.",
+          "In the PDF properties, the creating program is an image or PDF editor rather than a laboratory system.",
+        ],
+      },
+      {
+        h: "The results aren't credible",
+        items: [
+          "Only a results table, with no chromatogram or spectrum. The raw data is the hard part to fake, which is why it's the part that gets left out.",
+          "Identical purity across every lot, batch after batch. Real production varies.",
+          "HPLC only, no mass spectrometry. It may be negligence — or the identity may not check out.",
+          "Round, perfect numbers where a laboratory would report decimals.",
+        ],
+      },
+    ],
+    close: "None of these signals proves fraud on its own, and their absence doesn't prove authenticity either. The only thing that proves it is writing to the laboratory.",
+  },
+};
+
+// Comparación manual de lote + mensaje al laboratorio.
+export const LOTCHECK = {
+  es: {
+    title: "Compara el lote",
+    intro: "Es la única comprobación que puedes cerrar del todo por tu cuenta. Escribe los dos números y compáralos.",
+    coaLot: "Lote que dice el COA",
+    vialLot: "Lote impreso en tu vial",
+    ok: "Coinciden. Este certificado sí corresponde al vial que tienes.",
+    bad: "No coinciden. Este COA es de otra producción y no dice nada sobre tu vial. Pídele al vendedor el certificado de ESTE lote.",
+    emailTitle: "Confírmalo con el laboratorio",
+    emailIntro: "Completa el número de reporte y envíaselo al laboratorio, no al vendedor. Es el único paso que prueba que el documento es real.",
+    reportLabel: "Nº de reporte del COA",
+    productLabel: "Producto",
+    copy: "Copiar mensaje",
+    copied: "Copiado",
+    tpl: (rep, lot, prod) =>
+      `Buen día. Quisiera confirmar la autenticidad del reporte ${rep || "[número]"}, correspondiente al producto ${prod || "[producto]"}, lote ${lot || "[lote]"}. ¿Pueden verificar que fue emitido por ustedes y que los resultados coinciden con su registro? Gracias.`,
+  },
+  en: {
+    title: "Compare the lot",
+    intro: "It's the one check you can close completely on your own. Type both numbers and compare them.",
+    coaLot: "Lot on the COA",
+    vialLot: "Lot printed on your vial",
+    ok: "They match. This certificate does correspond to the vial you have.",
+    bad: "They don't match. This COA is from a different production run and says nothing about your vial. Ask the seller for the certificate for THIS lot.",
+    emailTitle: "Confirm it with the laboratory",
+    emailIntro: "Fill in the report number and send this to the laboratory, not to the seller. It's the only step that proves the document is real.",
+    reportLabel: "COA report number",
+    productLabel: "Product",
+    copy: "Copy message",
+    copied: "Copied",
+    tpl: (rep, lot, prod) =>
+      `Hello. I'd like to confirm the authenticity of report ${rep || "[number]"}, for product ${prod || "[product]"}, lot ${lot || "[lot]"}. Can you verify it was issued by you and that the results match your records? Thank you.`,
+  },
+};

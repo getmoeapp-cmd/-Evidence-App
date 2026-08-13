@@ -272,3 +272,61 @@ qué hacer a continuación.
 
 Los pesos son propios y ajustables. Si los cambias, mantén las compuertas y que
 `CRITERIA` siga sumando 100.
+
+### Ejemplo, fraude y comparación de lote
+
+La guía del COA incluye tres bloques más:
+
+- **Ejemplo anotado** — un certificado completo con los ocho campos numerados
+  y, al lado, qué hace cada uno. Marcado como valores ficticios en la propia
+  tarjeta para que nadie lo confunda con un COA real.
+- **Cómo detectar un COA falso** — 16 señales en cuatro grupos: el documento no
+  corresponde a tu producto, no hay forma de verificarlo, el documento está
+  manipulado, y los resultados no son creíbles. Cierra con la única frase
+  honesta posible: ninguna señal prueba fraude por sí sola, y su ausencia
+  tampoco prueba autenticidad.
+- **Comparación de lote + mensaje al laboratorio** — dos campos de texto y un
+  generador de mensaje. Sin subida de archivos, sin backend.
+
+El revisor por subida de archivo se construyó y se retiró antes del
+lanzamiento. Está en `_parked/` con las instrucciones para reactivarlo.
+
+## Registro (Track)
+
+`src/data/track.js` + `src/sections/Track.jsx`. Sustituye a la antigua pestaña
+Reportar.
+
+**Todo vive en `localStorage`.** No hay endpoint, no hay sincronización, no hay
+agregado. El aviso de privacidad va arriba del formulario, antes de que el
+usuario escriba nada. Si algún día se añade sincronización tiene que ser
+opt-in explícito y con otro aviso.
+
+### La regla que no se rompe
+
+**El número de una persona nunca se le muestra a otra.** Sin promedios, sin
+«lo habitual», sin percentiles, sin histogramas. Un registro personal es un
+espejo; un gráfico comunitario de dosis es una recomendación disfrazada de
+estadística. Misma información, efecto opuesto.
+
+Por eso el registro guarda dosis y la app sigue sin tener ninguna tabla de
+dosis comunitarias — no es una contradicción, es la misma regla aplicada.
+
+### Comparación con el techo
+
+`ceilingOf()` extrae la cifra del `ceiling` de la ficha y `compare()` la
+contrasta con lo que anotó el usuario. **Solo compara cuando la frecuencia
+coincide:** 12 mg semanales y 12 mg diarios no son la misma cifra, y tratarlas
+igual sería un error grave. Si no coinciden, lo dice en vez de comparar.
+
+Cuatro resultados posibles: `above`, `within`, `freq_mismatch`, `no_ceiling`.
+Los compuestos sin ensayos humanos caen siempre en el último — y el mensaje lo
+explica en vez de callarse.
+
+### Efectos adversos
+
+Marcar la casilla muestra la línea que la app le debe al usuario: si es severo
+o no mejora, esto va delante de un médico, y el registro exportado es
+justamente lo que un médico necesita — fechas y dosis en orden.
+
+`Exportar` descarga el JSON. `Borrar todo` pide confirmación con un segundo
+toque y limpia la clave de localStorage.
