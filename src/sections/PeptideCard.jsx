@@ -147,6 +147,7 @@ function Safety({ safety, note, surveillance, t }) {
   const tones = {
     absolute: { c: C.warnText, b: C.warn },
     relative: { c: C.cautionText, b: C.caution },
+    watch: { c: C.interText, b: C.inter },
     interaction: { c: C.interText, b: C.inter },
   };
   return (

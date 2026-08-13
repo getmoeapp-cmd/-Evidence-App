@@ -56,7 +56,7 @@ export const UI = {
       empty:
         "Todavía no hay contraindicaciones establecidas, porque el compuesto no se ha estudiado en personas. Una lista vacía aún no es una señal de seguridad — es un capítulo por escribir.",
       surveillance: "Señales en vigilancia",
-      kinds: { absolute: "No usar", relative: "Requiere supervisión", interaction: "Interacción" },
+      kinds: { absolute: "No usar", relative: "Requiere supervisión", watch: "En vigilancia", interaction: "Interacción" },
       origins: {
         label: "Ficha técnica aprobada",
         trial: "Criterio de exclusión en ensayos",
@@ -125,7 +125,7 @@ export const UI = {
       empty:
         "There are no established contraindications yet, because the compound has not been studied in people. An empty list is not yet a sign of safety — it's a chapter still to be written.",
       surveillance: "Signals under watch",
-      kinds: { absolute: "Do not use", relative: "Needs supervision", interaction: "Interaction" },
+      kinds: { absolute: "Do not use", relative: "Needs supervision", watch: "Under watch", interaction: "Interaction" },
       origins: {
         label: "Approved product label",
         trial: "Trial exclusion criterion",
