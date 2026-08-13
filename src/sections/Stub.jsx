@@ -6,7 +6,7 @@ import { CLASSES } from "../data/catalog.js";
 
 // Ficha para compuestos del catálogo cuya ingesta de PubMed aún no se ha
 // corrido. Muestra lo que sabemos y dice claramente lo que falta.
-export default function Stub({ entry, lang, t, catalog, onOpen }) {
+export default function Stub({ entry, lang, t, catalog, onOpen, hasSpanish, onSwitchLang }) {
   const cls = CLASSES[lang][entry.cls];
   const isBlend = Boolean(entry.blend);
   const parts = isBlend ? entry.blend.map((s) => catalog.find((c) => c.slug === s)).filter(Boolean) : [];

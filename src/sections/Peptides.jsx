@@ -62,7 +62,7 @@ function Picker({ label, value, onChange, options, active }) {
   );
 }
 
-export default function Peptides({ full, lang, t }) {
+export default function Peptides({ full, lang, t, setLang, esSlugs }) {
   const [openSlug, setOpenSlug] = useState(null);
   const [q, setQ] = useState("");
   const [level, setLevel] = useState("all");
@@ -106,7 +106,7 @@ export default function Peptides({ full, lang, t }) {
         {fullRecord ? (
           <PeptideCard p={fullRecord} t={t} />
         ) : (
-          <Stub entry={entry} lang={lang} t={t} catalog={CATALOG} onOpen={setOpenSlug} />
+          <Stub entry={entry} lang={lang} t={t} catalog={CATALOG} onOpen={setOpenSlug} hasSpanish={lang === "en" && esSlugs.has(entry.slug)} onSwitchLang={() => setLang("es")} />
         )}
       </>
     );

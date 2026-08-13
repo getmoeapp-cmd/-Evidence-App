@@ -26,6 +26,7 @@ export default function App() {
   }, [lang]);
 
   const t = { ...UI[lang], ...SECTIONS[lang] };
+  const esSlugs = new Set(PEPTIDOS_ES.map((p) => p.slug));
   const list = DATA[lang];
 
   return (
@@ -152,8 +153,8 @@ export default function App() {
         </nav>
 
         <main>
-          {tab === "peptides" && <Peptides full={list} lang={lang} t={t} />}
-          {tab === "goals" && <ByGoal full={list} lang={lang} t={t} />}
+          {tab === "peptides" && <Peptides full={list} lang={lang} t={t} setLang={setLang} esSlugs={esSlugs} />}
+          {tab === "goals" && <ByGoal full={list} lang={lang} t={t} setLang={setLang} esSlugs={esSlugs} />}
           {tab === "verify" && <Verify t={t} />}
           {tab === "report" && <Report list={list} t={t} />}
         </main>

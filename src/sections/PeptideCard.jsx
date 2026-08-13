@@ -12,6 +12,7 @@ const toneMap = {
 
 function StudiedCeiling({ ceiling, t }) {
   const none = ceiling.state === "none";
+  const range = ceiling.state === "range";
   return (
     <section style={{ marginBottom: 40 }}>
       <Label color={C.ink}>{t.ceiling.title}</Label>
@@ -38,7 +39,8 @@ function StudiedCeiling({ ceiling, t }) {
               </div>
             )}
             <div style={{ marginTop: 26 }}>
-              <Label>{t.ceiling.howReached}</Label>
+              <Label>{ceiling.steps ? t.ceiling.howReached : t.ceiling.howUsed}</Label>
+              {ceiling.steps && (
               <div style={{ display: "flex", alignItems: "flex-end", gap: 6, marginTop: 12, height: 74 }}>
                 {ceiling.steps.map((step, i) => {
                   const h = ((i + 1) / ceiling.steps.length) * 100;
@@ -51,14 +53,15 @@ function StudiedCeiling({ ceiling, t }) {
                   );
                 })}
               </div>
-              <div style={{ fontSize: 12.5, color: C.muted, marginTop: 10 }}>{ceiling.schedule}</div>
+              )}
+              <div style={{ fontSize: 13.5, color: "#22384A", marginTop: ceiling.steps ? 10 : 10, lineHeight: 1.6, maxWidth: 620 }}>{ceiling.schedule}</div>
             </div>
             <div style={{ marginTop: 20, paddingTop: 16, borderTop: `1px solid ${C.rule}`, fontSize: 13.5, lineHeight: 1.6, color: "#22384A", maxWidth: 620 }}>
               {ceiling.note}
             </div>
           </>
         )}
-        {ceiling.adverse.pending && (
+        {ceiling.adverse?.pending && (
           <div style={{ marginTop: 20, paddingTop: 16, borderTop: `1px solid ${C.rule}` }}>
             <div style={{ display: "flex", alignItems: "center", gap: 9, flexWrap: "wrap" }}>
               <Label color={C.field}>{t.ceiling.signal}</Label>
@@ -72,7 +75,7 @@ function StudiedCeiling({ ceiling, t }) {
             </div>
           </div>
         )}
-        {!ceiling.adverse.pending && ceiling.adverse.aboveCeiling !== null && (
+        {!ceiling.adverse?.pending && ceiling.adverse?.aboveCeiling != null && (
           <div style={{ marginTop: 20, paddingTop: 16, borderTop: `1px solid ${C.rule}` }}>
             <Label color={C.field}>{t.ceiling.signal}</Label>
             <div style={{ fontSize: 13.5, color: "#4A5240", marginTop: 8, lineHeight: 1.6, maxWidth: 620 }}>

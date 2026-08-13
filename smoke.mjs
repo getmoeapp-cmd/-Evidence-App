@@ -18,7 +18,8 @@ for (const [lang, list] of [["es", PEPTIDOS_ES], ["en", PEPTIDES_EN]]) {
     if (!t.levels[p.level]) w(`nivel desconocido "${p.level}"`);
     if (RIDGES[p.level] === undefined) w(`sin crestas para "${p.level}"`);
     if (!p.ceiling) w("sin ceiling");
-    if (p.ceiling?.state === "established" && !Array.isArray(p.ceiling.steps)) w("ceiling sin steps");
+    if (p.ceiling?.steps && !Array.isArray(p.ceiling.steps)) w("ceiling.steps no es array");
+    if (p.ceiling?.state === "established" && !p.ceiling.schedule) w("ceiling sin schedule");
     if (!p.ceiling?.adverse) w("ceiling.adverse ausente");
     if (!p.ceiling?.adverse?.pending && p.ceiling?.adverse?.aboveCeiling === undefined) w("adverse sin aboveCeiling ni pending");
     if (p.ceiling?.adverse?.pending && !Array.isArray(p.ceiling.adverse.categories)) w("pending sin categories");
@@ -43,8 +44,20 @@ for (const [lang, list] of [["es", PEPTIDOS_ES], ["en", PEPTIDES_EN]]) {
 const slugs = new Set(CATALOG.map((c) => c.slug));
 for (const p of PEPTIDOS_ES) if (!slugs.has(p.slug)) err(`es.js "${p.slug}" no está en el catálogo`);
 for (const g of GOAL_MAP) for (const s of g.peptides) if (!slugs.has(s)) err(`objetivo ${g.slug} → "${s}" no existe`);
-const esS = PEPTIDOS_ES.map(p=>p.slug).join(","), enS = PEPTIDES_EN.map(p=>p.slug).join(",");
-if (esS !== enS) err("es.js y en.js no coinciden en orden/slugs");
+const esMap = new Map(PEPTIDOS_ES.map(p=>[p.slug,p]));
+for (const q of PEPTIDES_EN) {
+  const p = esMap.get(q.slug);
+  if (!p) { err(`en.js "${q.slug}" no existe en es.js`); continue; }
+  // Las dos versiones deben afirmar los mismos hechos, no solo existir.
+  if (p.level !== q.level) err(`${q.slug}: nivel ES=${p.level} EN=${q.level}`);
+  if (p.ceiling?.state !== q.ceiling?.state) err(`${q.slug}: estado de techo distinto`);
+  for (const k of ["claims","safety","regulatory"]) {
+    if ((p[k]||[]).length !== (q[k]||[]).length) err(`${q.slug}: ${k} ES=${(p[k]||[]).length} EN=${(q[k]||[]).length}`);
+  }
+  (p.claims||[]).forEach((c,i)=>{ const d=(q.claims||[])[i];
+    if (d && c.level !== d.level) err(`${q.slug}: claim ${i+1} nivel ES=${c.level} EN=${d.level}`); });
+}
+const pend = PEPTIDOS_ES.length - PEPTIDES_EN.length;
 
-console.log(fail ? `\n${fail} problema(s)` : "\n✓ todo limpio — " + PEPTIDOS_ES.length + " fichas completas, " + CATALOG.length + " en catálogo");
+console.log(fail ? `\n${fail} problema(s)` : `\n✓ todo limpio — ${PEPTIDOS_ES.length} fichas ES · ${PEPTIDES_EN.length} EN (${pend} por traducir) · ${CATALOG.length} en catálogo`);
 process.exit(fail ? 1 : 0);

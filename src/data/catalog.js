@@ -13,11 +13,11 @@ export const CATALOG = [
   { slug: "tirzepatide",   name: "Tirzepatide",   alt: "LY3298176",        cls: "dual",     family: "metabolico",   level: "A",       ceiling: "established", aliases: ["tirze", "tirzepatida", "mounjaro", "zepbound"] },
   { slug: "semaglutida",   name: "Semaglutide",   alt: "Semaglutide",      cls: "glp1",     family: "metabolico",   level: "A",       ceiling: "established", aliases: ["sema", "semaglutida", "ozempic", "wegovy"] },
   { slug: "tesamorelin",   name: "Tesamorelin",   alt: "Egrifta",          cls: "ghrh",     family: "metabolico",   level: "A",       ceiling: "established", aliases: ["tesamorelina", "egrifta"] },
-  { slug: "aod-9604",      name: "AOD-9604",      alt: "hGH 176-191",      cls: "ghfrag",   family: "metabolico",   level: "B",       ceiling: "established", aliases: ["aod", "aod9604"] },
+  { slug: "aod-9604",      name: "AOD-9604",      alt: "hGH 176-191",      cls: "ghfrag",   family: "metabolico",   level: "NOT_SHOWN",       ceiling: "established", aliases: ["aod", "aod9604"] },
 
   // ── Hormona de crecimiento ─────────────────────────────────────
-  { slug: "cjc-1295",      name: "CJC-1295",      alt: "DAC / no-DAC",     cls: "ghrh",     family: "gh",           level: "C",       ceiling: "none",        aliases: ["cjc", "cjc1295", "mod grf"] },
-  { slug: "ipamorelin",    name: "Ipamorelin",    alt: "Ipamorelin",       cls: "ghrelin",  family: "gh",           level: "C",       ceiling: "none",        aliases: ["ipa", "ipamorelina"] },
+  { slug: "cjc-1295",      name: "CJC-1295",      alt: "DAC / no-DAC",     cls: "ghrh",     family: "gh",           level: "B",       ceiling: "none",        aliases: ["cjc", "cjc1295", "mod grf"] },
+  { slug: "ipamorelin",    name: "Ipamorelin",    alt: "Ipamorelin",       cls: "ghrelin",  family: "gh",           level: "B",       ceiling: "none",        aliases: ["ipa", "ipamorelina"] },
   { slug: "sermorelin",    name: "Sermorelin",    alt: "GRF 1-29",         cls: "ghrh",     family: "gh",           level: "B",       ceiling: "established", aliases: ["sermorelina", "geref"] },
 
   // ── Reparación ─────────────────────────────────────────────────
@@ -30,13 +30,13 @@ export const CATALOG = [
   // ── Mitocondrial y longevidad ──────────────────────────────────
   { slug: "mots-c",        name: "MOTS-c",        alt: "MOTS-c",           cls: "mito",     family: "mitocondrial", level: "C",       ceiling: "none",        aliases: ["motsc", "mots"] },
   { slug: "ss-31",         name: "SS-31",         alt: "Elamipretide",     cls: "mito",     family: "mitocondrial", level: "B",       ceiling: "established", aliases: ["ss31", "elamipretide", "elamipretida", "mtp-131"] },
-  { slug: "epitalon",      name: "Epitalon",      alt: "Epithalon",        cls: "tetra",    family: "mitocondrial", level: "NO_DATA", ceiling: "none",        aliases: ["epitalón", "epithalon", "epitalone"] },
+  { slug: "epitalon",      name: "Epitalon",      alt: "Epithalon",        cls: "tetra",    family: "mitocondrial", level: "C", ceiling: "none",        aliases: ["epitalón", "epithalon", "epitalone"] },
   { slug: "pinealon",      name: "Pinealon",      alt: "Pinealon",         cls: "tetra",    family: "mitocondrial", level: "NO_DATA", ceiling: "none",        aliases: ["pinealón"] },
   { slug: "nad",           name: "NAD+",          alt: "Nicotinamide adenine dinucleotide", cls: "coenzyme", family: "mitocondrial", level: "B", ceiling: "none", aliases: ["nad", "nad+", "nmn", "nr"] },
 
   // ── Nootrópicos ────────────────────────────────────────────────
-  { slug: "semax",         name: "Semax",         alt: "ACTH 4-10 analog", cls: "noot",     family: "nootropico",   level: "C",       ceiling: "none",        aliases: ["semax"] },
-  { slug: "selank",        name: "Selank",        alt: "Tuftsin analog",   cls: "noot",     family: "nootropico",   level: "C",       ceiling: "none",        aliases: ["selank"] },
+  { slug: "semax",         name: "Semax",         alt: "ACTH 4-10 analog", cls: "noot",     family: "nootropico",   level: "B",       ceiling: "none",        aliases: ["semax"] },
+  { slug: "selank",        name: "Selank",        alt: "Tuftsin analog",   cls: "noot",     family: "nootropico",   level: "B",       ceiling: "none",        aliases: ["selank"] },
   { slug: "dsip",          name: "DSIP",          alt: "Delta Sleep-Inducing Peptide", cls: "sleep", family: "nootropico", level: "D", ceiling: "none",       aliases: ["dsip", "sueño delta", "delta sleep"] },
 
   // ── Sexual y reproductivo ──────────────────────────────────────

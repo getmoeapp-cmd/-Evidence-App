@@ -31,6 +31,9 @@ export const SECTIONS = {
       body: "Este compuesto ya está en el catálogo, pero su ingesta de PubMed todavía no se ha corrido. Cuando esté, aquí aparecen los estudios, el techo estudiado, las contraindicaciones y el estatus regulatorio.",
       preliminary: "Todavía no hemos publicado la ficha completa de este compuesto. El nivel que ves es una estimación de trabajo, no un dato verificado.",
       provisional: "Provisional",
+      translationBadge: "Ficha completa disponible",
+      translationBody: "Esta ficha ya está escrita en español, con estudios, techo estudiado, contraindicaciones y estatus regulatorio.",
+      translationCta: "Ver en español",
     },
     blend: {
       title: "Es una mezcla, no un compuesto",
@@ -121,6 +124,9 @@ export const SECTIONS = {
       body: "This compound is already in the catalog, but its PubMed ingestion hasn't been run yet. Once it is, the studies, studied ceiling, contraindications, and regulatory status appear here.",
       preliminary: "We haven't published the full card for this compound yet. The level shown is a working estimate, not verified data.",
       provisional: "Provisional",
+      translationBadge: "Ficha completa disponible",
+      translationBody: "Esta ficha ya está escrita en español, con estudios, techo estudiado, contraindicaciones y estatus regulatorio.",
+      translationCta: "Ver en español",
     },
     blend: {
       title: "This is a blend, not a compound",

@@ -197,3 +197,35 @@ ceiling: { ..., adverse: { pending: true, categories: ["…"] } },
 ```
 
 La tarjeta muestra un estado de "Pendiente" en lugar de ceros.
+
+## Fichas: de markdown a datos
+
+Las fichas se escriben en markdown y se convierten con el parser de
+`/build/`. Si añades una nueva:
+
+1. Escríbela con la misma estructura de secciones (`## TECHO ESTUDIADO`,
+   `## LO QUE SE AFIRMA · LO QUE SE HA MEDIDO`, `## LA FUENTE`,
+   `## CONTRAINDICACIONES…`, `## ESTATUS REGULATORIO`).
+2. Corre el parser → genera el registro de `src/data/es.js`.
+3. `npm run check` antes de desplegar.
+
+Los niveles de `catalog.js` se sincronizan con los de las fichas: la ficha
+manda, el catálogo la sigue.
+
+### Estados de techo
+
+| Estado | Cuándo | Qué muestra |
+|---|---|---|
+| `established` | Hay dosis publicada en humanos | La cifra grande + escalera si existe |
+| `range` | Hay dosis humanas publicadas pero sin techo único | «Rango estudiado, sin techo único» |
+| `none` | Ningún ensayo humano fijó dosis | «Sin techo establecido» |
+
+`steps` es opcional: los compuestos de dosis fija (Tesamorelina, PT-141,
+Timosina α1) no llevan escalera y muestran solo la pauta de la etiqueta.
+
+### Traducción pendiente
+
+`es.js` puede ir por delante de `en.js`. Cuando una ficha existe en español
+pero no en inglés, la versión EN muestra la tarjeta corta con un aviso de
+«Full card available» y un botón que cambia el idioma. `npm run check`
+informa cuántas faltan por traducir en vez de tratarlo como error.

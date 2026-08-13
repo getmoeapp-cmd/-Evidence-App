@@ -11,7 +11,7 @@ import { GOAL_MAP, GOAL_LABELS } from "../data/goals.js";
 // Dentro de cada objetivo, primero lo mejor respaldado.
 const RANK = { A: 0, B: 1, C: 2, D: 3, NO_DATA: 4, null: 5 };
 
-export default function ByGoal({ full, lang, t }) {
+export default function ByGoal({ full, lang, t, setLang, esSlugs }) {
   const [openSlug, setOpenSlug] = useState(null);
   const [keyOpen, setKeyOpen] = useState(false);
   const entry = openSlug ? CATALOG.find((e) => e.slug === openSlug) : null;
@@ -27,7 +27,7 @@ export default function ByGoal({ full, lang, t }) {
         >
           ← {t.goals.title}
         </button>
-        {fullRecord ? <PeptideCard p={fullRecord} t={t} /> : <Stub entry={entry} lang={lang} t={t} catalog={CATALOG} onOpen={setOpenSlug} />}
+        {fullRecord ? <PeptideCard p={fullRecord} t={t} /> : <Stub entry={entry} lang={lang} t={t} catalog={CATALOG} onOpen={setOpenSlug} hasSpanish={lang === "en" && esSlugs.has(entry.slug)} onSwitchLang={() => setLang("es")} />}
       </>
     );
   }
