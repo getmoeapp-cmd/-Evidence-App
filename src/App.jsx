@@ -39,6 +39,8 @@ export default function App() {
         .ev-row:hover { background: ${C.paperDeep} !important; }
         .ev-chip:hover { border-color: ${C.ink} !important; color: ${C.ink} !important; }
         .ev-help:hover { background: rgba(30,63,95,0.13) !important; }
+        .ev-check:hover span:first-child { border-color: ${C.ink} !important; }
+        @media (max-width: 620px) { .ev-coarow { grid-template-columns: 1fr !important; gap: 6px !important; } }
         .ev-levelbadge:hover { opacity: 0.78; }
         @media (min-width: 721px) {
           .ev-modal-wrap { align-items: center !important; padding: 24px !important; }
@@ -155,7 +157,7 @@ export default function App() {
         <main>
           {tab === "peptides" && <Peptides full={list} lang={lang} t={t} setLang={setLang} esSlugs={esSlugs} />}
           {tab === "goals" && <ByGoal full={list} lang={lang} t={t} setLang={setLang} esSlugs={esSlugs} />}
-          {tab === "verify" && <Verify t={t} />}
+          {tab === "verify" && <Verify lang={lang} t={t} />}
           {tab === "report" && <Report list={list} t={t} />}
         </main>
 

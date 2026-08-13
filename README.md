@@ -242,3 +242,33 @@ dos idiomas.
 
 Es la comprobación que más importa. Una traducción puede sonar bien y aun así
 decir NIVEL B donde el original dice NIVEL C.
+
+## Comprar bien
+
+`src/data/buywell.js` + `src/sections/BuyWell.jsx`. Dos herramientas bajo la
+pestaña Verificar.
+
+**Guía del COA** — contenido, bilingüe, en `COA` dentro de `buywell.js`. Los
+seis campos del certificado, la diferencia entre HPLC (pureza) y espectrometría
+(identidad), los cuatro pasos para confirmar que el documento es real, y qué
+revisar cuando llega el paquete.
+
+**Scorecard de vendedor** — calculadora. Su lógica es lo importante:
+
+- `GATES` — dos criterios **críticos**: COA de tu lote y laboratorio
+  independiente. No dan puntos: son compuertas.
+- `CRITERIA` — doce criterios ponderados que suman exactamente 100.
+- `verdict(score, gatesPassed)` — **las compuertas mandan sobre el puntaje.**
+  Con las dos falladas el veredicto es Evitar aunque el puntaje sea 95. Con una
+  fallada, el techo es Precaución: nunca Confiable.
+
+Esa es la regla que hace honesta la herramienta. Un scorecard que solo suma
+permite que un vendedor compense la falta de COA con precio bueno y respuestas
+amables — que es exactamente cómo se pierde dinero y salud en este mercado.
+
+**Preguntas generadas** — lo que quedó sin marcar produce la lista de preguntas
+concretas para el vendedor (`ASKS`). Es la salida más útil: no un número, sino
+qué hacer a continuación.
+
+Los pesos son propios y ajustables. Si los cambias, mantén las compuertas y que
+`CRITERIA` siga sumando 100.
