@@ -36,6 +36,11 @@ export const SECTIONS = {
       translationCta: "Ver en español",
     },
     blend: {
+      madeOf: "De qué está hecha",
+      whyMatters: "Por qué importa mezclar",
+      noLevel: "Sin nivel",
+      noLevelWhy: "Nadie ha estudiado la combinación. El nivel de cada componente va abajo.",
+      zeroStudies: "0 estudios",
       title: "Es una mezcla, no un compuesto",
       intro: "Esta combinación no tiene literatura propia: nadie la ha estudiado como conjunto. Lo que se sabe es lo que se sabe de cada componente por separado.",
       note: "Toca cualquier componente para ver su ficha. No le asignamos un nivel al conjunto porque no existe ningún estudio del conjunto — y sumar niveles no es cómo funciona la evidencia.",
@@ -129,6 +134,11 @@ export const SECTIONS = {
       translationCta: "Ver en español",
     },
     blend: {
+      madeOf: "What it's made of",
+      whyMatters: "Why blending matters",
+      noLevel: "No level",
+      noLevelWhy: "Nobody has studied the combination. Each component's level is below.",
+      zeroStudies: "0 studies",
       title: "This is a blend, not a compound",
       intro: "This combination has no literature of its own — no one has studied it as a whole. What is known is what's known about each component separately.",
       note: "Tap any component to open its card. We don't assign a level to the blend because no study of the blend exists — and adding levels together isn't how evidence works.",

@@ -15,14 +15,21 @@ for (const [lang, list] of [["es", PEPTIDOS_ES], ["en", PEPTIDES_EN]]) {
   const t = { ...UI[lang], ...SECTIONS[lang] };
   for (const p of list) {
     const w = (m) => err(`[${lang}] ${p.slug}: ${m}`);
-    if (!t.levels[p.level]) w(`nivel desconocido "${p.level}"`);
-    if (RIDGES[p.level] === undefined) w(`sin crestas para "${p.level}"`);
-    if (!p.ceiling) w("sin ceiling");
-    if (p.ceiling?.steps && !Array.isArray(p.ceiling.steps)) w("ceiling.steps no es array");
-    if (p.ceiling?.state === "established" && !p.ceiling.schedule) w("ceiling sin schedule");
-    if (!p.ceiling?.adverse) w("ceiling.adverse ausente");
-    if (!p.ceiling?.adverse?.pending && p.ceiling?.adverse?.aboveCeiling === undefined) w("adverse sin aboveCeiling ni pending");
-    if (p.ceiling?.adverse?.pending && !Array.isArray(p.ceiling.adverse.categories)) w("pending sin categories");
+    if (p.isBlend) {
+      // Una mezcla no lleva nivel ni techo — lleva componentes.
+      if (p.level != null) w("una mezcla no debe tener nivel");
+      if (!Array.isArray(p.components) || !p.components.length) w("mezcla sin componentes");
+      if (!p.blendNote) w("mezcla sin blendNote");
+    } else {
+      if (!t.levels[p.level]) w(`nivel desconocido "${p.level}"`);
+      if (RIDGES[p.level] === undefined) w(`sin crestas para "${p.level}"`);
+      if (!p.ceiling) w("sin ceiling");
+      if (p.ceiling?.steps && !Array.isArray(p.ceiling.steps)) w("ceiling.steps no es array");
+      if (p.ceiling?.state === "established" && !p.ceiling.schedule) w("ceiling sin schedule");
+      if (!p.ceiling?.adverse) w("ceiling.adverse ausente");
+      if (!p.ceiling?.adverse?.pending && p.ceiling?.adverse?.aboveCeiling === undefined) w("adverse sin aboveCeiling ni pending");
+      if (p.ceiling?.adverse?.pending && !Array.isArray(p.ceiling.adverse.categories)) w("pending sin categories");
+    }
     if (!p.reports) w("sin reports");
     if (!p.reports?.pending) {
       if (typeof p.reports?.n !== "number") w("reports.n no numérico");
@@ -36,7 +43,7 @@ for (const [lang, list] of [["es", PEPTIDOS_ES], ["en", PEPTIDES_EN]]) {
       if (!t.safety.kinds[it.kind]) w(`kind malo "${it.kind}"`);
       if (!t.safety.origins[it.origin]) w(`origin malo "${it.origin}"`);
     }
-    for (const c of p.claims ?? []) if (!t.levels[c.level]) w(`claim con nivel malo "${c.level}"`);
+    for (const c of p.claims ?? []) if (c.level != null && !t.levels[c.level]) w(`claim con nivel malo "${c.level}"`);
     for (const r of p.regulatory ?? []) if (!["ok","alert","grey"].includes(r.tone)) w(`tone malo "${r.tone}"`);
   }
 }
@@ -50,7 +57,9 @@ for (const q of PEPTIDES_EN) {
   if (!p) { err(`en.js "${q.slug}" no existe en es.js`); continue; }
   // Las dos versiones deben afirmar los mismos hechos, no solo existir.
   if (p.level !== q.level) err(`${q.slug}: nivel ES=${p.level} EN=${q.level}`);
-  if (p.ceiling?.state !== q.ceiling?.state) err(`${q.slug}: estado de techo distinto`);
+  if (!p.isBlend && p.ceiling?.state !== q.ceiling?.state) err(`${q.slug}: estado de techo distinto`);
+  if (Boolean(p.isBlend) !== Boolean(q.isBlend)) err(`${q.slug}: isBlend distinto entre idiomas`);
+  if (p.isBlend && (p.components||[]).length !== (q.components||[]).length) err(`${q.slug}: componentes ES=${(p.components||[]).length} EN=${(q.components||[]).length}`);
   for (const k of ["claims","safety","regulatory"]) {
     if ((p[k]||[]).length !== (q[k]||[]).length) err(`${q.slug}: ${k} ES=${(p[k]||[]).length} EN=${(q[k]||[]).length}`);
   }

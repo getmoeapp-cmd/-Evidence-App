@@ -29,15 +29,15 @@ export const CATALOG = [
 
   // ── Mitocondrial y longevidad ──────────────────────────────────
   { slug: "mots-c",        name: "MOTS-c",        alt: "MOTS-c",           cls: "mito",     family: "mitocondrial", level: "C",       ceiling: "none",        aliases: ["motsc", "mots"] },
-  { slug: "ss-31",         name: "SS-31",         alt: "Elamipretide",     cls: "mito",     family: "mitocondrial", level: "B",       ceiling: "established", aliases: ["ss31", "elamipretide", "elamipretida", "mtp-131"] },
+  { slug: "ss-31",         name: "SS-31",         alt: "Elamipretide",     cls: "mito",     family: "mitocondrial", level: "A",       ceiling: "established", aliases: ["ss31", "elamipretide", "elamipretida", "mtp-131"] },
   { slug: "epitalon",      name: "Epitalon",      alt: "Epithalon",        cls: "tetra",    family: "mitocondrial", level: "C", ceiling: "none",        aliases: ["epitalón", "epithalon", "epitalone"] },
-  { slug: "pinealon",      name: "Pinealon",      alt: "Pinealon",         cls: "tetra",    family: "mitocondrial", level: "NO_DATA", ceiling: "none",        aliases: ["pinealón"] },
+  { slug: "pinealon",      name: "Pinealon",      alt: "Pinealon",         cls: "tetra",    family: "mitocondrial", level: "C", ceiling: "none",        aliases: ["pinealón"] },
   { slug: "nad",           name: "NAD+",          alt: "Nicotinamide adenine dinucleotide", cls: "coenzyme", family: "mitocondrial", level: "B", ceiling: "none", aliases: ["nad", "nad+", "nmn", "nr"] },
 
   // ── Nootrópicos ────────────────────────────────────────────────
   { slug: "semax",         name: "Semax",         alt: "ACTH 4-10 analog", cls: "noot",     family: "nootropico",   level: "B",       ceiling: "none",        aliases: ["semax"] },
   { slug: "selank",        name: "Selank",        alt: "Tuftsin analog",   cls: "noot",     family: "nootropico",   level: "B",       ceiling: "none",        aliases: ["selank"] },
-  { slug: "dsip",          name: "DSIP",          alt: "Delta Sleep-Inducing Peptide", cls: "sleep", family: "nootropico", level: "D", ceiling: "none",       aliases: ["dsip", "sueño delta", "delta sleep"] },
+  { slug: "dsip",          name: "DSIP",          alt: "Delta Sleep-Inducing Peptide", cls: "sleep", family: "nootropico", level: "C", ceiling: "none",       aliases: ["dsip", "sueño delta", "delta sleep"] },
 
   // ── Sexual y reproductivo ──────────────────────────────────────
   { slug: "pt-141",        name: "PT-141",        alt: "Bremelanotide",    cls: "melano",   family: "sexual",       level: "A",       ceiling: "established", aliases: ["pt141", "bremelanotide", "bremelanotida", "vyleesi"] },

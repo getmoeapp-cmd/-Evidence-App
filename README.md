@@ -200,32 +200,45 @@ La tarjeta muestra un estado de "Pendiente" en lugar de ceros.
 
 ## Fichas: de markdown a datos
 
-Las fichas se escriben en markdown y se convierten con el parser de
-`/build/`. Si añades una nueva:
+Las fichas se escriben en markdown, en `fichas-evidence/es/` y
+`fichas-evidence/en/`, un archivo por compuesto con el mismo nombre en los dos
+idiomas. El parser (`build/parse2.py` + `build/emit2.py`) las convierte en
+`src/data/es.js` y `src/data/en.js`.
 
-1. Escríbela con la misma estructura de secciones (`## TECHO ESTUDIADO`,
-   `## LO QUE SE AFIRMA · LO QUE SE HA MEDIDO`, `## LA FUENTE`,
-   `## CONTRAINDICACIONES…`, `## ESTATUS REGULATORIO`).
-2. Corre el parser → genera el registro de `src/data/es.js`.
-3. `npm run check` antes de desplegar.
+El parser reconoce los encabezados en los dos idiomas, así que la ficha en
+inglés puede decir `## STUDIED CEILING` y la española `## TECHO ESTUDIADO`.
+Después de generar, corre siempre:
 
-Los niveles de `catalog.js` se sincronizan con los de las fichas: la ficha
-manda, el catálogo la sigue.
+```bash
+npm run check
+```
 
 ### Estados de techo
 
 | Estado | Cuándo | Qué muestra |
 |---|---|---|
 | `established` | Hay dosis publicada en humanos | La cifra grande + escalera si existe |
-| `range` | Hay dosis humanas publicadas pero sin techo único | «Rango estudiado, sin techo único» |
+| `range` | Hay dosis humanas publicadas sin techo único | «Rango estudiado, sin techo único» |
 | `none` | Ningún ensayo humano fijó dosis | «Sin techo establecido» |
 
-`steps` es opcional: los compuestos de dosis fija (Tesamorelina, PT-141,
-Timosina α1) no llevan escalera y muestran solo la pauta de la etiqueta.
+`steps` es opcional: los compuestos de dosis fija muestran solo la pauta.
 
-### Traducción pendiente
+### Mezclas
 
-`es.js` puede ir por delante de `en.js`. Cuando una ficha existe en español
-pero no en inglés, la versión EN muestra la tarjeta corta con un aviso de
-«Full card available» y un botón que cambia el idioma. `npm run check`
-informa cuántas faltan por traducir en vez de tratarlo como error.
+Wolverine, GLOW y KLOW llevan `isBlend: true`, `level: null`, `components[]` y
+`blendNote`. Su ficha no tiene techo, ni cresta, ni eje científico propio:
+muestra «0 estudios», el nivel de cada componente, y por qué combinar sin datos
+combinados no suma confianza.
+
+**Una mezcla nunca lleva nivel.** `npm run check` lo rechaza. Es la regla que
+evita que el producto se convierta en lo que critica.
+
+### Paridad entre idiomas
+
+`npm run check` compara que las dos versiones **afirmen lo mismo**: nivel,
+estado de techo, número de claims, contraindicaciones y entradas regulatorias,
+el nivel de cada claim posición por posición, y que una mezcla lo sea en los
+dos idiomas.
+
+Es la comprobación que más importa. Una traducción puede sonar bien y aun así
+decir NIVEL B donde el original dice NIVEL C.

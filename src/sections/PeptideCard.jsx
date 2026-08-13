@@ -204,8 +204,41 @@ function Safety({ safety, note, surveillance, t }) {
 }
 
 
+
+/* --- Mezclas: sin nivel propio, con el de cada componente ---------- */
+function BlendBody({ p, t }) {
+  return (
+    <>
+      <section style={{ marginBottom: 36 }}>
+        <Label color={C.ink}>{t.blend.madeOf}</Label>
+        <div style={{ marginTop: 14, border: `1px solid ${C.rule}`, borderRadius: 3, background: "#FFF" }}>
+          {p.components.map((c, i) => (
+            <div key={i} style={{ padding: "18px 20px", borderTop: i ? `1px solid ${C.rule}` : "none" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", gap: 14, alignItems: "baseline", flexWrap: "wrap" }}>
+                <span style={{ fontFamily: "'Jost', sans-serif", fontSize: 17, color: C.inkDeep }}>{c.text}</span>
+                <span style={{ fontFamily: "'Jost', sans-serif", fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", color: C.ink }}>
+                  {c.levelTag}
+                </span>
+              </div>
+              {c.note && <div style={{ fontSize: 13.5, color: "#2C3D4C", marginTop: 8, lineHeight: 1.6 }}>{c.note}</div>}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section style={{ marginBottom: 36 }}>
+        <Label color={C.warnText}>{t.blend.whyMatters}</Label>
+        <div style={{ marginTop: 12, padding: "18px 20px", background: "rgba(180,85,47,0.06)", border: `1px solid rgba(180,85,47,0.28)`, borderRadius: 4, fontSize: 14.5, lineHeight: 1.65, color: "#5A4038", maxWidth: 640 }}>
+          {p.blendNote}
+        </div>
+      </section>
+    </>
+  );
+}
+
 export default function PeptideCard({ p, t }) {
-  const lv = t.levels[p.level];
+  const blend = Boolean(p.isBlend);
+  const lv = blend ? null : t.levels[p.level];
   const [keyOpen, setKeyOpen] = React.useState(false);
   return (
     <>
@@ -226,6 +259,14 @@ export default function PeptideCard({ p, t }) {
             </div>
           )}
         </div>
+        {blend ? (
+          <div style={{ textAlign: "right", maxWidth: 200 }}>
+            <div style={{ fontFamily: "'Jost', sans-serif", fontSize: 13, letterSpacing: "0.14em", textTransform: "uppercase", color: C.tabIdle }}>
+              {t.blend.noLevel}
+            </div>
+            <div style={{ fontSize: 11.5, color: C.muted, marginTop: 5, lineHeight: 1.45 }}>{t.blend.noLevelWhy}</div>
+          </div>
+        ) : (
         <button
           className="ev-btn ev-levelbadge"
           onClick={() => setKeyOpen(true)}
@@ -251,16 +292,25 @@ export default function PeptideCard({ p, t }) {
           </div>
           <div style={{ fontSize: 11.5, color: C.muted, maxWidth: 190, marginTop: 4, lineHeight: 1.45 }}>{lv.gloss}</div>
         </button>
+        )}
       </section>
 
       <section style={{ marginBottom: 40 }}>
         <div className="ev-axes" style={{ display: "grid", gridTemplateColumns: "1fr 1px 1fr", gap: 22, border: `1px solid ${C.rule}`, background: C.paperDeep, padding: 22, borderRadius: 3 }}>
           <div>
             <Label color={C.ink}>{t.axes.science}</Label>
-            <div style={{ marginTop: 12 }}><Ridges level={p.level} width={120} height={34} animate={false} /></div>
-            <div style={{ fontSize: 13.5, color: "#2C3D4C", marginTop: 10, lineHeight: 1.5 }}>
-              {t.axes.studies(p.claims.reduce((a, c) => a + c.n, 0), p.claims.reduce((a, c) => a + c.nh, 0))}
-            </div>
+            {blend ? (
+              <div style={{ fontFamily: "'Jost', sans-serif", fontSize: 26, fontWeight: 300, color: C.tabIdle, marginTop: 10 }}>
+                {t.blend.zeroStudies}
+              </div>
+            ) : (
+              <>
+                <div style={{ marginTop: 12 }}><Ridges level={p.level} width={120} height={34} animate={false} /></div>
+                <div style={{ fontSize: 13.5, color: "#2C3D4C", marginTop: 10, lineHeight: 1.5 }}>
+                  {t.axes.studies(p.claims.reduce((a, c) => a + c.n, 0), p.claims.reduce((a, c) => a + c.nh, 0))}
+                </div>
+              </>
+            )}
           </div>
           <div style={{ background: C.rule }} />
           <div>
@@ -280,7 +330,7 @@ export default function PeptideCard({ p, t }) {
         <div style={{ fontSize: 11.5, color: C.muted, marginTop: 9, textAlign: "center" }}>{t.axes.neverAveraged}</div>
       </section>
 
-      <StudiedCeiling ceiling={p.ceiling} t={t} />
+      {blend ? <BlendBody p={p} t={t} /> : <StudiedCeiling ceiling={p.ceiling} t={t} />}
       <WhatPeopleReport reports={p.reports} t={t} />
 
       <section style={{ marginBottom: 40 }}>
