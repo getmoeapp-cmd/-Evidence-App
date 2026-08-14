@@ -63,6 +63,13 @@ for (const q of PEPTIDES_EN) {
   for (const k of ["claims","safety","regulatory"]) {
     if ((p[k]||[]).length !== (q[k]||[]).length) err(`${q.slug}: ${k} ES=${(p[k]||[]).length} EN=${(q[k]||[]).length}`);
   }
+  const pv=p.video||[], qv=q.video||[];
+  if (pv.length !== qv.length) w(`video: ${pv.length} ES vs ${qv.length} EN`);
+  pv.forEach((v,i)=>{ const d=qv[i]; if(!d) return;
+    if ((v.points||[]).length !== (d.points||[]).length) w(`video[${i}] puntos: ${(v.points||[]).length} vs ${(d.points||[]).length}`);
+    (v.points||[]).forEach((pt,j)=>{ const dj=(d.points||[])[j];
+      if (dj && (pt.rel??null) !== (dj.rel??null)) w(`video[${i}].pt[${j}] rel: ${pt.rel} vs ${dj.rel}`); });
+  });
   (p.claims||[]).forEach((c,i)=>{ const d=(q.claims||[])[i];
     if (d && c.level !== d.level) err(`${q.slug}: claim ${i+1} nivel ES=${c.level} EN=${d.level}`); });
 }

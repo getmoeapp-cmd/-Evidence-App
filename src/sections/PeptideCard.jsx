@@ -236,6 +236,45 @@ function BlendBody({ p, t }) {
   );
 }
 
+
+function VideoOpinion({ video, t }) {
+  const REL = {
+    matches: { c: C.ink, m: "\u2713", label: t.video.matches },
+    beyond: { c: C.cautionText, m: "\u2197", label: t.video.beyond },
+    contradicts: { c: C.warnText, m: "\u00d7", label: t.video.contradicts },
+  };
+  return (
+    <section style={{ marginBottom: 40 }}>
+      <Label color={C.field}>{t.video.title}</Label>
+      <div style={{ fontSize: 12.5, color: C.muted, marginTop: 6, maxWidth: 620, lineHeight: 1.5 }}>{t.video.intro}</div>
+      {video.map((v, i) => (
+        <div key={i} style={{ marginTop: 14, border: `1px solid ${C.rule}`, borderLeft: `3px solid ${C.field}`, borderRadius: 3, background: "#FFF", padding: "15px 18px" }}>
+          <div style={{ fontFamily: "'Jost', sans-serif", fontSize: 16.5, color: C.inkDeep }}>{v.who}</div>
+          {v.source && <div style={{ fontSize: 12.5, color: C.muted, marginTop: 3, lineHeight: 1.5 }}>{v.source}</div>}
+          <div style={{ marginTop: 4 }}>
+            {v.points.map((pt, j) => {
+              const r = REL[pt.rel];
+              return (
+                <div key={j} style={{ padding: "11px 0", borderTop: j ? `1px solid ${C.paperDeep}` : "none" }}>
+                  <div style={{ fontSize: 14, color: "#22384A", lineHeight: 1.55 }}>{pt.text}</div>
+                  {r && (
+                    <div style={{ marginTop: 5, fontFamily: "'Jost', sans-serif", fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: r.c }}>
+                      {r.m} {r.label}
+                      {pt.note && (
+                        <span style={{ textTransform: "none", letterSpacing: 0, fontFamily: "'IBM Plex Sans', sans-serif", fontSize: 12.5, color: "#4A5560" }}> — {pt.note}</span>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </section>
+  );
+}
+
 export default function PeptideCard({ p, t }) {
   const blend = Boolean(p.isBlend);
   const lv = blend ? null : t.levels[p.level];
@@ -389,6 +428,8 @@ export default function PeptideCard({ p, t }) {
       </section>
 
       <Safety safety={p.safety} note={p.safetyNote} surveillance={p.surveillance} t={t} />
+
+      {p.video?.length > 0 && <VideoOpinion video={p.video} t={t} />}
 
       <section>
         <Label color={C.ink}>{t.regulatory.title}</Label>

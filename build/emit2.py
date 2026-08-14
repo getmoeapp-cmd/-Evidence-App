@@ -62,6 +62,7 @@ for lang, var, path, hdr in [
         if r["study"]: rec["study"] = r["study"]
         rec["regulatory"] = r["regulatory"]
         if r["regulatoryNote"]: rec["regulatoryNote"] = r["regulatoryNote"]
+        if r.get("video"): rec["video"] = r["video"]
         rec["community"] = {"pending": True}
         recs.append(rec)
     head = (f"// {hdr} — 27 fichas (24 compuestos + 3 mezclas).\n"

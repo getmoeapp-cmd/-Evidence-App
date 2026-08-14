@@ -138,6 +138,13 @@ export const SECTIONS = {
       betaBody: "Durante la beta, el acceso completo es gratis con tu cuenta. Cuando abra el pase anual, las primeras cuentas conservan su precio de fundador mientras sigan activas.",
       footer: "Evidence es material informativo: no es consejo médico ni una recomendación de uso. Muestra lo que la literatura publicada dice — y lo que no dice.",
     },
+    video: {
+      title: "Opinión en video",
+      intro: "Comentario clínico de médicos en video. No es evidencia publicada — se incluye porque circula, y cada afirmación se contrasta con lo que dice esta ficha. El contenido de esta sección tiene fines educativos e informativos únicamente y no sustituye el consejo médico individualizado.",
+      matches: "Coincide con lo publicado",
+      beyond: "Va más allá de lo publicado",
+      contradicts: "Contradice lo publicado",
+    },
     license: {
       title: "Acceso vencido",
       body: "Tu cuenta existe pero no tiene una licencia activa. Si ya pagaste, escríbenos con el correo de tu compra. Si tu pase de 12 meses venció, renuévalo para volver a entrar — tu registro sigue intacto en tu dispositivo.",
@@ -338,6 +345,13 @@ export const SECTIONS = {
       betaTitle: "Get in free. Keep your price.",
       betaBody: "During the beta, full access is free with your account. When the annual pass opens, early accounts keep their founder price for as long as they stay active.",
       footer: "Evidence is informational material: not medical advice and not a recommendation to use anything. It shows what the published literature says — and what it doesn't.",
+    },
+    video: {
+      title: "Video opinion",
+      intro: "Clinical commentary from doctors on video. Not published evidence — included because it circulates, and every claim is checked against this card. The content in this section is intended for educational and informational purposes only and is not a substitute for individualized medical advice.",
+      matches: "Matches the published record",
+      beyond: "Goes beyond the published record",
+      contradicts: "Contradicts the published record",
     },
     license: {
       title: "Access expired",

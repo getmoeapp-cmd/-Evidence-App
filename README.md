@@ -428,3 +428,36 @@ Mismo destino que la vía manual: una sola función, tres cajas.
 
 Mientras el webhook no esté configurado, Hotmart avisa cada venta por correo
 y la concesión se hace a mano con la misma línea de SQL.
+
+## Opinión en video (comentario clínico)
+
+Sección opcional de la ficha para resúmenes de médicos hablando del compuesto
+en video (YouTube). **La regla que la hace segura:** no es evidencia — es
+opinión que circula, y cada afirmación se contrasta con la ficha. El bloque va
+en el color del eje comunitario (oliva), separado de los ejes de literatura, y
+abre con esa advertencia.
+
+Flujo editorial: video → transcripción → resumen con contraste → aprobación
+del dueño → entra a la ficha en los DOS idiomas. Nada se publica sin aprobar.
+
+Sintaxis en la ficha markdown:
+
+```
+## OPINIÓN EN VIDEO            (EN: ## VIDEO OPINION)
+
+**Dr. Nombre — Canal (2025)**
+"Título del video", fecha o duración.
+- afirmación resumida → [coincide] nota breve
+- otra afirmación → [excede] no hay ensayo humano de eso
+- otra más → [contradice] el ensayo grande no encontró efecto
+```
+
+Etiquetas: `[coincide]`/`[match]`, `[excede]`/`[beyond]`,
+`[contradice]`/`[contradict]`. El parser (`build/parse2.py`) las mapea a
+`matches | beyond | contradicts` y `smoke.mjs` exige paridad ES/EN de
+entradas, puntos y etiquetas. Regenerar datos:
+`python3 build/parse2.py && python3 build/emit2.py` desde la raíz (las rutas
+ya son relativas al repo).
+
+Citas textuales: máximo una por video y siempre corta; el resto en palabras
+propias, con atribución a médico y canal.

@@ -2,7 +2,8 @@
 """Parser bilingüe de fichas Evidence. Maneja compuestos y mezclas."""
 import re, json, os
 
-ROOT = "/home/claude/fichas2/fichas-evidence"
+import os as _os
+ROOT = _os.environ.get("FICHAS_ROOT") or _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "fichas-evidence")
 
 SLUG = {"semaglutide":"semaglutida", "ss-31-elamipretide":"ss-31", "wolverine-stack":"wolverine"}
 
@@ -19,6 +20,7 @@ SEC = {  # clave -> fragmentos que la identifican, en los dos idiomas
  "reg":       ["ESTATUS REGULATORIO", "REGULATORY STATUS"],
  "madeof":    ["DE QUÉ ESTÁ HECHA", "WHAT IT'S MADE OF"],
  "whyblend":  ["POR QUÉ IMPORTA MEZCLAR", "WHY BLENDING MATTERS"],
+ "video":     ["OPINIÓN EN VIDEO", "VIDEO OPINION", "COMENTARIO CLÍNICO", "CLINICAL COMMENTARY"],
 }
 
 def sections(text):
@@ -175,11 +177,39 @@ def parse(path, lang):
     pre = rg.split("**")[0].strip()
     reg_note = " ".join(scrub(l) for l in pre.split("\n") if l.strip()) if pre else ""
 
+    # Opinión en video: comentario clínico de médicos, contrastado con la ficha.
+    # Formato: **Dr. X — Canal (año)** / línea(s) de fuente / viñetas:
+    #   - afirmación → [coincide|excede|contradice] nota
+    video, vd = [], S.get("video", "")
+    for h, b in bold_blocks(vd):
+        lines = [l.strip() for l in b.split("\n") if l.strip()]
+        srcline = " ".join(l for l in lines if not l.startswith("-"))
+        pts = []
+        for l in lines:
+            if not l.startswith("-"): continue
+            body = l[1:].strip()
+            mtag = re.search(r"\[(.+?)\]", body)
+            tag = mtag.group(1).upper() if mtag else ""
+            if "COINCIDE" in tag or "MATCH" in tag: rel = "matches"
+            elif "CONTRADICE" in tag or "CONTRADICT" in tag: rel = "contradicts"
+            elif "EXCEDE" in tag or "BEYOND" in tag or "ALLÁ" in tag: rel = "beyond"
+            else: rel = None
+            if "→" in body:
+                text, rest = body.split("→", 1)
+                note = re.sub(r"\[.*?\]", "", rest).strip()
+            else:
+                text, note = re.sub(r"\[.*?\]", "", body), ""
+            e = {"text": scrub(text), "rel": rel}
+            if scrub(note): e["note"] = scrub(note)
+            pts.append(e)
+        video.append({"who": scrub(split_tag(h)[0]), "source": scrub(srcline), "points": pts})
+
     rec = {"slug": SLUG.get(os.path.basename(path)[:-3], os.path.basename(path)[:-3]),
            "name": name, "className": cls, "level": level, "summary": summary,
            "levelNote": note, "ceiling": ceiling, "claims": claims, "study": study,
            "safety": safety, "safetyNote": safety_note, "regulatory": reg, "regulatoryNote": reg_note,
            "isBlend": is_blend}
+    if video: rec["video"] = video
 
     if is_blend:
         rec["components"] = [{"text": scrub(split_tag(h)[0]), "levelTag": scrub(split_tag(h)[1]), "note": scrub(b)}
