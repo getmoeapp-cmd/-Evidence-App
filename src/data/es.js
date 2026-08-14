@@ -22,7 +22,6 @@ export const PEPTIDOS_ES = [
         categories: ["uso por encima del techo estudiado", "saltos en la escalada", "combinación con otros compuestos (\"stacking\")", "producto sin COA verificado."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "absolute", text: "Antecedente personal o familiar de carcinoma medular de tiroides", origin: "trial", detail: "Advertencia de clase GLP-1 · criterio de exclusión en ensayos" },
       { kind: "absolute", text: "Neoplasia endocrina múltiple tipo 2 (MEN2)", origin: "trial", detail: "Advertencia de clase GLP-1 · criterio de exclusión en ensayos" },
@@ -95,7 +94,6 @@ export const PEPTIDOS_ES = [
         categories: ["uso por encima del techo estudiado", "saltos en la escalada", "combinación con otros compuestos", "producto sin COA verificado."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "absolute", text: "Antecedente personal o familiar de carcinoma medular de tiroides", origin: "label", detail: "Etiqueta aprobada" },
       { kind: "absolute", text: "Neoplasia endocrina múltiple tipo 2 (MEN2)", origin: "label", detail: "Etiqueta aprobada" },
@@ -153,7 +151,6 @@ export const PEPTIDOS_ES = [
         categories: ["uso por encima del techo estudiado", "saltos en la escalada", "combinación con otros compuestos", "producto sin COA verificado."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "absolute", text: "Antecedente personal o familiar de carcinoma medular de tiroides", origin: "label", detail: "Etiqueta aprobada" },
       { kind: "absolute", text: "Neoplasia endocrina múltiple tipo 2 (MEN2)", origin: "label", detail: "Etiqueta aprobada" },
@@ -208,7 +205,6 @@ export const PEPTIDOS_ES = [
         categories: ["uso fuera de indicación (estética, \"grasa abdominal\" sin VIH)", "abandono por costo", "producto magistral vs original."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "absolute", text: "Cáncer activo", origin: "label", detail: "Etiqueta aprobada" },
       { kind: "absolute", text: "Alteración del eje hipotálamo-hipófisis (cirugía, radiación, tumor hipofisario)", origin: "label", detail: "Etiqueta aprobada" },
@@ -256,7 +252,6 @@ export const PEPTIDOS_ES = [
         categories: ["uso \"quema-grasa localizada\"", "combinación con GLP-1", "producto sin COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "relative", text: "Perfil de seguridad — LIMPIO en ensayos", origin: "mechanism", detail: "Bien tolerado en más de 900 participantes, sin elevación de IGF-1, sin resistencia a la insulina, sin retención de líquidos." },
       { kind: "watch", text: "Embarazo y lactancia", origin: "mechanism", detail: "Nota de honestidad: que algo sea seguro no lo hace efectivo. Este compuesto es la demostración perfecta de esa diferencia." }
@@ -291,7 +286,6 @@ export const PEPTIDOS_ES = [
         categories: ["combinación con ipamorelin (el stack más común del eje GH)", "duración de protocolos", "producto sin COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "relative", text: "Cáncer activo o antecedente reciente — PRECAUCIÓN FUERTE", origin: "mechanism", detail: "IGF-1 elevado es un factor de crecimiento celular. Los productos GH aprobados lo contraindican en malignidad activa." },
       { kind: "relative", text: "Diabetes o prediabetes — PRECAUCIÓN", origin: "mechanism", detail: "El eje GH sube la glucosa. Efecto de clase documentado en los análogos aprobados." },
@@ -327,7 +321,6 @@ export const PEPTIDOS_ES = [
         categories: ["stack con CJC-1295 (la combinación más vendida del eje GH)", "uso nocturno \"para el sueño\"", "producto sin COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "relative", text: "Cáncer activo o antecedente reciente — PRECAUCIÓN FUERTE", origin: "mechanism", detail: "IGF-1 elevado es factor de crecimiento celular." },
       { kind: "relative", text: "Diabetes o prediabetes — PRECAUCIÓN", origin: "mechanism", detail: "Efecto de clase del eje GH sobre la glucosa." },
@@ -365,7 +358,6 @@ export const PEPTIDOS_ES = [
         categories: ["origen (clínica magistral vs mercado gris)", "stack con ipamorelin", "uso sin medición de IGF-1."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "relative", text: "Cáncer activo o antecedente reciente — PRECAUCIÓN FUERTE", origin: "mechanism", detail: "IGF-1 elevado es factor de crecimiento celular." },
       { kind: "relative", text: "Diabetes o prediabetes — PRECAUCIÓN", origin: "mechanism", detail: "El eje GH eleva la glucosa." },
@@ -403,7 +395,6 @@ export const PEPTIDOS_ES = [
         categories: ["vía de administración (oral vs inyectada)", "combinación con TB-500 (\"Wolverine\")", "duración de ciclos", "producto sin COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "relative", text: "Cáncer activo o antecedente reciente — PRECAUCIÓN TEÓRICA", origin: "mechanism", detail: "BPC-157 estimula angiogénesis (VEGF) en modelos animales — el mismo mecanismo que los tumores usan para crecer. Nunca estudiado en humanos con cáncer." },
       { kind: "interaction", text: "Embarazo y lactancia", origin: "mechanism", detail: "Interacciones con medicamentos — SIN NINGÚN DATO" }
@@ -439,7 +430,6 @@ export const PEPTIDOS_ES = [
         categories: ["combinación con BPC-157 (\"Wolverine\")", "frecuencia de \"ciclos de carga\"", "producto sin COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "relative", text: "Cáncer activo o antecedente reciente — PRECAUCIÓN TEÓRICA", origin: "mechanism", detail: "Promueve angiogénesis y migración celular en modelos — mecanismo compartido con crecimiento tumoral. Nunca estudiado en humanos con cáncer." },
       { kind: "interaction", text: "Embarazo y lactancia", origin: "mechanism", detail: "Interacciones — SIN NINGÚN DATO" }
@@ -475,7 +465,6 @@ export const PEPTIDOS_ES = [
         categories: ["vía (tópica vs subcutánea vs microneedling)", "uso capilar", "producto sin COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "relative", text: "Vía tópica", origin: "mechanism", detail: "Perfil cosmético generalmente bien tolerado; posible irritación local." },
       { kind: "interaction", text: "Vía inyectable", origin: "mechanism", detail: "Presión arterial, carga de cobre, interacciones: nadie lo ha medido en personas." },
@@ -511,7 +500,6 @@ export const PEPTIDOS_ES = [
         categories: ["vía (oral para intestino vs tópico vs inyectado)", "combinación con BPC-157 en protocolos digestivos", "producto sin COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "interaction", text: "Enfermedad autoinmune bajo tratamiento", origin: "mechanism", detail: "Modula la respuesta inflamatoria; interacción con inmunomoduladores no estudiada." },
       { kind: "interaction", text: "Embarazo y lactancia", origin: "mechanism", detail: "Interacciones — SIN NINGÚN DATO" }
@@ -546,7 +534,6 @@ export const PEPTIDOS_ES = [
         categories: ["uso para infecciones crónicas o SIBO", "uso nebulizado", "reacción local en el sitio de inyección", "producto sin COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "watch", text: "Efectos sobre la fertilidad masculina — SEÑAL DECLARADA POR LA FDA", origin: "mechanism", detail: "Efectos protumorales en algunos tejidos — SEÑAL DECLARADA POR LA FDA" },
       { kind: "relative", text: "Enfermedad autoinmune o inflamatoria (psoriasis, lupus, artritis reumatoide) — PRECAUCIÓN FUERTE", origin: "mechanism", detail: "El péptido está implicado en la fisiopatología de estas condiciones." },
@@ -584,7 +571,6 @@ export const PEPTIDOS_ES = [
         categories: ["uso \"pre-entreno\"", "combinación con otros compuestos metabólicos", "producto sin COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "relative", text: "Diabetes o medicación hipoglucemiante — PRECAUCIÓN TEÓRICA", origin: "mechanism", detail: "Si hace lo que hace en ratones, movería glucosa e insulina. Nadie lo ha medido en personas." },
       { kind: "relative", text: "Embarazo y lactancia", origin: "mechanism" }
@@ -622,7 +608,6 @@ export const PEPTIDOS_ES = [
         categories: ["uso fuera de indicación por longevidad/rendimiento", "producto aprobado vs \"de investigación\"", "reacción en el sitio de inyección."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "relative", text: "Reacciones en el sitio de inyección — EFECTO ADVERSO MÁS FRECUENTE", origin: "trial", detail: "El más reportado en los ensayos." },
       { kind: "relative", text: "Pacientes de menos de 30 kg — FUERA DE ETIQUETA", origin: "mechanism", detail: "La aprobación cubre adultos y pediátricos de 30 kg o más; en menores de ese peso se siguen recogiendo datos." },
@@ -659,7 +644,6 @@ export const PEPTIDOS_ES = [
         categories: ["duración de ciclos", "frecuencia anual", "combinación con otros protocolos de longevidad", "producto sin COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "watch", text: "Cáncer activo — PRECAUCIÓN TEÓRICA", origin: "mechanism", detail: "Cualquier compuesto que module proliferación celular y telomerasa merece cautela aquí. Sin datos." },
       { kind: "interaction", text: "Embarazo y lactancia", origin: "mechanism", detail: "Interacciones — SIN NINGÚN DATO" }
@@ -695,7 +679,6 @@ export const PEPTIDOS_ES = [
         categories: ["combinación con Epitalon y otros biorreguladores", "ciclos repetidos", "producto sin COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "interaction", text: "Embarazo y lactancia", origin: "mechanism", detail: "Interacciones — SIN NINGÚN DATO" },
       { kind: "relative", text: "Uso prolongado", origin: "pharmacovigilance", detail: "La ausencia de efectos adversos reportados no es lo mismo que seguridad demostrada: donde nadie ha medido, nadie ha encontrado nada." }
@@ -731,7 +714,6 @@ export const PEPTIDOS_ES = [
         categories: ["vía (oral vs IV en clínica)", "costo por sesión", "combinación con otros protocolos de longevidad."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "relative", text: "Infusión IV — TOLERABILIDAD", origin: "pharmacovigilance", detail: "Reportes de síntomas gastrointestinales moderados a severos, aumento de frecuencia cardíaca y presión en el pecho durante la infusión, que ceden al terminar. Por eso las infusiones se administran lento." },
       { kind: "relative", text: "Cáncer activo — PRECAUCIÓN TEÓRICA", origin: "mechanism", detail: "El metabolismo del NAD+ también alimenta células tumorales; no hay datos clínicos que resuelvan esto." },
@@ -767,7 +749,6 @@ export const PEPTIDOS_ES = [
         categories: ["variantes (Semax vs N-Acetil-Semax vs amidado)", "stack con Selank", "uso continuo", "producto sin COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "relative", text: "Uso junto con psicofármacos — PRECAUCIÓN", origin: "mechanism", detail: "Por su actividad dopaminérgica y serotoninérgica, la combinación con SSRI, IMAO, antipsicóticos o estimulantes no está estudiada y merece supervisión médica." },
       { kind: "watch", text: "Ansiedad o inquietud — SEÑAL REPORTADA", origin: "mechanism", detail: "Más probable a dosis altas, por la vía dopaminérgica." },
@@ -806,7 +787,6 @@ export const PEPTIDOS_ES = [
         categories: ["stack con Semax", "uso continuo vs por ciclos", "producto sin COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "interaction", text: "Uso junto con medicación psiquiátrica", origin: "mechanism", detail: "La interacción con SSRI, benzodiacepinas u otros ansiolíticos no está estudiada." },
       { kind: "watch", text: "Embarazo y lactancia", origin: "trial", detail: "Uso prolongado — SIN DATO Los ensayos duraron semanas, no años." },
@@ -843,7 +823,6 @@ export const PEPTIDOS_ES = [
         categories: ["uso nocturno para insomnio", "combinación con otros compuestos de sueño", "producto sin COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "interaction", text: "Uso junto con sedantes, alcohol o hipnóticos", origin: "mechanism", detail: "Interacción no estudiada; precaución evidente por el efecto buscado." },
       { kind: "relative", text: "Embarazo y lactancia", origin: "mechanism", detail: "Uso prolongado — SIN NINGÚN DATO" }
@@ -881,7 +860,6 @@ export const PEPTIDOS_ES = [
         categories: ["uso masculino fuera de indicación", "frecuencia por encima del límite de etiqueta", "producto original vs \"de investigación\"", "combinación con inhibidores de PDE5."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "absolute", text: "Hipertensión no controlada o enfermedad cardiovascular", origin: "label", detail: "Produce elevaciones transitorias de la presión arterial. Etiqueta aprobada" },
       { kind: "absolute", text: "Embarazo", origin: "label", detail: "Etiqueta aprobada" },
@@ -927,7 +905,6 @@ export const PEPTIDOS_ES = [
         categories: ["uso como \"PCT\" o para testosterona", "uso para libido", "vía (subcutánea vs la IV estudiada)", "producto sin COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "relative", text: "Cáncer hormonodependiente — PRECAUCIÓN TEÓRICA", origin: "mechanism", detail: "Activa el eje reproductivo completo y por tanto la producción de hormonas sexuales." },
       { kind: "watch", text: "Embarazo", origin: "trial", detail: "Uso repetido o prolongado — SIN DATO Los ensayos fueron administraciones puntuales o infusiones cortas en contexto hospitalario." }
@@ -965,7 +942,6 @@ export const PEPTIDOS_ES = [
         categories: ["uso \"para el sistema inmune\" sin indicación", "producto original vs magistral vs de investigación", "duración de ciclos."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "relative", text: "Enfermedad autoinmune activa — PRECAUCIÓN", origin: "mechanism", detail: "Modula al alza la respuesta inmune: riesgo teórico de exacerbación." },
       { kind: "relative", text: "Trasplante de órgano / inmunosupresión — PRECAUCIÓN FUERTE", origin: "mechanism", detail: "Puede oponerse al objetivo del tratamiento inmunosupresor." },
@@ -1000,7 +976,6 @@ export const PEPTIDOS_ES = [
       { text: "TB-500 (fragmento de timosina beta-4)", levelTag: "NIVEL C", note: "Los ensayos humanos de la familia usaron gotas oftálmicas de la molécula madre, no el fragmento inyectable. Techo estudiado para el inyectable: no existe." }
     ],
     blendNote: "Combinar dos compuestos sin datos no suma dos evidencias: multiplica las incógnitas. Si aparece un efecto adverso, no hay forma de saber cuál lo causó. Si aparece un beneficio, tampoco. Y las señales teóricas de cada componente se acumulan: ambos promueven angiogénesis en modelos animales, el mismo mecanismo que preocupa en presencia de cáncer activo. Esa precaución no se diluye al mezclar — se refuerza. ",
-    reports: { pending: true },
     safety: [
       { kind: "relative", text: "Cáncer activo o antecedente reciente — PRECAUCIÓN TEÓRICA REFORZADA", origin: "mechanism", detail: "Los dos componentes promueven angiogénesis y migración celular en modelos." },
       { kind: "interaction", text: "Embarazo y lactancia", origin: "mechanism", detail: "Interacciones — SIN NINGÚN DATO" }
@@ -1030,7 +1005,6 @@ export const PEPTIDOS_ES = [
       { text: "TB-500", levelTag: "NIVEL C", note: "Ensayos humanos solo con la molécula madre en gotas oftálmicas, no con el fragmento inyectable." }
     ],
     blendNote: "Tres compuestos sin datos combinados no dan tres veces más confianza: dan tres variables imposibles de separar. Si algo funciona, no sabrás cuál. Si algo sale mal, tampoco. Y aquí se suma un problema propio: el cobre. Una inyección sistémica repetida de un compuesto de cobre plantea preguntas de carga que nadie ha medido en personas. ",
-    reports: { pending: true },
     safety: [
       { kind: "relative", text: "Cáncer activo o antecedente reciente — PRECAUCIÓN TEÓRICA REFORZADA", origin: "mechanism", detail: "BPC-157 y TB-500 promueven angiogénesis en modelos." },
       { kind: "watch", text: "Carga de cobre / presión arterial", origin: "mechanism", detail: "La vía inyectable de GHK-Cu nunca se ha estudiado en humanos." },
@@ -1062,7 +1036,6 @@ export const PEPTIDOS_ES = [
       { text: "TB-500", levelTag: "NIVEL C", note: "Ensayos humanos solo con la molécula madre en gotas oftálmicas." }
     ],
     blendNote: "Cuatro compuestos en una jeringa son cuatro variables que no se pueden separar. Ninguna combinación de este catálogo ha sido estudiada como conjunto, y la de cuatro es la más opaca de todas: si hay reacción, hay cuatro sospechosos y ninguna forma de saber cuál fue. Esta es también la razón por la que Evidence nunca asigna nivel a una mezcla. Es la regla que evita que el producto se convierta en aquello que critica. ",
-    reports: { pending: true },
     safety: [
       { kind: "relative", text: "Cáncer activo o antecedente reciente — PRECAUCIÓN TEÓRICA REFORZADA", origin: "mechanism", detail: "BPC-157 y TB-500 promueven angiogénesis en modelos." },
       { kind: "watch", text: "Carga de cobre / presión arterial", origin: "mechanism", detail: "La vía inyectable de GHK-Cu nunca se ha estudiado en humanos." },

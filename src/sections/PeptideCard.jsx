@@ -92,65 +92,6 @@ function StudiedCeiling({ ceiling, t }) {
   );
 }
 
-function WhatPeopleReport({ reports, t }) {
-  if (reports.pending) {
-    return (
-      <section style={{ marginBottom: 40 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 9, flexWrap: "wrap" }}>
-          <Label color={C.field}>{t.reports.title}</Label>
-          <span style={{ fontFamily: "'Jost', sans-serif", fontSize: 9.5, letterSpacing: "0.14em", textTransform: "uppercase", color: C.tabIdle, border: `1px solid ${C.chipBorder}`, borderRadius: 2, padding: "2px 6px" }}>{t.pending.badge}</span>
-        </div>
-        <div style={{ marginTop: 14, border: `1px dashed rgba(107,117,72,0.45)`, borderRadius: 3, background: "#FFF", padding: "26px 24px", maxWidth: 640 }}>
-          <div style={{ display: "flex", alignItems: "flex-end", gap: 3, height: 26, opacity: 0.3, marginBottom: 16 }}>
-            {[0.35, 0.5, 0.4, 0.6, 0.45, 0.3, 0.5, 0.38].map((h, i) => (
-              <div key={i} style={{ width: 9, height: `${h * 100}%`, background: C.fieldSoft }} />
-            ))}
-          </div>
-          <div style={{ fontSize: 14.5, color: "#22384A", lineHeight: 1.62 }}>{t.pending.community}</div>
-        </div>
-      </section>
-    );
-  }
-  return (
-    <section style={{ marginBottom: 40 }}>
-      <Label color={C.field}>{t.reports.title}</Label>
-      <div style={{ fontSize: 12.5, color: C.muted, marginTop: 6, maxWidth: 620, lineHeight: 1.5 }}>{t.reports.intro(reports.n)}</div>
-      <div style={{ marginTop: 16, border: `1px solid ${C.rule}`, borderRadius: 3, background: "#FFF", padding: 22 }}>
-        {reports.effects.map((e, i) => (
-          <div key={i} style={{ marginBottom: i === reports.effects.length - 1 ? 0 : 16 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 14, marginBottom: 6 }}>
-              <span style={{ fontSize: 14.5, color: e.none ? C.muted : "#22384A", fontStyle: e.none ? "italic" : "normal" }}>{e.text}</span>
-              <span style={{ fontFamily: "'Jost', sans-serif", fontSize: 13, color: e.none ? C.muted : C.field, whiteSpace: "nowrap" }}>
-                {Math.round(e.pct * 100)}%
-                {!e.none && (
-                  <span style={{ color: C.muted, fontSize: 11, letterSpacing: "0.1em", marginLeft: 9 }}>
-                    {t.levels[e.level].label.toUpperCase()}
-                  </span>
-                )}
-              </span>
-            </div>
-            <div style={{ height: 6, background: C.paperDeep, borderRadius: 3, overflow: "hidden" }}>
-              <div style={{ width: `${e.pct * 100}%`, height: "100%", background: e.none ? C.muted : C.fieldSoft, opacity: e.none ? 0.45 : 1, borderRadius: 3 }} />
-            </div>
-          </div>
-        ))}
-        <div style={{ marginTop: 22, paddingTop: 16, borderTop: `1px solid ${C.rule}`, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))", gap: 18 }}>
-          {[
-            { v: reports.noAdverse, l: t.reports.noAdverse },
-            { v: reports.stacking, l: t.reports.stacking },
-            { v: reports.habits, l: t.reports.habits },
-          ].map((s, i) => (
-            <div key={i}>
-              <div style={{ fontFamily: "'Jost', sans-serif", fontSize: 22, color: C.field, fontWeight: 300 }}>{Math.round(s.v * 100)}%</div>
-              <div style={{ fontSize: 12, color: C.muted, marginTop: 3, lineHeight: 1.45 }}>{s.l}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Safety({ safety, note, surveillance, t }) {
   const tones = {
     absolute: { c: C.warnText, b: C.warn },
@@ -370,7 +311,7 @@ export default function PeptideCard({ p, t }) {
       </section>
 
       {blend ? <BlendBody p={p} t={t} /> : <StudiedCeiling ceiling={p.ceiling} t={t} />}
-      <WhatPeopleReport reports={p.reports} t={t} />
+      {p.video?.length > 0 && <VideoOpinion video={p.video} t={t} />}
 
       <section style={{ marginBottom: 40 }}>
         <Label color={C.ink}>{t.claims.title}</Label>
@@ -428,8 +369,6 @@ export default function PeptideCard({ p, t }) {
       </section>
 
       <Safety safety={p.safety} note={p.safetyNote} surveillance={p.surveillance} t={t} />
-
-      {p.video?.length > 0 && <VideoOpinion video={p.video} t={t} />}
 
       <section>
         <Label color={C.ink}>{t.regulatory.title}</Label>

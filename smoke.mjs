@@ -30,12 +30,6 @@ for (const [lang, list] of [["es", PEPTIDOS_ES], ["en", PEPTIDES_EN]]) {
       if (!p.ceiling?.adverse?.pending && p.ceiling?.adverse?.aboveCeiling === undefined) w("adverse sin aboveCeiling ni pending");
       if (p.ceiling?.adverse?.pending && !Array.isArray(p.ceiling.adverse.categories)) w("pending sin categories");
     }
-    if (!p.reports) w("sin reports");
-    if (!p.reports?.pending) {
-      if (typeof p.reports?.n !== "number") w("reports.n no numérico");
-      for (const k of ["noAdverse", "stacking", "habits"]) if (typeof p.reports?.[k] !== "number") w(`reports.${k} ausente`);
-      for (const e of p.reports?.effects ?? []) if (!e.none && !t.levels[e.level]) w(`efecto con nivel malo "${e.level}"`);
-    }
     if (!p.community) w("sin community");
     if (!p.community?.pending && typeof p.community?.n !== "number") w("community.n no numérico");
     if (!Array.isArray(p.safety)) w("safety no es array");

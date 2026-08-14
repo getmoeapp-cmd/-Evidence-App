@@ -55,7 +55,6 @@ for lang, var, path, hdr in [
             rec["blendNote"] = r["blendNote"]
         else:
             rec["ceiling"] = r["ceiling"]
-        rec["reports"] = {"pending": True}
         rec["safety"] = r["safety"]
         if r["safetyNote"]: rec["safetyNote"] = r["safetyNote"]
         rec["claims"] = r["claims"]

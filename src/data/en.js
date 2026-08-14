@@ -22,7 +22,6 @@ export const PEPTIDES_EN = [
         categories: ["use above the studied ceiling", "skipped titration steps", "stacking with other compounds", "product without a verified COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "absolute", text: "Personal or family history of medullary thyroid carcinoma — DO NOT USE", origin: "trial", detail: "GLP-1 class warning · trial exclusion criterion" },
       { kind: "absolute", text: "Multiple endocrine neoplasia syndrome type 2 (MEN2) — DO NOT USE", origin: "trial", detail: "GLP-1 class warning · trial exclusion criterion" },
@@ -95,7 +94,6 @@ export const PEPTIDES_EN = [
         categories: ["use above the studied ceiling", "skipped titration steps", "concurrent use of other compounds", "product without a verified COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "absolute", text: "Personal or family history of medullary thyroid carcinoma — DO NOT USE", origin: "label", detail: "Approved product label" },
       { kind: "absolute", text: "Multiple endocrine neoplasia syndrome type 2 (MEN2) — DO NOT USE", origin: "label", detail: "Approved product label" },
@@ -153,7 +151,6 @@ export const PEPTIDES_EN = [
         categories: ["use above the studied ceiling", "skipped titration steps", "concurrent use of other compounds", "product without a verified COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "absolute", text: "Personal or family history of medullary thyroid carcinoma — DO NOT USE", origin: "label", detail: "Approved product label" },
       { kind: "absolute", text: "Multiple endocrine neoplasia syndrome type 2 (MEN2) — DO NOT USE", origin: "label", detail: "Approved product label" },
@@ -208,7 +205,6 @@ export const PEPTIDES_EN = [
         categories: ["off-label use (aesthetic, \"belly fat\" without HIV)", "discontinuation over cost", "compounded versus original product."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "absolute", text: "Active cancer — DO NOT USE", origin: "label", detail: "Approved product label" },
       { kind: "absolute", text: "Disruption of the hypothalamic-pituitary axis (surgery, radiation, pituitary tumor) — DO NOT USE", origin: "label", detail: "Approved product label" },
@@ -256,7 +252,6 @@ export const PEPTIDES_EN = [
         categories: ["\"spot fat burning\" use", "combination with GLP-1s", "product without a COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "relative", text: "Safety profile — CLEAN in trials", origin: "mechanism", detail: "Well tolerated across more than 900 participants, with no IGF-1 elevation, no insulin resistance, no fluid retention." },
       { kind: "watch", text: "Pregnancy and breastfeeding", origin: "mechanism", detail: "A note on honesty: being safe does not make something effective. This compound is the perfect demonstration of that difference." }
@@ -291,7 +286,6 @@ export const PEPTIDES_EN = [
         categories: ["combination with ipamorelin (the most common GH-axis stack)", "protocol length", "product without a COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "watch", text: "Active cancer or recent history — STRONG CAUTION", origin: "mechanism", detail: "Elevated IGF-1 is a cell growth factor. Approved GH products contraindicate it in active malignancy." },
       { kind: "watch", text: "Diabetes or prediabetes — CAUTION", origin: "mechanism", detail: "The GH axis raises glucose. A documented class effect in approved analogs." },
@@ -327,7 +321,6 @@ export const PEPTIDES_EN = [
         categories: ["stack with CJC-1295 (the best-selling GH-axis combination)", "nighttime use \"for sleep\"", "product without a COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "watch", text: "Active cancer or recent history — STRONG CAUTION", origin: "mechanism", detail: "Elevated IGF-1 is a cell growth factor." },
       { kind: "watch", text: "Diabetes or prediabetes — CAUTION", origin: "mechanism", detail: "GH-axis class effect on glucose." },
@@ -365,7 +358,6 @@ export const PEPTIDES_EN = [
         categories: ["source (compounding clinic vs gray market)", "stack with ipamorelin", "use without IGF-1 measurement."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "watch", text: "Active cancer or recent history — STRONG CAUTION", origin: "mechanism", detail: "Elevated IGF-1 is a cell growth factor." },
       { kind: "watch", text: "Diabetes or prediabetes — CAUTION", origin: "mechanism", detail: "The GH axis raises glucose." },
@@ -403,7 +395,6 @@ export const PEPTIDES_EN = [
         categories: ["route (oral vs injected)", "combination with TB-500 (\"Wolverine\")", "cycle length", "product without a COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "watch", text: "Active cancer or recent history — THEORETICAL CAUTION", origin: "mechanism", detail: "BPC-157 stimulates angiogenesis (VEGF) in animal models — the same mechanism tumors use to grow. Never studied in humans with cancer." },
       { kind: "interaction", text: "Pregnancy and breastfeeding", origin: "mechanism", detail: "Drug interactions — NO DATA AT ALL" }
@@ -439,7 +430,6 @@ export const PEPTIDES_EN = [
         categories: ["combination with BPC-157 (\"Wolverine\")", "frequency of \"loading cycles\"", "product without a COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "watch", text: "Active cancer or recent history — THEORETICAL CAUTION", origin: "mechanism", detail: "Promotes angiogenesis and cell migration in models — a mechanism shared with tumor growth. Never studied in humans with cancer." },
       { kind: "interaction", text: "Pregnancy and breastfeeding", origin: "mechanism", detail: "Interactions — NO DATA AT ALL" }
@@ -475,7 +465,6 @@ export const PEPTIDES_EN = [
         categories: ["route (topical vs subcutaneous vs microneedling)", "hair use", "product without a COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "relative", text: "Topical route", origin: "mechanism", detail: "Generally well tolerated as a cosmetic; local irritation possible." },
       { kind: "interaction", text: "Injectable route", origin: "mechanism", detail: "Blood pressure, copper load, interactions: nobody has measured them in people." },
@@ -511,7 +500,6 @@ export const PEPTIDES_EN = [
         categories: ["route (oral for gut vs topical vs injected)", "combination with BPC-157 in digestive protocols", "product without a COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "interaction", text: "Autoimmune disease under treatment", origin: "mechanism", detail: "It modulates the inflammatory response; interaction with immunomodulators has not been studied." },
       { kind: "interaction", text: "Pregnancy and breastfeeding", origin: "mechanism", detail: "Interactions — NO DATA AT ALL" }
@@ -546,7 +534,6 @@ export const PEPTIDES_EN = [
         categories: ["use for chronic infections or SIBO", "nebulized use", "local injection site reactions", "product without a COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "watch", text: "Effects on male fertility — SIGNAL STATED BY THE FDA", origin: "mechanism", detail: "Protumorigenic effects in some tissues — SIGNAL STATED BY THE FDA" },
       { kind: "watch", text: "Autoimmune or inflammatory disease (psoriasis, lupus, rheumatoid arthritis) — STRONG CAUTION", origin: "mechanism", detail: "The peptide is implicated in the pathophysiology of these conditions." },
@@ -584,7 +571,6 @@ export const PEPTIDES_EN = [
         categories: ["\"pre-workout\" use", "combination with other metabolic compounds", "product without a COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "watch", text: "Diabetes or glucose-lowering medication — THEORETICAL CAUTION", origin: "mechanism", detail: "If it does in people what it does in mice, it would move glucose and insulin. Nobody has measured it." },
       { kind: "watch", text: "Pregnancy and breastfeeding", origin: "mechanism" }
@@ -622,7 +608,6 @@ export const PEPTIDES_EN = [
         categories: ["off-label use for longevity/performance", "approved versus \"research\" product", "injection site reactions."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "relative", text: "Injection site reactions — MOST FREQUENT ADVERSE EFFECT", origin: "trial", detail: "The most reported in the trials." },
       { kind: "relative", text: "Patients under 30 kg — OFF-LABEL", origin: "mechanism", detail: "The approval covers adults and pediatric patients of 30 kg or more; data is still being collected below that weight." },
@@ -659,7 +644,6 @@ export const PEPTIDES_EN = [
         categories: ["cycle length", "annual frequency", "combination with other longevity protocols", "product without a COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "watch", text: "Active cancer — THEORETICAL CAUTION", origin: "mechanism", detail: "Any compound that modulates cell proliferation and telomerase warrants caution here. No data." },
       { kind: "interaction", text: "Pregnancy and breastfeeding", origin: "mechanism", detail: "Interactions — NO DATA AT ALL" }
@@ -695,7 +679,6 @@ export const PEPTIDES_EN = [
         categories: ["combination with Epitalon and other bioregulators", "repeated cycles", "product without a COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "interaction", text: "Pregnancy and breastfeeding", origin: "mechanism", detail: "Interactions — NO DATA AT ALL" },
       { kind: "watch", text: "Long-term use", origin: "pharmacovigilance", detail: "The absence of reported adverse effects is not the same as demonstrated safety: where nobody has measured, nobody has found anything." }
@@ -731,7 +714,6 @@ export const PEPTIDES_EN = [
         categories: ["route (oral vs clinic IV)", "cost per session", "combination with other longevity protocols."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "relative", text: "IV infusion — TOLERABILITY", origin: "pharmacovigilance", detail: "Reports of moderate to severe gastrointestinal symptoms, increased heart rate and chest pressure during infusion, resolving on completion. This is why infusions are given slowly." },
       { kind: "watch", text: "Active cancer — THEORETICAL CAUTION", origin: "mechanism", detail: "NAD+ metabolism also fuels tumor cells; no clinical data resolves this." },
@@ -767,7 +749,6 @@ export const PEPTIDES_EN = [
         categories: ["variants (Semax vs N-Acetyl-Semax vs amidated)", "stack with Selank", "continuous use", "product without a COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "watch", text: "Use alongside psychiatric medication — CAUTION", origin: "mechanism", detail: "Given its dopaminergic and serotonergic activity, combination with SSRIs, MAOIs, antipsychotics or stimulants has not been studied and warrants medical supervision." },
       { kind: "watch", text: "Anxiety or restlessness — REPORTED SIGNAL", origin: "mechanism", detail: "More likely at higher doses, via the dopaminergic pathway." },
@@ -806,7 +787,6 @@ export const PEPTIDES_EN = [
         categories: ["stack with Semax", "continuous versus cycled use", "product without a COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "interaction", text: "Use alongside psychiatric medication", origin: "mechanism", detail: "Interaction with SSRIs, benzodiazepines or other anxiolytics has not been studied." },
       { kind: "watch", text: "Pregnancy and breastfeeding", origin: "trial", detail: "Long-term use — NO DATA The trials lasted weeks, not years." },
@@ -843,7 +823,6 @@ export const PEPTIDES_EN = [
         categories: ["nighttime use for insomnia", "combination with other sleep compounds", "product without a COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "interaction", text: "Use alongside sedatives, alcohol or hypnotics", origin: "mechanism", detail: "Interaction not studied; obvious caution given the intended effect." },
       { kind: "watch", text: "Pregnancy and breastfeeding", origin: "mechanism", detail: "Long-term use — NO DATA AT ALL" }
@@ -881,7 +860,6 @@ export const PEPTIDES_EN = [
         categories: ["off-label male use", "frequency above the label limit", "original versus \"research\" product", "combination with PDE5 inhibitors."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "absolute", text: "Uncontrolled hypertension or cardiovascular disease — DO NOT USE / CAUTION", origin: "label", detail: "It produces transient blood pressure elevations. Approved product label" },
       { kind: "absolute", text: "Pregnancy — DO NOT USE", origin: "label", detail: "Approved product label" },
@@ -927,7 +905,6 @@ export const PEPTIDES_EN = [
         categories: ["use as \"PCT\" or for testosterone", "use for libido", "route (subcutaneous versus the studied IV)", "product without a COA."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "watch", text: "Hormone-dependent cancer — THEORETICAL CAUTION", origin: "mechanism", detail: "It activates the entire reproductive axis and therefore sex hormone production." },
       { kind: "watch", text: "Pregnancy", origin: "trial", detail: "Repeated or prolonged use — NO DATA The trials were single administrations or short infusions in a hospital setting." }
@@ -965,7 +942,6 @@ export const PEPTIDES_EN = [
         categories: ["\"immune support\" use without an indication", "original versus compounded versus research product", "cycle length."]
       }
     },
-    reports: { pending: true },
     safety: [
       { kind: "watch", text: "Active autoimmune disease — CAUTION", origin: "mechanism", detail: "It modulates the immune response upward: theoretical risk of flare." },
       { kind: "watch", text: "Organ transplant / immunosuppression — STRONG CAUTION", origin: "mechanism", detail: "May work against the goal of immunosuppressive treatment." },
@@ -1000,7 +976,6 @@ export const PEPTIDES_EN = [
       { text: "TB-500 (thymosin beta-4 fragment)", levelTag: "LEVEL C", note: "The family's human trials used ophthalmic drops of the parent molecule, not the injectable fragment. Studied ceiling for the injectable: does not exist." }
     ],
     blendNote: "Combining two compounds without data does not add two bodies of evidence: it multiplies the unknowns. If an adverse effect appears, there is no way to know which one caused it. If a benefit appears, the same is true. And each component's theoretical signals stack: both promote angiogenesis in animal models, the same mechanism that raises concern in the presence of active cancer. That caution is not diluted by mixing — it is reinforced. ",
-    reports: { pending: true },
     safety: [
       { kind: "watch", text: "Active cancer or recent history", origin: "mechanism", detail: "Both components promote angiogenesis and cell migration in models." },
       { kind: "interaction", text: "Pregnancy and breastfeeding", origin: "mechanism", detail: "Interactions — NO DATA AT ALL" }
@@ -1030,7 +1005,6 @@ export const PEPTIDES_EN = [
       { text: "TB-500", levelTag: "LEVEL C", note: "Human trials only with the parent molecule as eye drops, not with the injectable fragment." }
     ],
     blendNote: "Three compounds without combined data do not give three times the confidence: they give three variables that cannot be separated. If something works, you will not know which one. If something goes wrong, the same. And a problem of its own is added here: copper. A repeated systemic injection of a copper compound raises load questions nobody has measured in people. ",
-    reports: { pending: true },
     safety: [
       { kind: "watch", text: "Active cancer or recent history", origin: "mechanism", detail: "BPC-157 and TB-500 promote angiogenesis in models." },
       { kind: "watch", text: "Copper load / blood pressure", origin: "mechanism", detail: "The injectable route of GHK-Cu has never been studied in humans." },
@@ -1062,7 +1036,6 @@ export const PEPTIDES_EN = [
       { text: "TB-500", levelTag: "LEVEL C", note: "Human trials only with the parent molecule as eye drops." }
     ],
     blendNote: "Four compounds in one syringe are four variables that cannot be separated. No combination in this catalog has been studied as a whole, and the four-part one is the most opaque of all: if there is a reaction, there are four suspects and no way to know which. This is also why Evidence never assigns a level to a blend. It is the rule that keeps the product from becoming the thing it criticizes. ",
-    reports: { pending: true },
     safety: [
       { kind: "watch", text: "Active cancer or recent history", origin: "mechanism", detail: "BPC-157 and TB-500 promote angiogenesis in models." },
       { kind: "watch", text: "Copper load / blood pressure", origin: "mechanism", detail: "The injectable route of GHK-Cu has never been studied in humans." },
