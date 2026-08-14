@@ -10,6 +10,8 @@ import ByGoal from "./sections/ByGoal.jsx";
 import Verify from "./sections/Verify.jsx";
 import Track from "./sections/Track.jsx";
 import Logo from "./components/Logo.jsx";
+import Auth from "./sections/Auth.jsx";
+import { supabase, CONFIGURED, REQUIRE_LICENSE } from "./supabase.js";
 
 const DATA = { es: PEPTIDOS_ES, en: PEPTIDES_EN };
 const TABS = ["peptides", "goals", "verify", "track"];
@@ -19,6 +21,29 @@ export default function App() {
     try { return localStorage.getItem("evidence-lang") || "es"; } catch { return "es"; }
   });
   const [tab, setTab] = useState("peptides");
+  const [session, setSession] = useState(undefined); // undefined = cargando
+  const [recovery, setRecovery] = useState(false);
+  const [licensed, setLicensed] = useState(!REQUIRE_LICENSE);
+
+  useEffect(() => {
+    if (!CONFIGURED) { setSession(null); return; }
+    supabase.auth.getSession().then(({ data }) => setSession(data.session ?? null));
+    const { data: sub } = supabase.auth.onAuthStateChange((event, s2) => {
+      if (event === "PASSWORD_RECOVERY") setRecovery(true);
+      if (event === "SIGNED_IN") setRecovery(false);
+      setSession(s2 ?? null);
+    });
+    return () => sub.subscription.unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    if (!CONFIGURED || !REQUIRE_LICENSE || !session) return;
+    supabase.from("licenses").select("status,expires_at").eq("status", "active").limit(1)
+      .then(({ data }) => {
+        const ok = (data || []).some((l) => !l.expires_at || new Date(l.expires_at) > new Date());
+        setLicensed(ok);
+      });
+  }, [session]);
 
   useEffect(() => {
     try { localStorage.setItem("evidence-lang", lang); } catch {}
@@ -28,6 +53,29 @@ export default function App() {
   const t = { ...UI[lang], ...SECTIONS[lang] };
   const esSlugs = new Set(PEPTIDOS_ES.map((p) => p.slug));
   const list = DATA[lang];
+
+  // Puerta de acceso: sesión requerida cuando Supabase está configurado.
+  if (CONFIGURED && session === undefined) {
+    return <div style={{ minHeight: "100vh", background: C.paper }} />;
+  }
+  if (CONFIGURED && (!session || recovery)) {
+    return <Auth lang={lang} setLang={setLang} t={t} recovery={recovery && !!session} />;
+  }
+  if (CONFIGURED && session && !licensed) {
+    return (
+      <div style={{ minHeight: "100vh", background: C.paper, display: "flex", flexDirection: "column", alignItems: "center", padding: "14vh 26px" }}>
+        <div style={{ width: "100%", maxWidth: 380 }}>
+          <Logo />
+          <div style={{ fontFamily: "'Jost', sans-serif", fontSize: 11, letterSpacing: "0.16em", textTransform: "uppercase", color: C.ink, marginTop: 40 }}>{t.license.title}</div>
+          <div style={{ fontSize: 14.5, lineHeight: 1.65, color: "#2C3D4C", marginTop: 12 }}>{t.license.body}</div>
+          <button className="ev-btn" onClick={() => supabase.auth.signOut()}
+            style={{ marginTop: 26, border: "none", background: "none", color: C.tabIdle, cursor: "pointer", padding: 0, fontFamily: "inherit", fontSize: 13 }}>
+            {t.auth.signout}
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div style={{ background: C.paper, minHeight: "100vh", color: C.inkDeep }}>
@@ -132,6 +180,20 @@ export default function App() {
             {code}
           </button>
         ))}
+        {CONFIGURED && session && (
+          <button
+            className="ev-btn"
+            onClick={() => supabase.auth.signOut()}
+            aria-label={t.auth.signout}
+            style={{
+              fontFamily: "'Jost', sans-serif", fontSize: 9.5, letterSpacing: "0.13em", textTransform: "uppercase",
+              padding: "7px 10px", border: "none", borderLeft: `1px solid ${C.chipBorder}`,
+              cursor: "pointer", background: "transparent", color: C.muted,
+            }}
+          >
+            {t.auth.signout}
+          </button>
+        )}
       </div>
 
       <div className="ev-shell">

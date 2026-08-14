@@ -352,3 +352,26 @@ un salto — y en esta clase de compuestos el salto importa tanto como el pico.
 La línea del techo solo se dibuja cuando la frecuencia coincide (`compare()`
 devuelve `freq_mismatch` si no), por la misma razón de siempre: 12 mg
 semanales y 12 mg diarios no son la misma cifra.
+
+## Acceso con cuenta
+
+`src/supabase.js` + `src/sections/Auth.jsx` + `supabase/001_licenses.sql`.
+
+La app entera queda detrás de correo + contraseña (Supabase Auth). Flujo
+completo: entrar, crear cuenta con confirmación por correo, recuperar
+contraseña, salir. La puerta hereda el estilo editorial y el toggle ES/EN
+funciona antes de entrar — un comprador en Bogotá ve la puerta en español.
+
+**Configurar:** crear el proyecto de Supabase y pegar en `src/supabase.js`
+la URL y la clave *publishable* (es pública por diseño; la seguridad la pone
+RLS). Mientras contengan `PASTE`, la app corre SIN puerta — así el deploy
+actual no se rompe si se sube este zip antes de crear el proyecto.
+
+**El interruptor del pase de 12 meses:** `REQUIRE_LICENSE` en
+`src/supabase.js`. En `false` (ahora), cualquier cuenta entra — modo beta y
+lista de correos creciendo. En `true`, entrar exige además una fila activa en
+`licenses` (migración incluida, con RLS de solo-lectura-propia; las
+escrituras llegarán por webhook de pago con la service key). La pantalla de
+vencido le recuerda al usuario que su registro sigue intacto en su
+dispositivo — la regla de Track no cambia con el login: nada del registro
+sube a ningún servidor.
