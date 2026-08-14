@@ -8,7 +8,7 @@ export const PEPTIDES_EN = [
     className: "TRIPLE GIP / GLP-1 / GLUCAGON AGONIST",
     level: "A",
     summary: "The most closely watched case in the category: the highest results ever reported in obesity trials — with no regulatory approval in any country, and phase 3 available only as company-reported topline data.",
-    levelNote: "LEVEL A — Randomized, peer-reviewed human trial (phase 2). The 2026 phase 3 results are manufacturer topline: not yet peer-reviewed.",
+    levelNote: "no human publication of that combination",
     ceiling: {
       state: "established",
       dose: "12 mg",
@@ -55,6 +55,22 @@ export const PEPTIDES_EN = [
       { country: "Colombia", agency: "INVIMA", status: "No marketing authorization.", tone: "ok" },
       { country: "Mexico", agency: "COFEPRIS", status: "Not approved.", tone: "alert" },
       { country: "Europe", agency: "EMA", status: "Not authorized. No commercial version exists in any country. Everything circulating today is sold outside regulated channels, without pharmaceutical quality control.", tone: "grey" }
+    ],
+    video: [
+      {
+        who: "Dr. Jones, DC — YouTube (Jun 2026)",
+        source: "\"How to Dose Retatrutide to Maximize Fat Loss\", 16 min. He runs a GLP-1 telemedicine clinic and the video funnels to his practice.",
+        points: [
+          { text: "Trial titration schedules were built to find the maximum tolerable dose, not your optimal one: 12 mg is a ceiling, not a target", rel: "matches", note: "exactly how this card presents the studied ceiling" },
+          { text: "Going from 8 to 12 mg (50% more drug) added only 1.4 percentage points of weight loss, with more side-effect dropouts in that range", rel: "matches", note: "published phase 2" },
+          { text: "In body composition, 8 mg matched or slightly beat 12 mg", rel: "matches", note: "with the caveat he states himself: a substudy in a diabetic population" },
+          { text: "The glucagon receptor mobilizes liver fat but raises heart rate and total system load", rel: "matches", note: "phase 2 reported dose-dependent heart-rate increases" },
+          { text: "Hold every dose a minimum of 4 weeks: the long half-life delays the effect and escalating at week two is overcorrecting", rel: "matches", note: "the trials escalated in 4-week steps" },
+          { text: "Start at 0.5–1 mg, never 2", rel: "beyond", note: "below 2 mg no studied human arm exists" },
+          { text: "His own dose rule: appetite controlled, protein covered, training intact; most of his patients land at 2–4 mg", rel: "beyond", note: "clinical experience; no trial optimized individual dosing this way" },
+          { text: "Combining low-dose retatrutide with low-dose tirzepatide for appetite", rel: "beyond", note: "no human publication of that combination" }
+        ]
+      }
     ],
     community: { pending: true }
   },

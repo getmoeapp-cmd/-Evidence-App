@@ -181,7 +181,8 @@ def parse(path, lang):
     # Formato: **Dr. X — Canal (año)** / línea(s) de fuente / viñetas:
     #   - afirmación → [coincide|excede|contradice] nota
     video, vd = [], S.get("video", "")
-    for h, b in bold_blocks(vd):
+    for _m in re.finditer(r"^\*\*(.+?)\*\*\s*\n(.*?)(?=\n\*\*|\Z)", vd, re.M | re.S):
+        h, b = _m.group(1).strip(), _m.group(2)  # bold_blocks aplana saltos de línea; aquí los necesitamos
         lines = [l.strip() for l in b.split("\n") if l.strip()]
         srcline = " ".join(l for l in lines if not l.startswith("-"))
         pts = []

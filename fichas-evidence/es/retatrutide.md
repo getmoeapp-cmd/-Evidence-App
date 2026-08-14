@@ -122,6 +122,19 @@ Disestesias (alteraciones de sensibilidad en la piel) e infecciones urinarias re
 
 ---
 
+## OPINIÓN EN VIDEO
+
+**Dr. Jones, DC — YouTube (jun 2026)**
+"How to Dose Retatrutide to Maximize Fat Loss", 16 min. Dirige una clínica de telemedicina GLP-1 y el video remite a su consulta.
+- La pauta de titulación de los ensayos buscaba la dosis máxima tolerable, no tu dosis óptima: 12 mg es techo, no meta → [coincide] es exactamente cómo esta ficha presenta el techo estudiado
+- Subir de 8 a 12 mg (50% más fármaco) añadió solo 1,4 puntos porcentuales de pérdida, con más abandonos por efectos adversos en ese tramo → [coincide] fase 2 publicada
+- En composición corporal, 8 mg rindió igual o algo mejor que 12 mg → [coincide] con la salvedad que él mismo señala: subestudio en población diabética
+- El receptor de glucagón moviliza grasa hepática pero sube la frecuencia cardiaca y la carga del sistema → [coincide] la fase 2 reportó aumentos de frecuencia cardiaca dependientes de dosis
+- Sostener cada dosis un mínimo de 4 semanas: la vida media larga retrasa el efecto y escalar en la semana dos es sobrecorregir → [coincide] los ensayos escalaron en pasos de 4 semanas
+- Empezar en 0,5–1 mg, nunca en 2 → [excede] por debajo de 2 mg no existe brazo estudiado en humanos
+- Su regla de dosis propia: apetito controlado, proteína cubierta y entrenamiento intacto; la mayoría de sus pacientes queda en 2–4 mg → [excede] experiencia clínica; ningún ensayo optimizó dosis individual así
+- Combinar retatrutide en dosis baja con tirzepatida en dosis baja para el apetito → [excede] ninguna publicación humana de esa combinación
+
 ## ESTATUS REGULATORIO
 
 **ESTADOS UNIDOS · FDA** — No aprobado · en investigación. El fabricante planea presentar la solicitud (BLA) en el primer trimestre de 2027.

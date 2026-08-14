@@ -8,7 +8,7 @@ export const PEPTIDOS_ES = [
     className: "AGONISTA TRIPLE GIP / GLP-1 / GLUCAGÓN",
     level: "A",
     summary: "El caso más vigilado de la categoría: los resultados más altos jamás reportados en ensayos de obesidad — pero sin aprobación regulatoria en ningún país, y con la fase 3 disponible solo como datos preliminares del fabricante.",
-    levelNote: "NIVEL A — Ensayo aleatorizado en humanos, publicado y revisado por pares (fase 2). Los resultados de fase 3 (2026) son \"topline\" del fabricante: aún sin publicación revisada.",
+    levelNote: "ninguna publicación humana de esa combinación",
     ceiling: {
       state: "established",
       dose: "12 mg",
@@ -55,6 +55,22 @@ export const PEPTIDOS_ES = [
       { country: "Colombia", agency: "INVIMA", status: "Sin registro sanitario.", tone: "grey" },
       { country: "México", agency: "COFEPRIS", status: "No aprobado.", tone: "alert" },
       { country: "Europa", agency: "EMA", status: "No autorizado. No existe ninguna versión comercial en ningún país. Todo lo que circula hoy se vende fuera de canales regulados, sin control de calidad farmacéutico.", tone: "grey" }
+    ],
+    video: [
+      {
+        who: "Dr. Jones, DC — YouTube (jun 2026)",
+        source: "\"How to Dose Retatrutide to Maximize Fat Loss\", 16 min. Dirige una clínica de telemedicina GLP-1 y el video remite a su consulta.",
+        points: [
+          { text: "La pauta de titulación de los ensayos buscaba la dosis máxima tolerable, no tu dosis óptima: 12 mg es techo, no meta", rel: "matches", note: "es exactamente cómo esta ficha presenta el techo estudiado" },
+          { text: "Subir de 8 a 12 mg (50% más fármaco) añadió solo 1,4 puntos porcentuales de pérdida, con más abandonos por efectos adversos en ese tramo", rel: "matches", note: "fase 2 publicada" },
+          { text: "En composición corporal, 8 mg rindió igual o algo mejor que 12 mg", rel: "matches", note: "con la salvedad que él mismo señala: subestudio en población diabética" },
+          { text: "El receptor de glucagón moviliza grasa hepática pero sube la frecuencia cardiaca y la carga del sistema", rel: "matches", note: "la fase 2 reportó aumentos de frecuencia cardiaca dependientes de dosis" },
+          { text: "Sostener cada dosis un mínimo de 4 semanas: la vida media larga retrasa el efecto y escalar en la semana dos es sobrecorregir", rel: "matches", note: "los ensayos escalaron en pasos de 4 semanas" },
+          { text: "Empezar en 0,5–1 mg, nunca en 2", rel: "beyond", note: "por debajo de 2 mg no existe brazo estudiado en humanos" },
+          { text: "Su regla de dosis propia: apetito controlado, proteína cubierta y entrenamiento intacto; la mayoría de sus pacientes queda en 2–4 mg", rel: "beyond", note: "experiencia clínica; ningún ensayo optimizó dosis individual así" },
+          { text: "Combinar retatrutide en dosis baja con tirzepatida en dosis baja para el apetito", rel: "beyond", note: "ninguna publicación humana de esa combinación" }
+        ]
+      }
     ],
     community: { pending: true }
   },

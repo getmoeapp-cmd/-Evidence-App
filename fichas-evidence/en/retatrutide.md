@@ -122,6 +122,19 @@ Dysesthesia (altered skin sensation) and urinary tract infections reported in TR
 
 ---
 
+## VIDEO OPINION
+
+**Dr. Jones, DC — YouTube (Jun 2026)**
+"How to Dose Retatrutide to Maximize Fat Loss", 16 min. He runs a GLP-1 telemedicine clinic and the video funnels to his practice.
+- Trial titration schedules were built to find the maximum tolerable dose, not your optimal one: 12 mg is a ceiling, not a target → [match] exactly how this card presents the studied ceiling
+- Going from 8 to 12 mg (50% more drug) added only 1.4 percentage points of weight loss, with more side-effect dropouts in that range → [match] published phase 2
+- In body composition, 8 mg matched or slightly beat 12 mg → [match] with the caveat he states himself: a substudy in a diabetic population
+- The glucagon receptor mobilizes liver fat but raises heart rate and total system load → [match] phase 2 reported dose-dependent heart-rate increases
+- Hold every dose a minimum of 4 weeks: the long half-life delays the effect and escalating at week two is overcorrecting → [match] the trials escalated in 4-week steps
+- Start at 0.5–1 mg, never 2 → [beyond] below 2 mg no studied human arm exists
+- His own dose rule: appetite controlled, protein covered, training intact; most of his patients land at 2–4 mg → [beyond] clinical experience; no trial optimized individual dosing this way
+- Combining low-dose retatrutide with low-dose tirzepatide for appetite → [beyond] no human publication of that combination
+
 ## REGULATORY STATUS
 
 **UNITED STATES · FDA** — Not approved · investigational. The manufacturer plans to file (BLA) in the first quarter of 2027.
