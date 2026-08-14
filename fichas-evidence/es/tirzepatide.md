@@ -124,6 +124,14 @@ El vaciamiento gástrico retardado puede reducir su eficacia. La etiqueta recomi
 
 ---
 
+## OPINIÓN EN VIDEO
+
+**Dr. Jones, DC — YouTube (2026)**
+"How to Inject Tirzepatide To MAXIMIZE It's Effectiveness (Doctor Explains)". Resumen parcial (fragmentos 0:00–0:44 y 6:00–7:03). Dirige una clínica de telemedicina GLP-1 y el video remite a sus llamadas gratuitas.
+- La longitud de la aguja — y golpear músculo en vez de grasa sin querer — puede cambiar el perfil de absorción, y casi nadie lo mide → [excede] mecanismo bien establecido en farmacología de inyectables y repetido en guías clínicas, pero ningún estudio humano de tirzepatida comparó la vía intramuscular contra la subcutánea
+- Al pasar de la pluma de marca a un vial compuesto por costo, la respuesta clínica se aplana o se vuelve caótica, según las revisiones de ingreso de su clínica → [excede] experiencia clínica; ninguna publicación comparó pluma contra vial compuesto
+- La pluma dosifica por ti; con un vial la dosis se dibuja leyendo marcas diminutas de jeringa, y existen reportes de errores sustanciales — varias veces por encima o por debajo de lo previsto → [coincide] la farmacovigilancia publicada documenta errores graves de dosificación con versiones compuestas, en ambas direcciones
+
 ## ESTATUS REGULATORIO
 
 **ESTADOS UNIDOS · FDA** — Aprobado. Mounjaro: diabetes tipo 2 (2022; ampliado a niños de 10+ años). Zepbound: obesidad (2023) y apnea obstructiva del sueño (2024).

@@ -80,7 +80,7 @@ export const PEPTIDOS_ES = [
     className: "AGONISTA DUAL GIP / GLP-1",
     level: "A",
     summary: "El estándar actual de la categoría: el fármaco aprobado más eficaz para bajar de peso, con uno de los programas de ensayos más grandes de la medicina moderna — y el primero en ganarle a la semaglutida en un ensayo cara a cara.",
-    levelNote: "NIVEL A — Ensayos aleatorizados en humanos, publicados, replicados y con aprobación regulatoria en varios países.",
+    levelNote: "la farmacovigilancia publicada documenta errores graves de dosificación con versiones compuestas, en ambas direcciones",
     ceiling: {
       state: "established",
       dose: "15 mg",
@@ -126,6 +126,17 @@ export const PEPTIDOS_ES = [
       { country: "Colombia", agency: "INVIMA", status: "Mounjaro con registro sanitario para diabetes tipo 2 (2025). Zepbound (indicación de obesidad) sin registro a la fecha.", tone: "grey" },
       { country: "México", agency: "COFEPRIS", status: "Aprobado (Mounjaro).", tone: "ok" },
       { country: "Europa", agency: "EMA", status: "Aprobado (Mounjaro, para diabetes tipo 2 y control de peso). A diferencia de la retatrutida, aquí sí existe una vía farmacéutica regulada. Todo lo que se vende como \"tirzepatida de investigación\" fuera de esa vía no pasa por ningún control de calidad farmacéutico.", tone: "ok" }
+    ],
+    video: [
+      {
+        who: "Dr. Jones, DC — YouTube (2026)",
+        source: "\"How to Inject Tirzepatide To MAXIMIZE It's Effectiveness (Doctor Explains)\". Resumen parcial (fragmentos 0:00–0:44 y 6:00–7:03). Dirige una clínica de telemedicina GLP-1 y el video remite a sus llamadas gratuitas.",
+        points: [
+          { text: "La longitud de la aguja — y golpear músculo en vez de grasa sin querer — puede cambiar el perfil de absorción, y casi nadie lo mide", rel: "beyond", note: "mecanismo bien establecido en farmacología de inyectables y repetido en guías clínicas, pero ningún estudio humano de tirzepatida comparó la vía intramuscular contra la subcutánea" },
+          { text: "Al pasar de la pluma de marca a un vial compuesto por costo, la respuesta clínica se aplana o se vuelve caótica, según las revisiones de ingreso de su clínica", rel: "beyond", note: "experiencia clínica; ninguna publicación comparó pluma contra vial compuesto" },
+          { text: "La pluma dosifica por ti; con un vial la dosis se dibuja leyendo marcas diminutas de jeringa, y existen reportes de errores sustanciales — varias veces por encima o por debajo de lo previsto", rel: "matches", note: "la farmacovigilancia publicada documenta errores graves de dosificación con versiones compuestas, en ambas direcciones" }
+        ]
+      }
     ],
     community: { pending: true }
   },

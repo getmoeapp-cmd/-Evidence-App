@@ -80,7 +80,7 @@ export const PEPTIDES_EN = [
     className: "DUAL GIP / GLP-1 AGONIST",
     level: "A",
     summary: "The current standard of the category: the most effective approved drug for weight loss, with one of the largest trial programs in modern medicine — and the first to beat semaglutide head to head.",
-    levelNote: "LEVEL A — Randomized human trials, published, replicated, and approved in several countries.",
+    levelNote: "published pharmacovigilance documents serious dosing errors with compounded versions, in both directions",
     ceiling: {
       state: "established",
       dose: "15 mg",
@@ -126,6 +126,17 @@ export const PEPTIDES_EN = [
       { country: "Colombia", agency: "INVIMA", status: "Mounjaro registered for type 2 diabetes (2025). Zepbound (obesity indication) not registered to date.", tone: "grey" },
       { country: "Mexico", agency: "COFEPRIS", status: "Approved (Mounjaro).", tone: "ok" },
       { country: "Europe", agency: "EMA", status: "Approved (Mounjaro, for type 2 diabetes and weight management). Unlike retatrutide, a regulated pharmaceutical route does exist here. Anything sold as \"research tirzepatide\" outside that route passes through no pharmaceutical quality control.", tone: "ok" }
+    ],
+    video: [
+      {
+        who: "Dr. Jones, DC — YouTube (2026)",
+        source: "\"How to Inject Tirzepatide To MAXIMIZE It's Effectiveness (Doctor Explains)\". Partial summary (segments 0:00–0:44 and 6:00–7:03). He runs a GLP-1 telemedicine clinic and the video funnels to his free calls.",
+        points: [
+          { text: "Needle length — and accidentally hitting muscle instead of fat — can change the absorption profile, and almost nobody measures it", rel: "beyond", note: "well-established injectable pharmacology, echoed in clinical guidance, but no human tirzepatide study compared intramuscular against subcutaneous" },
+          { text: "Switching from the branded pen to a compounded vial for cost, clinical response flattens out or turns chaotic, per his clinic's intake reviews", rel: "beyond", note: "clinical experience; no publication compared pen against compounded vial" },
+          { text: "The pen does the dosing for you; with a vial the dose is drawn by reading tiny syringe markings, and reports document substantial errors — several times above or below what was intended", rel: "matches", note: "published pharmacovigilance documents serious dosing errors with compounded versions, in both directions" }
+        ]
+      }
     ],
     community: { pending: true }
   },

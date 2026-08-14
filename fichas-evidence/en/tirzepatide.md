@@ -124,6 +124,14 @@ Delayed gastric emptying may reduce their effectiveness. The label recommends a 
 
 ---
 
+## VIDEO OPINION
+
+**Dr. Jones, DC — YouTube (2026)**
+"How to Inject Tirzepatide To MAXIMIZE It's Effectiveness (Doctor Explains)". Partial summary (segments 0:00–0:44 and 6:00–7:03). He runs a GLP-1 telemedicine clinic and the video funnels to his free calls.
+- Needle length — and accidentally hitting muscle instead of fat — can change the absorption profile, and almost nobody measures it → [beyond] well-established injectable pharmacology, echoed in clinical guidance, but no human tirzepatide study compared intramuscular against subcutaneous
+- Switching from the branded pen to a compounded vial for cost, clinical response flattens out or turns chaotic, per his clinic's intake reviews → [beyond] clinical experience; no publication compared pen against compounded vial
+- The pen does the dosing for you; with a vial the dose is drawn by reading tiny syringe markings, and reports document substantial errors — several times above or below what was intended → [match] published pharmacovigilance documents serious dosing errors with compounded versions, in both directions
+
 ## REGULATORY STATUS
 
 **UNITED STATES · FDA** — Approved. Mounjaro: type 2 diabetes (2022; extended to children 10+). Zepbound: obesity (2023) and obstructive sleep apnea (2024).
