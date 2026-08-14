@@ -3,9 +3,9 @@ import { C } from "../theme.js";
 import Logo from "../components/Logo.jsx";
 import { supabase } from "../supabase.js";
 
-export default function Auth({ lang, setLang, t, recovery }) {
+export default function Auth({ lang, setLang, t, recovery, initialMode, onBack }) {
   const k = t.auth;
-  const [mode, setMode] = useState(recovery ? "newpass" : "signin"); // signin | signup | forgot | newpass
+  const [mode, setMode] = useState(recovery ? "newpass" : (initialMode || "signin")); // signin | signup | forgot | newpass
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [busy, setBusy] = useState(false);
@@ -49,6 +49,12 @@ export default function Auth({ lang, setLang, t, recovery }) {
   return (
     <div style={{ minHeight: "100vh", background: C.paper, display: "flex", flexDirection: "column", alignItems: "center", padding: "10vh 22px 40px" }}>
       <div style={{ width: "100%", maxWidth: 360 }}>
+        {onBack && (
+          <button className="ev-btn" onClick={onBack}
+            style={{ fontFamily: "'Jost', sans-serif", fontSize: 10.5, letterSpacing: "0.13em", textTransform: "uppercase", padding: 0, border: "none", background: "none", color: C.tabIdle, cursor: "pointer", marginBottom: 18 }}>
+            ←
+          </button>
+        )}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start" }}>
           <Logo />
           <div style={{ display: "flex", border: `1px solid ${C.chipBorder}`, borderRadius: 3, overflow: "hidden" }}>

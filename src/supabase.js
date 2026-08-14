@@ -1,8 +1,8 @@
 // Cliente de Supabase + configuración de acceso.
 //
-// SUPABASE_URL y SUPABASE_KEY se rellenan al crear el proyecto "evidence"
-// (la clave es la *publishable* — es pública por diseño; la seguridad la
-// pone RLS en la base, no el secreto de la clave).
+// Proyecto compartido con MOE (moe-app): todo lo de Evidence en la base va
+// con prefijo evidence_. La clave es la *publishable*
+// — es pública por diseño; la seguridad la pone RLS, no el secreto de la clave.
 //
 // REQUIRE_LICENSE: en false, cualquier cuenta entra (beta). Al encenderlo,
 // entrar exige además una licencia activa en la tabla `licenses` — el
@@ -11,8 +11,8 @@
 
 import { createClient } from "@supabase/supabase-js";
 
-export const SUPABASE_URL = "PASTE_SUPABASE_URL";
-export const SUPABASE_KEY = "PASTE_SUPABASE_PUBLISHABLE_KEY";
+export const SUPABASE_URL = "https://fsvlxosbbevzyvegbqry.supabase.co";
+export const SUPABASE_KEY = "sb_publishable_V6h6HbnMNYnL1WUwjz_EZQ_n5nNT-Lr";
 export const REQUIRE_LICENSE = false;
 
 export const CONFIGURED = !SUPABASE_URL.includes("PASTE");

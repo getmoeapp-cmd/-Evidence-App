@@ -362,10 +362,14 @@ completo: entrar, crear cuenta con confirmación por correo, recuperar
 contraseña, salir. La puerta hereda el estilo editorial y el toggle ES/EN
 funciona antes de entrar — un comprador en Bogotá ve la puerta en español.
 
-**Configurar:** crear el proyecto de Supabase y pegar en `src/supabase.js`
-la URL y la clave *publishable* (es pública por diseño; la seguridad la pone
-RLS). Mientras contengan `PASTE`, la app corre SIN puerta — así el deploy
-actual no se rompe si se sube este zip antes de crear el proyecto.
+**Configurado:** la app usa el proyecto compartido `moe-app`
+(fsvlxosbbevzyvegbqry) — MOE no tiene clientes de pago, así que comparten
+proyecto sin costo extra. Todo lo de Evidence en esa base va con prefijo
+`evidence_`. La migración `supabase/001_evidence_licenses.sql` ya está
+aplicada. Un paso manual pendiente en el dashboard de Supabase (moe-app →
+Authentication → URL Configuration): añadir la URL de la app de Evidence a
+las Redirect URLs para que los correos de confirmación y recuperación
+devuelvan al usuario a Evidence y no al sitio de MOE.
 
 **El interruptor del pase de 12 meses:** `REQUIRE_LICENSE` en
 `src/supabase.js`. En `false` (ahora), cualquier cuenta entra — modo beta y
@@ -375,3 +379,52 @@ escrituras llegarán por webhook de pago con la service key). La pantalla de
 vencido le recuerda al usuario que su registro sigue intacto en su
 dispositivo — la regla de Track no cambia con el login: nada del registro
 sube a ningún servidor.
+
+## Cobrar en Colombia sin pasarela (día uno)
+
+Origen ya cobra por Nequi/transferencia con comprobante — Evidence usa el
+mismo músculo. El flujo manual completo:
+
+1. El comprador paga 99.000 COP por Nequi/transferencia y manda el
+   comprobante (WhatsApp o correo), junto con el correo de su cuenta.
+2. Conceder la licencia = una llamada en el SQL Editor de Supabase
+   (proyecto moe-app):
+
+   ```sql
+   select public.evidence_grant_license('correo@delcomprador.com', 365);
+   ```
+
+3. Listo. Si la cuenta aún no existe, la licencia queda ligada al correo y
+   se conecta sola cuando el usuario se registra con ese correo.
+
+Reglas de la función:
+
+- **Renovar antes de vencer suma sobre la fecha de vencimiento**, no sobre
+  hoy — renovar temprano nunca quita días.
+- `evidence_revoke_license('correo')` corta el acceso (reembolsos, fraude).
+- Solo el service role puede ejecutarlas: un usuario autenticado NO puede
+  regalarse una licencia por RPC (execute revocado para anon/authenticated).
+- Las tres vías de pago terminan en la misma función: manual hoy, y los
+  webhooks de Lemon Squeezy y Hotmart mañana llaman exactamente lo mismo
+  con `p_source: 'stripe' | 'hotmart'`.
+
+Mientras `REQUIRE_LICENSE` esté en `false`, nada de esto se exige: beta
+abierta. Al encenderlo, solo entran cuentas con licencia activa.
+
+## Hotmart (PSE + Nequi automatizados)
+
+`api/hotmart-webhook.js`. PSE no puede ser manual — solo existe dentro de un
+checkout con pasarela — y Hotmart es la que ofrece PSE + Nequi + tarjetas sin
+exigir entidad colombiana, pagando a EE.UU. como merchant of record.
+
+Pasos: (1) cuenta de Hotmart, producto "Evidence — Acceso 12 meses" a 99.000
+COP; (2) en Vercel, variables `HOTMART_HOTTOK` y `SUPABASE_SERVICE_KEY`;
+(3) en Hotmart, webhook a `/api/hotmart-webhook` con eventos de compra,
+reembolso, contracargo y cancelación.
+
+Compra aprobada → `evidence_grant_license(correo, 365, 'hotmart')`.
+Reembolso/contracargo/cancelación → `evidence_revoke_license(correo)`.
+Mismo destino que la vía manual: una sola función, tres cajas.
+
+Mientras el webhook no esté configurado, Hotmart avisa cada venta por correo
+y la concesión se hace a mano con la misma línea de SQL.

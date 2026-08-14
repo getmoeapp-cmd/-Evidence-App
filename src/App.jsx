@@ -11,6 +11,7 @@ import Verify from "./sections/Verify.jsx";
 import Track from "./sections/Track.jsx";
 import Logo from "./components/Logo.jsx";
 import Auth from "./sections/Auth.jsx";
+import Landing from "./sections/Landing.jsx";
 import { supabase, CONFIGURED, REQUIRE_LICENSE } from "./supabase.js";
 
 const DATA = { es: PEPTIDOS_ES, en: PEPTIDES_EN };
@@ -38,7 +39,7 @@ export default function App() {
 
   useEffect(() => {
     if (!CONFIGURED || !REQUIRE_LICENSE || !session) return;
-    supabase.from("licenses").select("status,expires_at").eq("status", "active").limit(1)
+    supabase.from("evidence_licenses").select("status,expires_at").eq("status", "active").limit(1)
       .then(({ data }) => {
         const ok = (data || []).some((l) => !l.expires_at || new Date(l.expires_at) > new Date());
         setLicensed(ok);
@@ -58,8 +59,11 @@ export default function App() {
   if (CONFIGURED && session === undefined) {
     return <div style={{ minHeight: "100vh", background: C.paper }} />;
   }
-  if (CONFIGURED && (!session || recovery)) {
-    return <Auth lang={lang} setLang={setLang} t={t} recovery={recovery && !!session} />;
+  if (CONFIGURED && recovery) {
+    return <Auth lang={lang} setLang={setLang} t={t} recovery={true} />;
+  }
+  if (CONFIGURED && !session) {
+    return <Landing lang={lang} setLang={setLang} t={t} />;
   }
   if (CONFIGURED && session && !licensed) {
     return (
